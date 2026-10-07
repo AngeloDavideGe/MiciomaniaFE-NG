@@ -1,0 +1,45 @@
+{
+  "name": "miciomania-web-light",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "start-becs": "cd ../MiciomaniaBE && dotnet run",
+    "start-bepy": "cd ../MiciomaniaBE-PY && venv\\Scripts\\activate && python -B run.py",
+    "start-all-be": "concurrently \"cd ../MiciomaniaBE && dotnet run\" \"cd ../MiciomaniaBE-PY && venv\\Scripts\\activate && python -B run.py\"",
+    "start-all": "concurrently \"ng serve\" \"cd ../MiciomaniaBE && dotnet run\" \"cd ../MiciomaniaBE-PY && venv\\Scripts\\activate && python -B run.py\"",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^21.2.9",
+    "@angular/common": "^21.2.9",
+    "@angular/compiler": "^21.2.9",
+    "@angular/core": "^21.2.9",
+    "@angular/forms": "^21.2.9",
+    "@angular/platform-browser": "^21.2.9",
+    "@angular/platform-browser-dynamic": "^21.2.9",
+    "@angular/router": "^21.2.9",
+    "@supabase/supabase-js": "^2.95.3",
+    "bootstrap": "^5.3.8",
+    "rxjs": "~7.8.2",
+    "tslib": "^2.8.1",
+    "zone.js": "~0.16.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^21.2.9",
+    "@angular/cli": "^21.2.9",
+    "@angular/compiler-cli": "^21.2.9",
+    "@types/jasmine": "~5.1.0",
+    "concurrently": "^9.2.1",
+    "jasmine-core": "~5.1.0",
+    "karma": "~6.4.4",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.1",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.2.0",
+    "typescript": "~5.9.3"
+  }
+}

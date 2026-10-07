@@ -1,0 +1,31 @@
+<div class="multi-select">
+  <button
+    class="multi-select__trigger"
+    type="button"
+    [attr.aria-expanded]="open()"
+    (click)="open.update((open) => !open)"
+  >
+    <span>Seleziona</span>
+    <i
+      class="bi"
+      [class.bi-chevron-down]="!open()"
+      [class.bi-chevron-up]="open()"
+      aria-hidden="true"
+    ></i>
+  </button>
+
+  @if (open()) {
+    <div class="multi-select__options" role="group" aria-label="Opzioni">
+      <app-checkbox-indy
+        [checks]="items()"
+        [initialChecked]="initialChecked()"
+        [tipo]="tipo()"
+        [selectedItems]="selectedItems()"
+        (selectedItemsChange)="selectedItems.set($event)"
+        (checkChangeString)="checkChangeString.emit($event)"
+        (changeCheck)="changeCheck.emit($event)"
+        (allChecked)="allChecked.emit($event)"
+      />
+    </div>
+  }
+</div>

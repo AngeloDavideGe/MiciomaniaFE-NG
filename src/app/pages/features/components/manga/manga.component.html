@@ -1,0 +1,54 @@
+<app-container-micio>
+  <app-descrizione-micio
+    [titolo]="lang.Titolo"
+    [descrizione]="lang.Descrizione"
+    [immagine]="'https://images.unsplash.com/photo-1515879218367-8466d910aaa4'"
+  >
+    <div half-row>
+      <app-toolbar-micio
+        [stats]="mangaToolbar()"
+        [placeholder]="lang.CercaPlaceholder"
+        [(searchQuery)]="searchQuery"
+      />
+    </div>
+
+    <div all-row>
+      <div class="elemento-centrato p-2">
+        <app-tabs-indy [tabs]="tabs" (clickTab)="changeTab($event)" />
+      </div>
+
+      <br />
+
+      <app-sidebar-indy
+        [titolo]="lang.CategorieTitolo"
+        [elementi]="categorie"
+        [(selezionato)]="currentCategoria"
+      >
+        <div down-content>
+          <app-sidebar-indy
+            [width]="'100%'"
+            [titolo]="lang.SottocategorieTitolo"
+            [elementi]="sottoCategorie"
+            [(selezionato)]="currentSottoCategoria"
+          />
+        </div>
+
+        @if (viewSpinner()) {
+          <app-spinner-indy [mt]="'5rem'" />
+        } @else {
+          <app-card-indy
+            [elems]="filtri().elemFilter()"
+            [altezzaImg]="'15rem'"
+            [lunghezzaCard]="'18rem'"
+            [tipoSlice]="'page'"
+            [tipoPaginazione]="'multiplo'"
+            [arrayPags]="arrayRaggi"
+          />
+        }
+      </app-sidebar-indy>
+
+      <div class="content-wrapper"></div>
+    </div>
+    <br />
+  </app-descrizione-micio>
+</app-container-micio>

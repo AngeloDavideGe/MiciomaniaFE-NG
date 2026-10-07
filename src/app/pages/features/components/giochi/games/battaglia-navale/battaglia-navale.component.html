@@ -1,0 +1,109 @@
+<section class="battaglia-container">
+  <div class="game-panel">
+    <header class="game-header">
+      <div>
+        <p class="eyebrow">Mini game</p>
+      </div>
+      <button type="button" class="reset-button" (click)="resetGame()">
+        Reset
+      </button>
+    </header>
+
+    <p class="game-intro">
+      {{ status() }}
+    </p>
+
+    <div class="boards">
+      <section class="board-panel" aria-labelledby="player-board-title">
+        <div class="board-heading">
+          <div>
+            <p class="board-kicker">La tua flotta</p>
+            <h3 id="player-board-title">La tua griglia</h3>
+          </div>
+          <span class="board-indicator" aria-hidden="true"></span>
+        </div>
+
+        <div class="board" role="grid" aria-label="Griglia della tua flotta">
+          <span class="axis-corner" aria-hidden="true"></span>
+          @for (column of colonne; track column) {
+            <span class="axis-label" role="columnheader">{{ column }}</span>
+          }
+          @for (row of playerBoard(); track $index; let rowIndex = $index) {
+            <span class="axis-label" role="rowheader">{{ rowIndex + 1 }}</span>
+            @for (cell of row; track $index; let colIndex = $index) {
+              <div
+                class="cell"
+                role="gridcell"
+                [class.cell--ship]="cell.state !== null"
+                [class.cell--hit]="cell.colpito && cell.state !== null"
+                [class.cell--miss]="cell.colpito && cell.state === null"
+              >
+                @if (cell.colpito) {
+                  <span aria-hidden="true">{{
+                    cell.state !== null ? "×" : "·"
+                  }}</span>
+                }
+              </div>
+            }
+          }
+        </div>
+      </section>
+
+      <section
+        class="board-panel board-panel--radar"
+        aria-labelledby="bot-board-title"
+      >
+        <div class="board-heading">
+          <div>
+            <p class="board-kicker">Zona avversaria</p>
+            <h3 id="bot-board-title">Radar nemico</h3>
+          </div>
+          <span class="radar-indicator" aria-hidden="true"></span>
+        </div>
+
+        <div class="board" role="grid" aria-label="Radar della flotta nemica">
+          <span class="axis-corner" aria-hidden="true"></span>
+          @for (column of colonne; track column) {
+            <span class="axis-label" role="columnheader">{{ column }}</span>
+          }
+          @for (row of botBoard(); track $index; let rowIndex = $index) {
+            <span class="axis-label" role="rowheader">{{ rowIndex + 1 }}</span>
+            @for (cell of row; track $index; let colIndex = $index) {
+              <div
+                class="cell"
+                role="gridcell"
+                [class.cell--hit]="cell.colpito && cell.state !== null"
+                [class.cell--miss]="cell.colpito && cell.state === null"
+                [style]="{ cursor: !cell.colpito ? 'pointer' : 'default' }"
+                (click)="playerMove(rowIndex, colIndex)"
+              >
+                @if (cell.colpito) {
+                  <span aria-hidden="true">{{
+                    cell.state !== null ? "×" : "·"
+                  }}</span>
+                } @else {
+                  <span class="cell-ping" aria-hidden="true"></span>
+                }
+              </div>
+            }
+          }
+        </div>
+      </section>
+    </div>
+
+    <footer class="board-legend" aria-label="Legenda">
+      <span
+        ><i class="legend-mark legend-mark--ship" aria-hidden="true"></i>
+        Nave</span
+      >
+      <span
+        ><i class="legend-mark legend-mark--hit" aria-hidden="true"></i>
+        Colpita</span
+      >
+      <span
+        ><i class="legend-mark legend-mark--miss" aria-hidden="true"></i>
+        Acqua</span
+      >
+    </footer>
+  </div>
+</section>

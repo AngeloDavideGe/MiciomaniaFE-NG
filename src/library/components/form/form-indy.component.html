@@ -1,0 +1,166 @@
+<div [formGroup]="form" class="p-3">
+  @for (field of arrayForm; track $index) {
+    <div class="form-field">
+      <label [for]="keys[$index]" class="form-label">
+        {{ field.titolo }}
+      </label>
+
+      @switch (field.tipo) {
+        @case ("Text") {
+          <input
+            [id]="keys[$index]"
+            [formControlName]="keys[$index]"
+            [readonly]="strutturaForm()[keys[$index]]?.readonly || false"
+            type="text"
+            class="form-input"
+            [class.is-invalid]="
+              f[keys[$index]]?.invalid && f[keys[$index]]?.touched
+            "
+            [class.is-valid]="
+              f[keys[$index]]?.valid && f[keys[$index]]?.touched
+            "
+            (input)="onInputChange($event, keys[$index])"
+          />
+
+          <div class="counter">
+            {{ f[keys[$index]].value?.length || 0 }}
+          </div>
+        }
+
+        @case ("Password") {
+          <input
+            [id]="keys[$index]"
+            [formControlName]="keys[$index]"
+            [readonly]="strutturaForm()[keys[$index]]?.readonly || false"
+            type="password"
+            class="form-input"
+            [class.is-invalid]="
+              f[keys[$index]]?.invalid && f[keys[$index]]?.touched
+            "
+            [class.is-valid]="
+              f[keys[$index]]?.valid && f[keys[$index]]?.touched
+            "
+            (input)="onInputChange($event, keys[$index])"
+          />
+        }
+
+        @case ("Textarea") {
+          <textarea
+            [id]="keys[$index]"
+            [formControlName]="keys[$index]"
+            [readonly]="strutturaForm()[keys[$index]]?.readonly || false"
+            rows="4"
+            class="form-input"
+            [class.is-invalid]="
+              f[keys[$index]]?.invalid && f[keys[$index]]?.touched
+            "
+            [class.is-valid]="
+              f[keys[$index]]?.valid && f[keys[$index]]?.touched
+            "
+            (input)="onInputChange($event, keys[$index])"
+          ></textarea>
+
+          <div class="counter">
+            {{ f[keys[$index]].value?.length || 0 }}
+          </div>
+        }
+
+        @case ("Date") {
+          <input
+            [id]="keys[$index]"
+            [formControlName]="keys[$index]"
+            [readonly]="strutturaForm()[keys[$index]]?.readonly || false"
+            type="date"
+            class="form-input"
+            [class.is-invalid]="
+              f[keys[$index]]?.invalid && f[keys[$index]]?.touched
+            "
+            [class.is-valid]="
+              f[keys[$index]]?.valid && f[keys[$index]]?.touched
+            "
+            (input)="onInputChange($event, keys[$index])"
+          />
+        }
+
+        @case ("Select") {
+          <select
+            [id]="keys[$index]"
+            [formControlName]="keys[$index]"
+            class="form-select"
+            [class.is-invalid]="
+              f[keys[$index]]?.invalid && f[keys[$index]]?.touched
+            "
+            [class.is-valid]="
+              f[keys[$index]]?.valid && f[keys[$index]]?.touched
+            "
+            (change)="onInputChange($event, keys[$index])"
+          >
+            <option value="">Seleziona un'opzione</option>
+            @for (
+              option of strutturaForm()[keys[$index]].optionsSelect;
+              track option
+            ) {
+              <option [value]="option">
+                {{ option | capitalizeFirstLetter }}
+              </option>
+            }
+          </select>
+        }
+
+        @case ("Checkbox") {
+          <app-checkbox-indy
+            [checks]="strutturaForm()[keys[$index]].checkbox || []"
+            [initialChecked]="strutturaForm()[keys[$index]].valueInit"
+            (checkChangeString)="onCheckboxChange($event, keys[$index])"
+          >
+          </app-checkbox-indy>
+        }
+
+        @case ("File") {
+          <input
+            [id]="keys[$index]"
+            type="file"
+            class="form-control mb-3"
+            style="border-radius: 30px"
+            [accept]="strutturaForm()[keys[$index]].file?.accept || 'image/*'"
+            (change)="onFileSelected($event, keys[$index])"
+          />
+
+          @if (strutturaForm()[keys[$index]].file?.previewUrl) {
+            <img
+              [src]="strutturaForm()[keys[$index]].file?.previewUrl"
+              alt="preview"
+              class="img-thumbnail mt-2"
+              width="200"
+            />
+          }
+        }
+      }
+
+      @if (f[keys[$index]]?.invalid && f[keys[$index]]?.touched) {
+        <div class="error-message">
+          {{ strutturaForm()[keys[$index]]?.errorMessage || " " }}
+        </div>
+      }
+
+      <div class="custom-error">
+        <ng-content select="[erroreCustom]"></ng-content>
+      </div>
+    </div>
+  }
+
+  @if (visualizzaPulsanti()) {
+    <div class="form-actions">
+      <app-button-indy
+        [text]="'Resetta'"
+        (clickButton)="onReset()"
+      ></app-button-indy>
+
+      <app-button-indy
+        [text]="'Invia'"
+        (clickButton)="onSubmit()"
+        [disabled]="form.invalid"
+      ></app-button-indy>
+    </div>
+  }
+</div>

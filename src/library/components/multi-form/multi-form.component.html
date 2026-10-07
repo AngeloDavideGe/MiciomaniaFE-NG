@@ -1,0 +1,74 @@
+<form [formGroup]="form" class="multi-form">
+  @for (key of keys; track key) {
+    <section class="multi-form-section">
+      <div
+        style="cursor: pointer"
+        class="section-header"
+        (click)="changeOpenForm(strutturaForm()[key].nome)"
+      >
+        <h2 class="section-title">
+          {{ strutturaForm()[key].nome }}
+        </h2>
+      </div>
+
+      <section
+        [ngStyle]="{
+          display:
+            selectedForm() !== strutturaForm()[key].nome ? 'none' : 'block',
+        }"
+      >
+        @if (!isArraySection(key)) {
+          <div class="section-body" [formGroupName]="key">
+            <app-form-indy
+              [strutturaForm]="strutturaForm()[key].struttura"
+              [visualizzaPulsanti]="false"
+              [formGroup]="getFormGroup(key)"
+              (subscribeForm)="onSectionFormChange(key, $event)"
+            >
+            </app-form-indy>
+          </div>
+        } @else {
+          <div class="section-body">
+            @for (control of getFormArray(key).controls; track $index) {
+              <div class="array-item">
+                <app-form-indy
+                  [strutturaForm]="strutturaForm()[key].struttura"
+                  [visualizzaPulsanti]="false"
+                  [formGroup]="getArrayFormGroup(key, $index)"
+                >
+                </app-form-indy>
+
+                <button
+                  type="button"
+                  class="btn-remove"
+                  (click)="removeArrayItem(key, $index)"
+                >
+                  Elimina
+                </button>
+              </div>
+            }
+
+            <button type="button" class="btn-add" (click)="addArrayItem(key)">
+              Aggiungi elemento
+            </button>
+          </div>
+        }
+      </section>
+    </section>
+  }
+
+  @if (visualizzaPulsanti()) {
+    <div class="form-actions">
+      <app-button-indy
+        [text]="'Indietro'"
+        (clickButton)="secondaryButton.emit()"
+      ></app-button-indy>
+
+      <app-button-indy
+        [text]="'Invia'"
+        (clickButton)="onSubmit()"
+        [disabled]="form.invalid"
+      ></app-button-indy>
+    </div>
+  }
+</form>

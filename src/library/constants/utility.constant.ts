@@ -1,0 +1,101 @@
+export type priorita = 'Bassa' | 'Media' | 'Alta' | 'Urgente';
+
+export const giorniSettimana: string[] = [
+  'lunedì',
+  'martedì',
+  'mercoledì',
+  'giovedì',
+  'venerdì',
+  'sabato',
+  'domenica',
+];
+
+export const mesi: string[] = [
+  'gennaio',
+  'febbraio',
+  'marzo',
+  'aprile',
+  'maggio',
+  'giugno',
+  'luglio',
+  'agosto',
+  'settembre',
+  'ottobre',
+  'novembre',
+  'dicembre',
+];
+
+export const regioni: { label: string; province: string[] }[] = [
+  { label: 'Abruzzo', province: ["L'Aquila", 'Pescara', 'Chieti'] },
+  { label: 'Basilicata', province: ['Potenza', 'Matera'] },
+  { label: 'Calabria', province: ['Catanzaro', 'Cosenza', 'Reggio Calabria'] },
+  { label: 'Campania', province: ['Napoli', 'Salerno', 'Caserta', 'Avellino'] },
+  {
+    label: 'Emilia-Romagna',
+    province: ['Bologna', 'Modena', 'Parma', 'Rimini'],
+  },
+  {
+    label: 'Friuli Venezia Giulia',
+    province: ['Trieste', 'Udine', 'Pordenone'],
+  },
+  { label: 'Lazio', province: ['Roma', 'Latina', 'Frosinone'] },
+  { label: 'Liguria', province: ['Genova', 'La Spezia', 'Savona'] },
+  {
+    label: 'Lombardia',
+    province: ['Milano', 'Brescia', 'Bergamo', 'Monza e Brianza'],
+  },
+  { label: 'Marche', province: ['Ancona', 'Pesaro e Urbino', 'Macerata'] },
+  { label: 'Molise', province: ['Campobasso', 'Isernia'] },
+  { label: 'Piemonte', province: ['Torino', 'Cuneo', 'Novara', 'Alessandria'] },
+  { label: 'Puglia', province: ['Bari', 'Lecce', 'Foggia', 'Taranto'] },
+  { label: 'Sardegna', province: ['Cagliari', 'Sassari', 'Nuoro'] },
+  { label: 'Sicilia', province: ['Palermo', 'Catania', 'Messina', 'Siracusa'] },
+  { label: 'Toscana', province: ['Firenze', 'Pisa', 'Livorno', 'Lucca'] },
+  { label: 'Trentino-Alto Adige', province: ['Trento', 'Bolzano'] },
+  { label: 'Umbria', province: ['Perugia', 'Terni'] },
+  { label: "Valle d'Aosta", province: ['Aosta'] },
+  { label: 'Veneto', province: ['Venezia', 'Verona', 'Padova', 'Vicenza'] },
+];
+
+export const colori: string[] = [
+  'rosso',
+  'verde',
+  'blu',
+  'giallo',
+  'arancione',
+  'viola',
+  'rosa',
+  'marrone',
+  'nero',
+  'bianco',
+  'grigio',
+];
+
+export const inizialiAlfabeto: string[] = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z',
+];

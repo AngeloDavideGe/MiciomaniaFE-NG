@@ -1,0 +1,234 @@
+{
+  "Home": {
+    "Notifiche": "Notifiche",
+    "Impostazioni": "Impostazioni",
+    "AccountUtente": "Account utente",
+    "AggiungiAccount": "Aggiungi un altro account",
+    "EsciAccount": "Esci da tutti gli account",
+    "Benvenuti": "Benvenuto/a su Miciomania",
+    "Descrizione": "Il posto perfetto per leggere manga, ascoltare musica parodia, giocare con i sentimenti e far piangere Sirius.",
+    "CardsTitle": "Cosa vuoi fare oggi?",
+    "Toggle": {
+      "Account": "Account",
+      "Profilo": "Profilo",
+      "Auth": "Autenticazione",
+      "Esci": "Esci",
+      "Login": "Accedi",
+      "Lingua": "Lingua",
+      "Cursore": "Cursore",
+      "CursoreContagocce": "Contagocce per donne etero",
+      "CursorePiuma": "Piuma leggiadra per gatti",
+      "CursoreFulmine": "Fulmine di Luxus (Punty-kun)",
+      "CursoreBacchetta": "Bacchetta di Sirius Gesualdo",
+      "CursoreCacciavite": "Cacciavite per ossa (Midollo)",
+      "CursoreDisattiva": "Disattiva",
+      "LogoutTitolo": "Disconnetti account",
+      "LogoutMessaggio": "Vuoi davvero uscire da"
+    },
+    "AccountMenuTitolo": "Account",
+    "LogoutAllTitolo": "Disconnetti tutti gli account",
+    "LogoutAllMessaggio": "Vuoi davvero uscire da tutti gli account?",
+    "Social": {
+      "Titolo": "Resta connesso con Miciomania",
+      "Descrizione": "Unisciti alle nostre community e seguici sui social!"
+    },
+    "Footer": {
+      "LinkUtili": "Link utili",
+      "Info": "Info",
+      "Supporto": "Supporto"
+    },
+    "Card1": {
+      "titolo": "Manga",
+      "descrizione": "Scopri la mia collezione di manga, recensioni, letture in corso e consigli.",
+      "bottone": "Esplora manga"
+    },
+    "Card2": {
+      "titolo": "Musica",
+      "descrizione": "Ascolta playlist, album preferiti e scopri nuovi artisti.",
+      "bottone": "Vai alla musica"
+    },
+    "Card3": {
+      "titolo": "Giochi",
+      "descrizione": "Tutto il mondo gaming: giochi provati, consigli e preferiti.",
+      "bottone": "Scopri giochi"
+    },
+    "Card4": {
+      "titolo": "Classifica",
+      "descrizione": "Classifica",
+      "bottone": "Visualizza classifica"
+    }
+  },
+  "Feature": {
+    "Navbar": {
+      "Home": "Home",
+      "Manga": "Manga",
+      "Canzoni": "Canzoni",
+      "Giochi": "Giochi",
+      "Post": "Post",
+      "Classifica": "Classifica"
+    }
+  },
+  "Canzoni": {
+    "Titolo": "Canzoni",
+    "Descrizione": "Ascolta le tue canzoni preferite cantate da Miciomania e Sirius",
+    "CercaPlaceholder": "Cerca per nome, autore...",
+    "CategorieTitolo": "Categorie",
+    "BottoneAscolta": "Ascolta",
+    "Toolbar": {
+      "AlbumDisponibili": "Album disponibili",
+      "CanzoniTotali": "Canzoni totali"
+    },
+    "Categorie": {
+      "Tutte": "Tutte",
+      "Preferite": "Preferite"
+    }
+  },
+  "Giochi": {
+    "Titolo": "Giochi",
+    "Descrizione": "Scegli un gioco e mettiti alla prova",
+    "CercaPlaceholder": "Cerca un gioco...",
+    "BottoneGioca": "Gioca",
+    "HaiVinto": "Hai vinto!",
+    "HaVintoIlBot": "Ha vinto il bot!",
+    "AvetePareggiato": "Avete pareggiato!",
+    "TuoTurno": "Tuo turno",
+    "TurnoDelBot": "Turno del bot",
+    "Lista": {
+      "Tris": {
+        "Titolo": "Tris",
+        "Descrizione": "Allinea tre simboli prima del tuo avversario."
+      },
+      "BattagliaNavale": {
+        "Titolo": "Battaglia navale",
+        "Descrizione": "Affonda tutte le navi della flotta avversaria."
+      }
+    }
+  },
+  "Manga": {
+    "Titolo": "Manga",
+    "Descrizione": "Leggi i tuoi manga preferiti e scopri le avventure di Indy e Claudia",
+    "CercaPlaceholder": "Cerca per nome, autore...",
+    "CategorieTitolo": "Categorie",
+    "SottocategorieTitolo": "Sottocategorie",
+    "BottoneLeggi": "Leggi",
+    "Toolbar": {
+      "MangaDisponibili": "Manga disponibili",
+      "CapitoliTotali": "Capitoli totali"
+    },
+    "Tabs": {
+      "Tutti": "Tutti",
+      "InCorso": "In corso",
+      "Completati": "Completati"
+    },
+    "Categorie": {
+      "Ufficiali": "Ufficiali",
+      "Miciomania": "Di Miciomania"
+    },
+    "Sottocategorie": {
+      "Tutti": "Tutti",
+      "Preferiti": "Preferiti"
+    }
+  },
+  "Classifica": {
+    "Titolo": "Classifica",
+    "Descrizione": "Osserva la classifica dei giocatori e delle squadre più deridenti della Miciomania Season",
+    "Tabelle": {
+      "Giocatori": "Giocatori",
+      "Squadre": "Squadre"
+    },
+    "Tabs": {
+      "Giocatori": "Giocatori",
+      "Squadre": "Squadre",
+      "Tabella": "Tabella",
+      "Grafico": "Grafico"
+    },
+    "Colonne": {
+      "Posizione": "Posizione",
+      "Nome": "Nome",
+      "Squadra": "Squadra",
+      "Punti": "Punti"
+    }
+  },
+  "Profilo": {
+    "AvatarAlt": "Avatar profilo",
+    "OnlineAriaLabel": "Online",
+    "ProfiloVerificatoAriaLabel": "Profilo verificato",
+    "ModificaProfilo": "Modifica profilo",
+    "IscrittoDa": "Iscritto da",
+    "Post": "Post",
+    "Punti": "Punti",
+    "NessunaFoto": "Nessuna foto pubblicata",
+    "FotoCompariranno": "I post con foto compariranno qui.",
+    "Modale": {
+      "Titolo": "Modifica profilo",
+      "Sottotitolo": "Aggiorna i tuoi dati personali e social"
+    },
+    "Tabs": {
+      "PostTesto": "Post di testo",
+      "PostFoto": "Post con foto"
+    },
+    "EditUser": {
+      "Sezioni": {
+        "Account": "Account",
+        "Profilo": "Profilo",
+        "Social": "Social",
+        "Iscrizione": "Iscrizione"
+      },
+      "Campi": {
+        "IdUtente": "ID utente",
+        "Nome": "Nome",
+        "Email": "Email",
+        "Password": "Password",
+        "ConfermaPassword": "Conferma password",
+        "Compleanno": "Compleanno",
+        "Biografia": "Biografia",
+        "Piattaforma": "Piattaforma",
+        "LinkUsername": "Link o username",
+        "Squadra": "Squadra",
+        "Regione": "Regione",
+        "Provincia": "Provincia",
+        "Punteggio": "Punteggio"
+      },
+      "Errori": {
+        "Nome": "Il nome è obbligatorio e può avere massimo 30 caratteri",
+        "Email": "Inserisci un indirizzo email valido",
+        "Password": "La password è obbligatoria e può avere massimo 20 caratteri",
+        "ConfermaPassword": "Le password devono coincidere",
+        "Piattaforma": "Indica la piattaforma social",
+        "LinkUsername": "Inserisci il link o lo username"
+      }
+    }
+  },
+  "Login": {
+    "Titolo": "Bentornato",
+    "Descrizione": "Accedi al tuo account per continuare",
+    "NessunAccount": "Non hai ancora un account?",
+    "Registrati": "Registrati",
+    "AccessoOspite": "Vuoi entrare senza effettuare l'accesso?",
+    "Entra": "Entra",
+    "Form": {
+      "Email": "Email",
+      "Password": "Password",
+      "ErroreEmail": "L'email è obbligatoria e può avere massimo 40 caratteri",
+      "ErrorePassword": "La password è obbligatoria e può avere massimo 20 caratteri"
+    }
+  },
+  "Register": {
+    "Titolo": "Benvenuto",
+    "Descrizione": "Iscriviti al sito per continuare",
+    "AccountEsistente": "Hai già un account?",
+    "Accedi": "Accedi",
+    "AccessoOspite": "Vuoi entrare senza effettuare l'accesso?",
+    "Entra": "Entra",
+    "Form": {
+      "Nickname": "Nickname",
+      "NomeCompleto": "Nome e cognome",
+      "Email": "Email",
+      "Password": "Password",
+      "ErroreNickname": "Il nickname è obbligatorio e può avere massimo 15 caratteri",
+      "ErroreNomeCompleto": "Il nome è obbligatorio e può avere massimo 30 caratteri",
+      "ErroreEmail": "L'email è obbligatoria e può avere massimo 40 caratteri",
+      "ErrorePassword": "La password è obbligatoria e può avere massimo 20 caratteri"
+    }
+  }
+}

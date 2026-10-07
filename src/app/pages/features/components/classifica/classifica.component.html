@@ -1,0 +1,84 @@
+<app-container-micio>
+  <app-descrizione-micio
+    [titolo]="lang.Titolo"
+    [descrizione]="lang.Descrizione"
+    [immagine]="'https://images.unsplash.com/photo-1515879218367-8466d910aaa4'"
+  >
+    <div all-row>
+      <div class="elemento-centrato p-2">
+        <app-tabs-indy [tabs]="tabs" [(selectTab)]="currentTab" />
+        <app-tabs-indy
+          [tabs]="viewTabs"
+          [tipo]="'lista'"
+          [(selectTab)]="viewTab"
+        />
+      </div>
+
+      <br />
+
+      @if (spinner()) {
+        <app-spinner-indy [mt]="'5rem'"></app-spinner-indy>
+      } @else {
+        @switch (currentTab()) {
+          @case ("giocatori") {
+            @switch (viewTab()) {
+              @case ("tabella") {
+                <app-table-indy
+                  [elemTable]="giocatori()"
+                  [titoloTabella]="lang.Tabelle.Giocatori"
+                  [colonne]="colonneGiocatori"
+                  [recordBadge]="badgeTable"
+                >
+                </app-table-indy>
+              }
+              @case ("grafico") {
+                <div class="classifica-grafico">
+                  <app-svg-indy
+                    [paths]="pathGiocatori()"
+                    [width]="700"
+                    [height]="graficoAltezzaGiocatori()"
+                    [viewbox]="'0 0 700 ' + graficoAltezzaGiocatori()"
+                  />
+                </div>
+              }
+            }
+          }
+          @case ("squadre") {
+            @switch (viewTab()) {
+              @case ("tabella") {
+                <app-table-indy
+                  [elemTable]="squadre()"
+                  [titoloTabella]="lang.Tabelle.Squadre"
+                  [colonne]="colonneSquadre"
+                  [keyPrimary]="'nome'"
+                  [templateCustom]="customTemplate"
+                  [recordBadge]="badgeTable"
+                >
+                  <ng-template #customTemplate let-elem>
+                    <div class="dettagli-squadra">
+                      <div class="squadra-descrizione">
+                        <p>{{ elem.descrizione }}</p>
+                      </div>
+                    </div>
+                  </ng-template>
+                </app-table-indy>
+              }
+              @case ("grafico") {
+                <div class="classifica-grafico">
+                  <app-svg-indy
+                    [paths]="pathSquadre()"
+                    [width]="700"
+                    [height]="graficoAltezzaSquadre()"
+                    [viewbox]="'0 0 700 ' + graficoAltezzaSquadre()"
+                    [modale]="modaleClassifica()"
+                  />
+                </div>
+              }
+            }
+          }
+        }
+      }
+      <br />
+    </div>
+  </app-descrizione-micio>
+</app-container-micio>

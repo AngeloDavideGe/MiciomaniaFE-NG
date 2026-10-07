@@ -1,0 +1,101 @@
+<div class="home-navbar-wrapper">
+  @if (tipo() != "content") {
+    @if (imgIcona()) {
+      <img
+        [src]="imgIcona()"
+        alt="Profile Picture"
+        class="toggle-avatar"
+        (click)="toggleMenu()"
+      />
+    } @else {
+      <button class="toggle-button" (click)="toggleMenu()">
+        <i [class]="menuOpen() == titolo() ? 'bi bi-x' : icona()"></i>
+      </button>
+
+      @if (titoloVisible()) {
+        <span>{{ titolo() }}</span>
+      }
+    }
+  }
+</div>
+
+@switch (tipo()) {
+  @case ("single") {
+    @if (menuOpen() == titolo()) {
+      <div class="dropdown-panel shadow-sm" [style]="styles()">
+        <ul class="custom-nav">
+          @for (item of toggleMenus()[0].menuElementi; track $index) {
+            @if (item.condition) {
+              <li>
+                <a (click)="item.azione()">
+                  @if (item.icona) {
+                    <i [class]="item.icona"></i>
+                  } @else if (item.image) {
+                    <img class="img-icona" [src]="item.image" />
+                  }
+                  @if (item.sottotitolo) {
+                    <div class="content">
+                      <span class="title">{{ item.testo }}</span>
+                      <span class="subtitle">{{ item.sottotitolo }}</span>
+                    </div>
+                    @if (item.selezionato) {
+                      <i class="bi bi-check-circle-fill selected"></i>
+                    }
+                  } @else {
+                    <div [innerHTML]="item.testo"></div>
+                  }
+                </a>
+              </li>
+            }
+          }
+
+          <ng-content select="[downContent]"></ng-content>
+        </ul>
+      </div>
+    }
+  }
+
+  @case ("multiple") {
+    @if (menuOpen() == titolo()) {
+      <div class="dropdown-panel shadow-sm" [style]="styles()">
+        <ul class="custom-nav">
+          @for (toggle of toggleMenus(); track toggle.titolo) {
+            <li class="nav-item dropdown">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                (click)="cambiaDropdown(toggle.titolo)"
+              >
+                <i [class]="toggle.icona + ' me-2'"></i>
+                {{ toggle.titolo }}
+              </button>
+            </li>
+
+            @if (currentButton() == toggle.titolo) {
+              @for (item of toggle.menuElementi; track $index) {
+                @if (item.condition) {
+                  <li>
+                    <a (click)="item.azione()">
+                      @if (item.icona) {
+                        <i [class]="item.icona"></i>
+                      } @else if (item.image) {
+                        <img class="img-icona" [src]="item.image" />
+                      }
+                      {{ item.testo }}
+                    </a>
+                  </li>
+                }
+              }
+            }
+          }
+        </ul>
+      </div>
+    }
+  }
+
+  @case ("content") {
+    <div class="dropdown-panel shadow-sm" [style]="styles()">
+      <ng-content select="[onlyContent]"></ng-content>
+    </div>
+  }
+}

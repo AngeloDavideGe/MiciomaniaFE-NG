@@ -1,0 +1,176 @@
+import { NgTemplateOutlet } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  EffectCleanupRegisterFn,
+  HostListener,
+  inject,
+  input,
+  model,
+  output,
+  signal,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { debounceTimeoutCustom } from '../../functions/debounce.function';
+import { GetFiltriCustom } from '../../functions/pagination.function';
+import { iCard } from '../../interfaces/card.interface';
+import {
+  FiltriInterface,
+  RaggioPage,
+  TipoPaginazione,
+  TypePagination,
+} from '../../interfaces/pagination.interface';
+import { ButtonIndyComponent } from '../button/button-indy.component';
+import { PaginazioneIndyComponent } from '../pagination/pagination-indy.component';
+
+@Component({
+  selector: 'app-card-indy',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [PaginazioneIndyComponent, NgTemplateOutlet, ButtonIndyComponent],
+  templateUrl: './card-indy.component.html',
+  styleUrl: './card-indy.component.scss',
+})
+export class CardIndyComponent {
+  public router = inject(Router);
+
+  public filtri!: FiltriInterface<iCard>;
+  public elemForPage = signal<number>(0);
+
+  public elems = input<iCard[] | null>(null);
+  public singleElem = input<iCard | null>(null);
+  public lunghezzaCard = input<string>('20rem');
+  public altezzaImg = input<string>('20rem');
+  public cardPosition = input<string>('center');
+  public titoloLista = input<string>('');
+  public classBody = input<string>('');
+  public tipoSlice = input<TypePagination>('all');
+  public tipoPaginazione = input<TipoPaginazione>('singolo');
+  public arrayPags = input<RaggioPage[]>(defaultArrayPags);
+  public sliceAutomaticoInSec = input<number | undefined>(undefined);
+  public secondNameButton = input<string | undefined>(undefined);
+
+  public singleSliceIndicators = computed(() => {
+    if (this.tipoSlice() !== 'single') return [];
+
+    const numElems: number = this.elems()?.length || 0;
+    const elemForPage: number = this.elemForPage();
+    const count: number = Math.max(0, numElems - elemForPage + 1);
+
+    return Array.from({ length: count }, (_, index) => index);
+  });
+
+  public changeButton = output<string | null>();
+  public currentButton = model<string | null>(null);
+
+  public viewFirstButton = computed(() => {
+    if (!this.filtri) return false;
+
+    return this.tipoSlice() === 'single' && this.filtri.currentSlice() > 0;
+  });
+
+  public viewLastButton = computed(() => {
+    if (!this.filtri) return false;
+
+    return (
+      this.tipoSlice() === 'single' &&
+      this.filtri.searchElems().length >
+        this.elemForPage() + this.filtri.currentSlice()
+    );
+  });
+
+  constructor() {
+    effect((onCleanup: EffectCleanupRegisterFn) => {
+      const elements: iCard[] | null = this.elems();
+      const tipoSlice: TypePagination = this.tipoSlice();
+      const sliceAutomaticoInSec: number | undefined =
+        this.sliceAutomaticoInSec();
+
+      if (elements) {
+        this.elemForPage.set(this.getNumCards());
+
+        this.filtri = GetFiltriCustom<iCard, null>({
+          elemTable: signal(elements),
+          elemForPage: this.elemForPage,
+          slice: tipoSlice,
+        });
+
+        if (tipoSlice === 'single' && sliceAutomaticoInSec) {
+          const intervalId: number = window.setInterval(() => {
+            const currentSlice: number = this.filtri.currentSlice();
+
+            this.filtri.nextSlice();
+
+            if (this.filtri.currentSlice() === currentSlice) {
+              this.filtri.currentSlice.set(0);
+            }
+          }, sliceAutomaticoInSec * 1000);
+
+          onCleanup(() => window.clearInterval(intervalId));
+        }
+      }
+    });
+  }
+
+  @HostListener('window:resize')
+  public onResize = debounceTimeoutCustom(() => {
+    if (!this.filtri) return;
+
+    this.filtri.currentPage?.set(1);
+    this.filtri.currentSlice?.set(0);
+    this.elemForPage.set(this.getNumCards());
+  });
+
+  private getNumCards(): number {
+    const width = window.innerWidth;
+    const config = this.arrayPags().find((x) => x.width <= width);
+    return config?.raggio || 2;
+  }
+
+  public clickButton(elem: iCard): void {
+    this.currentButton.update((x: string | null) =>
+      x === elem.titolo ? null : elem.titolo || '',
+    );
+
+    if (elem.routerLink) {
+      this.router.navigate([elem.routerLink]);
+    } else {
+      elem.azione?.();
+    }
+
+    this.changeButton.emit(this.currentButton());
+  }
+}
+
+const defaultArrayPags: RaggioPage[] = [
+  {
+    width: 2384,
+    raggio: 7,
+  },
+  {
+    width: 2040,
+    raggio: 6,
+  },
+  {
+    width: 1696,
+    raggio: 5,
+  },
+  {
+    width: 1352,
+    raggio: 4,
+  },
+  {
+    width: 1100,
+    raggio: 3,
+  },
+  {
+    width: 700,
+    raggio: 2,
+  },
+  {
+    width: 0,
+    raggio: 1,
+  },
+];

@@ -1,0 +1,49 @@
+export function GetOrderCustom<T>(
+  vett: T[],
+  k: keyof T,
+  cresc: boolean = true,
+): T[] {
+  if (vett.length === 0) return vett;
+
+  switch (typeof vett[0][k]) {
+    case 'number': {
+      if (cresc) {
+        return vett.sort((a: T, b: T) => (a[k] as number) - (b[k] as number));
+      } else {
+        return vett.sort((a: T, b: T) => (b[k] as number) - (a[k] as number));
+      }
+    }
+    case 'string': {
+      if (cresc) {
+        return vett.sort((a: T, b: T) =>
+          (a[k] as string).localeCompare(b[k] as string),
+        );
+      } else {
+        return vett.sort((a: T, b: T) =>
+          (b[k] as string).localeCompare(a[k] as string),
+        );
+      }
+    }
+    default:
+      if (cresc) {
+        return vett.sort((a: T, b: T) =>
+          String(a[k]).localeCompare(String(b[k])),
+        );
+      } else {
+        return vett.sort((a: T, b: T) =>
+          String(b[k]).localeCompare(String(a[k])),
+        );
+      }
+  }
+}
+
+export function shuffleArray<T>(array: T[]): T[] {
+  const shuffled: T[] = [...array];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j: number = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
+}

@@ -1,0 +1,200 @@
+.tris-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  min-width: 0;
+  padding: 2rem 1rem;
+}
+
+.game-panel {
+  width: min(100%, 30rem);
+  min-width: 0;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(
+      ellipse at 50% 0,
+      color-mix(in srgb, var(--primary) 12%, transparent),
+      transparent 55%
+    ),
+    var(--card);
+  box-shadow: 0 24px 60px rgba(var(--background-rgb), 0.45);
+}
+
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--primary-light);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin: 0.25rem 0 0;
+  color: var(--text);
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  line-height: 1.1;
+}
+
+.status {
+  margin: 0 0 1.25rem;
+  min-height: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.board {
+  --cell-min: 4.25rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(var(--cell-min), 1fr));
+  gap: clamp(0.5rem, 2vw, 0.75rem);
+  padding: 0.25rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.cell {
+  width: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--card-light);
+  color: var(--text);
+  font-size: clamp(2rem, 6vw, 2.6rem);
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--primary) 60%, transparent);
+    box-shadow: 0 12px 28px color-mix(in srgb, var(--primary) 22%, transparent);
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &--x {
+    color: var(--primary-light);
+    background: color-mix(in srgb, var(--primary-light) 20%, transparent);
+    border-color: color-mix(in srgb, var(--primary-light) 45%, transparent);
+    box-shadow: inset 0 0 0.65rem color-mix(in srgb, var(--primary-light) 12%, transparent);
+  }
+
+  &--o {
+    color: var(--primary);
+    background: color-mix(in srgb, var(--primary) 20%, transparent);
+    border-color: color-mix(in srgb, var(--primary) 45%, transparent);
+    box-shadow: inset 0 0 0.65rem color-mix(in srgb, var(--primary) 12%, transparent);
+  }
+}
+
+.reset-button {
+  flex: 0 0 auto;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card-light);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--primary) 45%, transparent);
+    background: color-mix(in srgb, var(--primary) 12%, transparent);
+    color: var(--text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-light);
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 640px) {
+  .tris-container {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .game-panel {
+    width: 100%;
+    padding: 1rem 0.75rem 1.25rem;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .game-header {
+    margin-top: 0.5rem;
+  }
+
+  .status {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .board {
+    --cell-min: 5rem;
+    gap: 0.6rem;
+    padding-inline: 0.25rem;
+  }
+
+  .cell {
+    font-size: clamp(2.2rem, 11vw, 3rem);
+    border-radius: 0.85rem;
+  }
+}
+
+@media (max-width: 380px) {
+  h2 {
+    font-size: clamp(1.5rem, 7vw, 1.8rem);
+  }
+
+  .board {
+    --cell-min: 4.5rem;
+  }
+
+  .reset-button {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.68rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

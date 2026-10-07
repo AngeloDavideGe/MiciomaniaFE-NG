@@ -1,0 +1,14 @@
+:root {
+  --background: #090913;
+  --background-rgb: 9, 9, 19;
+  --card: #11111d;
+  --card-light: #17172a;
+  --primary: #8a4dff;
+  --primary-light: #b782ff;
+  --text: #f5f5f7;
+  --text-secondary: #a3a3c2;
+  --border: rgba(255, 255, 255, 0.05);
+  --navbar-bg: rgba(var(--background-rgb), 0.97);
+  --primary-shadow: 0 0 18px rgba(138, 77, 255, 0.45);
+  --badge-text: #ffffff;
+}

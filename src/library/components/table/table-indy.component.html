@@ -1,0 +1,192 @@
+<div class="table-wrapper">
+  @if (titoloTabella()) {
+    <div class="table-header">
+      <div class="header-content">
+        <div class="header-left">
+          <i class="bi bi-table header-icon"></i>
+          <h3 class="header-title">
+            {{ titoloTabella() | capitalizeFirstLetter }}
+          </h3>
+        </div>
+        <div class="header-info">
+          <span class="total-items">
+            <i class="bi bi-list-ol me-1"></i>
+            {{ filtri.dettaglioPage() }}
+          </span>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (filtroDefault) {
+    <div class="search-filter">
+      <i class="bi bi-search search-icon"></i>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Cerca..."
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="searchQuery.set($event)"
+      />
+      <button
+        class="clear-btn"
+        (click)="searchQuery.set(''); ordinaElem.set(null)"
+      >
+        <i class="bi bi-x-circle"></i>
+      </button>
+    </div>
+  }
+
+  @if (filtri.elemFilter().length > 0 || dataTableHttp()) {
+    <div class="table-container">
+      <table class="table-custom">
+        <thead>
+          <tr>
+            @for (key of keyofElem; track $index; let idx = $index) {
+              <th (click)="ordinaColonna(key)">
+                <span class="th-content">
+                  {{ colonne()[key]!.titolo }}
+
+                  @if (colonne()[key]!.sortCol) {
+                    @let ordinaElem =
+                      this.ordinaElem() || { key: null, order: null };
+
+                    @if (ordinaElem.key === key) {
+                      @switch (ordinaElem.order) {
+                        @case ("desc") {
+                          <i class="bi bi-arrow-down ms-1 sort-icon active"></i>
+                        }
+                        @case ("cresc") {
+                          <i class="bi bi-arrow-up ms-1 sort-icon active"></i>
+                        }
+                        @default {
+                          <i class="bi bi-arrow-down-up ms-1 sort-icon"></i>
+                        }
+                      }
+                    } @else {
+                      <i class="bi bi-arrow-down-up ms-1 sort-icon"></i>
+                    }
+                  }
+                </span>
+              </th>
+            }
+            @if (azioni().length > 0 || keyPrimary()) {
+              <th class="actions-header">
+                {{ titoloColAzioni() }}
+              </th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (elem of filtri.elemFilter(); track trackByFn($index, elem)) {
+            <tr
+              class="table-row"
+              [class.expanded]="expandedRow() === elem[keyPrimary()!]"
+            >
+              @for (key of keyofElem; track $index) {
+                <td [attr.data-label]="key">
+                  <div
+                    class="cell-content"
+                    [class]="recordBadge()['' + elem[key]]"
+                  >
+                    {{ colonne()[key]!.formatCell!(elem[key]) }}
+                  </div>
+                </td>
+              }
+              @if (azioni().length > 0 || keyPrimary()) {
+                <td class="actions-cell">
+                  <div class="actions-wrapper">
+                    @if (azioni().length > 0) {
+                      @for (azione of azioni(); track $index) {
+                        <button
+                          class="action-btn"
+                          (click)="azione.azione(elem, $index)"
+                          [title]="azione.titolo"
+                          [attr.aria-label]="azione.titolo"
+                        >
+                          <i [class]="azione.icona"></i>
+                        </button>
+                      }
+                    }
+                    @if (keyPrimary()) {
+                      <button
+                        class="action-btn expand-btn"
+                        (click)="toggleExpandedRow(elem[keyPrimary()!])"
+                        [title]="'Dettagli'"
+                        [attr.aria-label]="'Dettagli'"
+                      >
+                        <i
+                          [class]="
+                            expandedRow() === elem[keyPrimary()!]
+                              ? 'bi bi-chevron-up'
+                              : 'bi bi-chevron-down'
+                          "
+                        ></i>
+                      </button>
+                    }
+                  </div>
+                </td>
+              }
+            </tr>
+
+            @if (keyPrimary() && expandedRow() === elem[keyPrimary()!]) {
+              <tr class="expanded-row-wrapper">
+                <td class="expanded-row" [attr.colspan]="keyofElem.length + 1">
+                  <div class="expanded-content">
+                    <ng-container
+                      *ngTemplateOutlet="
+                        templateCustom();
+                        context: { $implicit: elem }
+                      "
+                    />
+                  </div>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-footer">
+      <app-paginazione-indy
+        [filtri]="filtri"
+        [tipo]="tipoPaginazione()"
+        [dataTableHttp]="dataTableHttp()"
+        [arrayRaggi]="raggiPage"
+      ></app-paginazione-indy>
+
+      @if (arrayElemForPage().length > 0) {
+        <div class="elementi-per-pagina">
+          <label class="label-elementi-pagina" for="perPageSelect">
+            Elementi per pagina:
+          </label>
+
+          <select
+            id="perPageSelect"
+            class="select-elementi-pagina"
+            [ngModel]="elemForPage()"
+            (ngModelChange)="elemForPage.set($event); filtri.currentPage.set(1)"
+          >
+            @for (numElem of arrayElemForPage(); track numElem) {
+              <option [ngValue]="numElem">
+                {{ numElem }}
+              </option>
+            }
+          </select>
+        </div>
+      }
+    </div>
+  }
+
+  @if (filtri.elemFilter().length == 0) {
+    @if (dataTableHttp()) {
+      <app-spinner-indy [mt]="'2rem'"></app-spinner-indy>
+    } @else {
+      <div class="empty-state">
+        <i class="bi bi-inbox empty-icon"></i>
+        <p class="empty-text">{{ noElement() }}</p>
+      </div>
+    }
+  }
+</div>

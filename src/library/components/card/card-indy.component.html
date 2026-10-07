@@ -1,0 +1,91 @@
+@if (elems()) {
+  <div class="mb-4" [style]="{ 'text-align': cardPosition() }">
+    <h5 class="card-title-list">
+      {{ titoloLista() }}
+    </h5>
+  </div>
+
+  <div class="position-relative w-100">
+    @if (viewFirstButton()) {
+      <button class="carousel-button start" (click)="filtri.previousSlice()">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    }
+
+    <div
+      class="grid-card-layout"
+      [style.--card-width]="lunghezzaCard()"
+      [style]="{ '--card-position': cardPosition() }"
+    >
+      @for (elem of filtri.elemFilter(); track elem.titolo) {
+        <ng-container
+          *ngTemplateOutlet="cardTemplate; context: { $implicit: elem }"
+        />
+      }
+    </div>
+
+    @if (singleSliceIndicators().length > 0) {
+      <div class="slice-indicators" aria-hidden="true">
+        @for (indicator of singleSliceIndicators(); track indicator) {
+          <span
+            class="slice-indicator"
+            [class.active]="indicator === filtri.currentSlice()"
+          ></span>
+        }
+      </div>
+    }
+
+    @if (tipoSlice() === "page") {
+      <app-paginazione-indy [filtri]="filtri" [tipo]="tipoPaginazione()" />
+    }
+
+    @if (viewLastButton()) {
+      <button class="carousel-button end" (click)="filtri.nextSlice()">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    }
+  </div>
+} @else if (singleElem()) {
+  <ng-container
+    *ngTemplateOutlet="cardTemplate; context: { $implicit: singleElem() }"
+  />
+}
+
+<ng-template #cardTemplate let-elem>
+  <div
+    class="indy-card"
+    [style.width]="lunghezzaCard()"
+    [style.--card-color]="elem.color || 'var(--primary)'"
+  >
+    @if (elem?.urlPic) {
+      <img
+        [src]="elem.urlPic"
+        [style.height]="altezzaImg()"
+        class="card-image"
+      />
+    }
+
+    <div class="card-content" [class]="classBody()">
+      <h5>
+        {{ elem.titolo }}
+      </h5>
+
+      @if (elem.descrizione) {
+        <div class="description" [innerHTML]="elem.descrizione"></div>
+      }
+
+      @if (elem.bottone) {
+        <app-button-indy
+          class="mt-auto"
+          [text]="
+            currentButton() == elem.titolo && secondNameButton()
+              ? secondNameButton()
+              : elem.bottone
+          "
+          [backgroundColor]="elem.color || 'var(--primary)'"
+          (clickButton)="clickButton(elem)"
+        />
+      }
+    </div>
+  </div>
+</ng-template>

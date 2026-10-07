@@ -1,0 +1,226 @@
+form {
+  width: 100%;
+  color: var(--text);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:focus-within {
+    border-color: rgba(138, 77, 255, 0.45);
+    box-shadow: 0 0 0 3px rgba(138, 77, 255, 0.08);
+  }
+}
+
+.form-label {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  color: var(--text);
+  background: var(--card-light);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+  &::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+
+  &:hover:not(:disabled):not([readonly]) {
+    border-color: rgba(183, 130, 255, 0.3);
+  }
+
+  &:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(138, 77, 255, 0.12), 0 0 14px rgba(138, 77, 255, 0.08);
+  }
+
+  &[readonly] {
+    color: var(--text-secondary);
+    background: rgba(var(--background-rgb), 0.45);
+    cursor: default;
+  }
+
+  &:disabled {
+    color: var(--text-secondary);
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+textarea.form-input {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.form-select {
+  cursor: pointer;
+
+  option {
+    color: var(--text);
+    background: var(--card);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+input[type="date"] {
+  color-scheme: dark;
+
+  &::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+}
+
+input[type="password"] {
+  letter-spacing: 0.04em;
+}
+
+.form-input.is-invalid,
+.form-select.is-invalid {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 2px rgba(183, 130, 255, 0.08);
+}
+
+.form-input.is-valid,
+.form-select.is-valid {
+  border-color: rgba(245, 245, 247, 0.2);
+}
+
+.error-message,
+.custom-error {
+  min-height: 16px;
+  color: var(--primary-light);
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.custom-error:empty {
+  display: none;
+}
+
+.counter {
+  align-self: flex-end;
+  margin-top: -2px;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  color: var(--text-secondary);
+  background: var(--card-light);
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  font-size: 0.85rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: rgba(183, 130, 255, 0.3) !important;
+  }
+
+  &:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(138, 77, 255, 0.12);
+  }
+
+  &::file-selector-button {
+    margin-right: 12px;
+    padding: 9px 14px;
+    color: var(--badge-text);
+    background: var(--primary);
+    border: none;
+    border-radius: 9px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      background: var(--primary-light);
+      box-shadow: var(--primary-shadow);
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+.img-thumbnail {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  padding: 4px;
+  background: var(--card-light);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(var(--background-rgb), 0.35);
+}
+
+app-checkbox-indy {
+  display: block;
+  margin-top: 4px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+
+  app-button-indy {
+    min-width: 120px;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--text);
+  -webkit-box-shadow: 0 0 0 1000px var(--card-light) inset;
+  caret-color: var(--text);
+}
+
+@media (max-width: 576px) {
+  .form-field {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+
+    app-button-indy {
+      width: 100%;
+    }
+  }
+}

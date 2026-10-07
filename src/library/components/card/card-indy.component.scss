@@ -1,0 +1,103 @@
+.indy-card {
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--card);
+  border: 1px solid color-mix(in srgb, var(--card-color) 55%, black);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.card-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  min-height: 12rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  color: var(--text);
+  background: linear-gradient(
+    180deg,
+    var(--card-color) 0%,
+    color-mix(in srgb, var(--card-color) 70%, black) 45%,
+    black 100%
+  );
+
+  h5 {
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+}
+
+.description {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.card-title-list {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.slice-indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.slice-indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  opacity: 0.55;
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
+
+  &.active {
+    background: var(--primary-light);
+    opacity: 1;
+    transform: scale(1.35);
+    box-shadow: var(--primary-shadow);
+  }
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card-light);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+  &:hover {
+    background: var(--primary);
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+.carousel-button.start {
+  left: 0;
+}
+
+.carousel-button.end {
+  right: 0;
+}
