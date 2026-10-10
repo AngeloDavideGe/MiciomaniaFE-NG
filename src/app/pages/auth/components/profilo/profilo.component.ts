@@ -1,21 +1,22 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import {
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
 import { User } from '../../../../shared/interfaces/users.interface';
 import { AuthService } from '../../../../shared/services/auth.service';
-import { getProfiloTabs } from './functions/profilo.function';
+import { getProfileNavbar, getProfiloTabs } from './functions/profilo.function';
 import { profilo_imports } from './profilo.imports';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
 import { paraMapCustom } from '../../../../../library/functions/router.function';
 import { Subject } from 'rxjs';
 import { iTab } from '../../../../../library/interfaces/navbar.interface';
-
-interface ProfilePost {
-  date: string;
-  content: string[];
-  likes: number;
-  comments: number;
-}
+import { iProfilo, ProfilePost } from './interfaces/profilo.interface';
 
 @Component({
   selector: 'app-profile',
@@ -24,29 +25,32 @@ interface ProfilePost {
   templateUrl: './profilo.component.html',
   styleUrl: './profilo.component.scss',
 })
-export class ProfileComponent implements OnInit {
-  public router = inject(Router);
+export class ProfileComponent implements OnInit, OnDestroy {
+  private router = inject(Router);
   private route = inject(ActivatedRoute);
-  public authService = inject(AuthService);
+  private authService = inject(AuthService);
   private appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Profilo;
   public readonly tabs: iTab[] = getProfiloTabs(this.lang.Tabs);
   public readonly defaultPic = this.appConfig.config.defaultPicsUrl.user;
-  public posts = signal<ProfilePost[]>([]);
+  public readonly pulsantiNavbar = getProfileNavbar(
+    this.router,
+    this.appConfig.lang.Feature.Navbar,
+  );
 
   public currentTab = signal<string>('text');
   public editProfiloOpen = signal<boolean>(false);
+  public profilo = signal<iProfilo | null>(null);
   private destroy$ = new Subject<void>();
 
+  public user = computed<User>(() => this.profilo()?.user || ({} as User));
+  public posts = computed<ProfilePost[]>(() => this.profilo()?.tweets || []);
   public currentUser = computed<User | null>(() =>
     this.authService.currentUser(),
   );
-
-  public profilo = signal<User | null>(null);
-
   public isPersonalProfile = computed<boolean>(
-    () => this.profilo()?.id === this.currentUser()?.id,
+    () => !!this.user() && this.user()?.id === this.currentUser()?.id,
   );
 
   ngOnInit(): void {
@@ -59,27 +63,18 @@ export class ProfileComponent implements OnInit {
   }
 
   private loadProfile(idUser: string): void {
-    const userCaricati = this.authService.currentUsersCaricati;
-    const logged: boolean = userCaricati[idUser] || false;
-    const cachedUser: User | undefined = this.authService
-      .accountsUser()
-      .find((user) => user.id === idUser);
-
-    if (logged && cachedUser) {
-      this.updateLoadedUser(cachedUser);
-      this.profilo.set(cachedUser);
-    }
-
-    handlerFunc<User>({
-      skipCall: logged,
-      callHttp: () => this.authService.getUserById(idUser),
-      nextCall: (data: User | null) => {
+    this.profilo.set(null);
+    this.editProfiloOpen.set(false);
+    handlerFunc<iProfilo>({
+      destroy$: this.destroy$,
+      callHttp: () => this.authService.getProfiloById(idUser),
+      nextCall: (data: iProfilo | null) => {
         if (!data) {
           this.router.navigate(['home']);
           return;
         }
 
-        this.updateLoadedUser(data);
+        this.updateLoadedUser(data.user);
         this.profilo.set(data);
       },
       errorCall: () => (this.authService.currentUsersCaricati[idUser] = false),
@@ -88,6 +83,11 @@ export class ProfileComponent implements OnInit {
     if (this.authService.accountsUser().some((user) => user.id === idUser)) {
       this.authService.currentUsersCaricati[idUser] = true;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private updateLoadedUser(user: User): void {

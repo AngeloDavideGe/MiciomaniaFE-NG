@@ -27,12 +27,10 @@ export function isCurrentRoute(params: RouterInput): Observable<boolean> {
 }
 
 export function paraMapCustom(routeInput: RouteInput): void {
-  routeInput.route.paramMap
-    .pipe(takeUntil(routeInput.destroy))
-    .subscribe((params: ParamMap) => {
-      const id: string = params.get(routeInput.nameParam) || '';
-      routeInput.func(id);
-    });
+  routeInput.route.paramMap.pipe(takeUntil(routeInput.destroy)).subscribe({
+    next: (params: ParamMap) =>
+      routeInput.func(params.get(routeInput.nameParam) || ''),
+  });
 }
 
 interface RouterInput {

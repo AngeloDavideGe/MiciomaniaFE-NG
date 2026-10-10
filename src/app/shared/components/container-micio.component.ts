@@ -6,7 +6,10 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
-    <div class="container-micio" [style]="{ background: background() }">
+    <div
+      [class]="class() + ' container-micio'"
+      [style]="{ background: background() }"
+    >
       <ng-content></ng-content>
     </div>
   `,
@@ -28,4 +31,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 })
 export class ContaierMicioComponent {
   public background = input<string>('var(--card)');
+  public class = input<string>('');
 }

@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
-    <div class="descrizione-micio">
+    <div [class]="class() + ' descrizione-micio'">
       <div class="overlay" [style.background-image]="'url(' + immagine() + ')'">
         <div class="contenuto">
           <h1>{{ titolo() }}</h1>
@@ -96,4 +96,5 @@ export class DescrizioneMicioComponent {
   public titolo = input.required<string>();
   public descrizione = input.required<string>();
   public immagine = input<string>();
+  public class = input<string>('');
 }

@@ -7,8 +7,8 @@ form {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 24px;
-  padding: 20px;
+  margin-bottom: 10px;
+  padding: 12px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 18px;
@@ -21,7 +21,7 @@ form {
 }
 
 .form-label {
-  margin: 0;
+  margin: 3px;
   color: var(--text);
   font-size: 0.9rem;
   font-weight: 600;
@@ -212,7 +212,7 @@ select:-webkit-autofill {
 
 @media (max-width: 576px) {
   .form-field {
-    padding: 16px;
+    padding: 12px;
     border-radius: 14px;
   }
 

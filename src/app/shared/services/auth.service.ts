@@ -10,6 +10,7 @@ import {
   UserParams,
   UserToken,
 } from '../interfaces/users.interface';
+import { iProfilo } from '../../pages/auth/components/profilo/interfaces/profilo.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -48,8 +49,13 @@ export class AuthService extends BaseMicioService {
     });
   }
 
-  getUserById(id: string): Observable<User> {
-    return this.getCustom<User>(`Utenti/get_utente_by_id/${id}`, {
+  getProfiloById(id: string): Observable<iProfilo> {
+    const params = new HttpParams()
+      .set('idUtente', id)
+      .set('maxElems', this.appConfig.config.maxElement.postVisible);
+
+    return this.getCustom<iProfilo>('Posts/get_profilo', {
+      params: params,
       contexts: [{ contextToken: LOADING_CONTEXT, value: true }],
     });
   }

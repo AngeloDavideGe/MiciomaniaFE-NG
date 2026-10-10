@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { mesi } from '../constants/utility.constant';
 
-type DateFormatType = 'dd mmmm yyyy' | 'dd/mm/yyyy' | 'dd mmmm yyyy hh:mm';
+type DateFormatType = 'dd mmmm yyyy' | 'dd/mm/yyyy' | 'dd mmmm yyyy - hh:mm';
 
 @Pipe({
   name: 'dateFormat',
@@ -29,7 +29,6 @@ export function dateFormat(
   const giorni: number = date.getDate();
   const meseIndex: number = date.getMonth();
   const anno: number = date.getFullYear();
-
   const ore: number = date.getHours();
   const minuti: number = date.getMinutes();
 
@@ -42,8 +41,8 @@ export function dateFormat(
     case 'dd mmmm yyyy':
       return `${giorni} ${mesi[meseIndex]} ${anno}`;
 
-    case 'dd mmmm yyyy hh:mm':
-      return `${giorni} ${mesi[meseIndex]} ${anno} ${ore
+    case 'dd mmmm yyyy - hh:mm':
+      return `${giorni} ${mesi[meseIndex]} ${anno} - ${ore
         .toString()
         .padStart(2, '0')}:${minuti.toString().padStart(2, '0')}`;
 

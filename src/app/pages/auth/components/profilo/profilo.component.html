@@ -1,155 +1,103 @@
+<app-navbar-indy [pulsantiFine]="pulsantiNavbar" />
 <br />
-<app-container-micio>
-  <app-descrizione-micio
-    [titolo]="''"
-    [descrizione]="''"
-    [immagine]="
-      'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80'
-    "
-  >
-    <div half-row class="profile-summary">
-      <div class="profile-identity">
-        <div class="avatar-wrap">
-          <img
-            [src]="profilo()?.credenziali?.profilePic || defaultPic"
-            [alt]="lang.AvatarAlt"
-          />
-          <span
-            class="online-dot"
-            [attr.aria-label]="lang.OnlineAriaLabel"
-          ></span>
-        </div>
-        <div>
-          <div class="name-line">
-            <h2>{{ profilo()?.credenziali?.nome }}</h2>
-            <span
-              class="verified"
-              [attr.aria-label]="lang.ProfiloVerificatoAriaLabel"
-              ><i class="bi bi-patch-check-fill"></i
-            ></span>
+@if (profilo()) {
+  <app-container-micio [class]="'mt-5'">
+    <app-descrizione-micio
+      [titolo]="''"
+      [descrizione]="''"
+      [immagine]="
+        'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80'
+      "
+    >
+      <div half-row class="profile-summary">
+        <div class="profile-identity">
+          <div class="avatar-wrap">
+            <img
+              [src]="user().credenziali.profilePic || defaultPic"
+              [alt]="lang.AvatarAlt"
+            />
           </div>
-          <p class="handle">{{ profilo()?.id }}</p>
-          <span class="premium"
-            ><i class="bi bi-star-fill"></i>{{ profilo()?.admin?.ruolo }}</span
-          >
-        </div>
-      </div>
-      @if (isPersonalProfile()) {
-        <button class="edit-button" type="button" (click)="openEditProfile()">
-          <i class="bi bi-pencil-square"></i>
-          <span>{{ lang.ModificaProfilo }}</span>
-        </button>
-      }
-    </div>
-
-    <div all-row class="profile-body">
-      <div class="bio-column">
-        <p class="bio">
-          {{ profilo()?.profile?.bio }}
-        </p>
-        <div class="profile-meta">
-          <span
-            ><i class="bi bi-calendar3"></i> {{ lang.IscrittoDa }}
-            <strong>{{ profilo()?.profile?.compleanno }}</strong></span
-          >
-          <span
-            ><i class="bi bi-geo-alt"></i>
-            <strong>{{
-              profilo()?.profile?.compleanno | dateFormat
-            }}</strong></span
-          >
-        </div>
-      </div>
-      <div class="profile-stats" [attr.aria-label]="'Stats'">
-        <div>
-          <strong>128</strong><span>{{ lang.Post }}</span>
-        </div>
-        <div>
-          <strong>4.8K</strong><span>{{ lang.Punti }}</span>
-        </div>
-      </div>
-    </div>
-  </app-descrizione-micio>
-
-  <section class="posts-section" [attr.aria-label]="'Atts'">
-    <div class="tabs-wrap">
-      <app-tabs-indy [tabs]="tabs" (clickTab)="currentTab.set($event)" />
-    </div>
-
-    <div class="posts-list">
-      @switch (currentTab()) {
-        @case ("text") {
-          @if (posts().length > 0) {
-            @for (post of posts(); track post.date) {
-              <article class="post">
-                <div class="post-marker">
-                  <i class="bi bi-chat-left-text"></i>
-                </div>
-                <div class="post-content">
-                  <div class="post-header">
-                    <div>
-                      <strong>MicioMaster</strong>
-                      <span class="post-date">{{ post.date }}</span>
-                    </div>
-                    <button
-                      class="more-button"
-                      type="button"
-                      [attr.aria-label]="'Opts'"
-                    >
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                  </div>
-                  <div class="post-copy">
-                    @for (line of post.content; track $index) {
-                      <p>{{ line }}</p>
-                    }
-                  </div>
-                  <div class="post-actions">
-                    <button type="button">
-                      <i class="bi bi-heart"></i> {{ post.likes }}
-                    </button>
-                    <button type="button">
-                      <i class="bi bi-chat"></i> {{ post.comments }}
-                    </button>
-                  </div>
-                </div>
-              </article>
-            }
-          } @else {
-            <div class="empty-state">
-              <i class="bi bi-images"></i>
-              <h3>{{ lang.NessunaFoto }}</h3>
-              <p>{{ lang.FotoCompariranno }}</p>
+          <div>
+            <div class="name-line">
+              <h2>{{ user().credenziali.nome }}</h2>
             </div>
-          }
-        }
-
-        @case ("photo") {
-          <div class="empty-state">
-            <i class="bi bi-images"></i>
-            <h3>{{ lang.NessunaFoto }}</h3>
-            <p>{{ lang.FotoCompariranno }}</p>
+            <p class="handle">{{ user().id }}</p>
+            <span class="premium"
+              ><i class="bi bi-star-fill"></i>{{ user().admin.ruolo }}</span
+            >
           </div>
+        </div>
+        @if (isPersonalProfile()) {
+          <button class="edit-button" type="button" (click)="openEditProfile()">
+            <i class="bi bi-pencil-square"></i>
+            <span>{{ lang.ModificaProfilo }}</span>
+          </button>
         }
-      }
-    </div>
-  </section>
-</app-container-micio>
+      </div>
 
-@if (isPersonalProfile() && editProfiloOpen()) {
-  <app-modal-indy
-    [title]="lang.Modale.Titolo"
-    [subtitle]="lang.Modale.Sottotitolo"
-    [width]="'xl'"
-    (close)="editProfiloOpen.set(false)"
-  >
-    <div bodyModal>
-      <app-edit-user
-        [currentUser]="currentUser()"
-        (chiudi)="editProfiloOpen.set(false)"
-      ></app-edit-user>
-    </div>
-  </app-modal-indy>
+      <div all-row class="profile-body">
+        <div class="">
+          <p class="bio">
+            {{ user().profile.bio }}
+          </p>
+          <div class="profile-meta">
+            <span
+              ><i class="bi bi-calendar3"></i>
+              {{ lang.EditUser.Campi.Compleanno }}
+              <strong>{{
+                (user().profile.compleanno | dateFormat) || "Non specificato"
+              }}</strong></span
+            >
+            <span
+              ><i class="bi bi-geo-alt"></i>
+              <strong>{{
+                user().iscrizione.provincia || "Non specificato"
+              }}</strong></span
+            >
+          </div>
+        </div>
+        <div class="profile-stats" [attr.aria-label]="'Stats'">
+          <div>
+            <strong>{{ profilo()?.tweets?.length || 0 }}</strong
+            ><span>{{ lang.Post }}</span>
+          </div>
+          <div>
+            <strong>{{ user().iscrizione.punteggio || 0 }}</strong
+            ><span>{{ lang.Punti }}</span>
+          </div>
+        </div>
+      </div>
+    </app-descrizione-micio>
+
+    <section class="posts-section" [attr.aria-label]="lang.Post">
+      <div class="tabs-wrap">
+        <app-tabs-indy [tabs]="tabs" (clickTab)="currentTab.set($event)" />
+      </div>
+    </section>
+
+    <app-posts-user
+      [lang]="lang"
+      [user]="user()"
+      [posts]="posts()"
+      [currentTab]="currentTab()"
+    />
+  </app-container-micio>
+
+  @if (isPersonalProfile() && editProfiloOpen()) {
+    <app-modal-indy
+      [title]="lang.Modale.Titolo"
+      [subtitle]="lang.Modale.Sottotitolo"
+      [width]="'xl'"
+      (close)="editProfiloOpen.set(false)"
+    >
+      <div bodyModal>
+        <app-edit-user
+          [currentUser]="currentUser()"
+          (chiudi)="editProfiloOpen.set(false)"
+        ></app-edit-user>
+      </div>
+    </app-modal-indy>
+  }
 }
 
 <br />

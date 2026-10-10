@@ -16,8 +16,8 @@ import { User } from '../interfaces/users.interface';
 })
 export class OpereService extends BaseMicioService {
   public manga = signal<iManga | null>(null);
-  public canzoni = signal<Canzoni[]>([]);
   public mangaUtente = signal<MangaUtente | null>(null);
+  public canzoni = signal<Canzoni[]>([]);
   public classifica = signal<Classifica | null>(null);
 
   public mangaLoaded: boolean = false;

@@ -158,6 +158,8 @@
     "Post": "Posts",
     "Punti": "Points",
     "NessunaFoto": "No photos published",
+    "NessunPost": "No text posts published",
+    "PostCompariranno": "Text posts will appear here.",
     "FotoCompariranno": "Posts with photos will appear here.",
     "Modale": {
       "Titolo": "Edit profile",

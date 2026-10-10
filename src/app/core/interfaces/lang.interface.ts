@@ -149,6 +149,8 @@ export interface ILang {
     Post: string;
     Punti: string;
     NessunaFoto: string;
+    NessunPost: string;
+    PostCompariranno: string;
     FotoCompariranno: string;
     Modale: { Titolo: string; Sottotitolo: string };
     Tabs: { PostTesto: string; PostFoto: string };
