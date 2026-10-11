@@ -1,12 +1,10 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { environment } from '../environments/environment';
 import { gestisciCursore } from '../library/functions/cursor.functions';
-import { AppConfigService } from './core/api/appConfig.service';
-import {
-  getStoredAccountsUser,
-  getStoredCurrentUser,
-} from './core/functions/storage.getFunction';
-import { setLocalStorage } from './core/functions/storage.setFunction';
+import { setLocalStorage } from '../library/functions/storage.function';
+import { AppConfigService, LangEnum } from './core/api/appConfig.service';
+import { User } from './shared/interfaces/users.interface';
 import { AuthService } from './shared/services/auth.service';
 
 @Component({
@@ -27,18 +25,29 @@ import { AuthService } from './shared/services/auth.service';
 export class AppComponent implements OnInit {
   private authService = inject(AuthService);
   private appConfig = inject(AppConfigService);
-
-  constructor() {
-    this.authService.currentUser.set(getStoredCurrentUser());
-    this.authService.accountsUser.set(getStoredAccountsUser());
-  }
+  private readonly keys = environment.LocalStorageKeys;
 
   ngOnInit(): void {
     gestisciCursore(this.appConfig.currentCursor());
   }
 
   @HostListener('window:beforeunload')
-  setLocalStorage(): void {
-    setLocalStorage(this.authService, this.appConfig);
+  setLocalStorageFunc(): void {
+    setLocalStorage<User | null>(
+      this.keys.ACCOUNTS_USER,
+      this.authService.currentUser(),
+    );
+    setLocalStorage<User[]>(
+      this.keys.ACCOUNTS_USER,
+      this.authService.accountsUser(),
+    );
+    setLocalStorage<LangEnum>(
+      this.keys.CURRENT_LANG,
+      this.appConfig.currentLang(),
+    );
+    setLocalStorage<string>(
+      this.keys.CURRENT_CURSOR,
+      this.appConfig.currentCursor(),
+    );
   }
 }

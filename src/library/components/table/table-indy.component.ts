@@ -53,7 +53,7 @@ export class TabellaIndyComponent<T> {
   public arrayElemForPage = input<number[]>([1, 5, 10, 20]);
   public recordBadge = input<Record<string, string>>({});
   public trackByKey = input<keyof T>('id' as keyof T);
-  public templateCustom = input<TemplateRef<any> | null>(null);
+  public templateTableCustom = input<TemplateRef<any> | null>(null);
   public keyPrimary = input<keyof T | null>(null);
 
   public elemForPage = model<number>(20);

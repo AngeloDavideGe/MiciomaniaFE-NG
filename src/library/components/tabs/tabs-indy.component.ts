@@ -18,7 +18,6 @@ import { iTab } from '../../interfaces/navbar.interface';
 })
 export class TabsIndyComponent {
   public tabs = input<iTab[]>(defaultTabs);
-  public tipo = input<'tab' | 'lista'>('tab');
   public disableNext = input<boolean>(false);
   public initialTab = input<string>('');
 

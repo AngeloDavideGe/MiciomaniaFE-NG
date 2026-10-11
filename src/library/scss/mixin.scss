@@ -44,11 +44,12 @@
 }
 
 .grid-card-layout {
+  --card-gap: 1.5rem;
   --card-width: 20rem;
   --card-position: center;
 
   grid-template-columns: repeat(auto-fill, var(--card-width));
-  gap: 1.5rem;
+  gap: var(--card-gap);
 
   @media (max-width: 767.98px) {
     @include flex-justify(center, stretch, row, grid);

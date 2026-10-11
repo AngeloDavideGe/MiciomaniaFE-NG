@@ -14,13 +14,61 @@
 
     <div
       class="grid-card-layout"
-      [style.--card-width]="lunghezzaCard()"
-      [style]="{ '--card-position': cardPosition() }"
+      [style]="{
+        '--card-position': cardPosition(),
+        '--card-gap': cardGap(),
+        ' --card-width': lunghezzaCard(),
+      }"
     >
       @for (elem of filtri.elemFilter(); track elem.titolo) {
-        <ng-container
-          *ngTemplateOutlet="cardTemplate; context: { $implicit: elem }"
-        />
+        <div
+          class="indy-card"
+          [style]="{
+            width: lunghezzaCard(),
+            'border-radius': borderRadiusCard(),
+            '--card-color': elem.color || 'var(--primary)',
+          }"
+        >
+          @if (elem?.urlPic) {
+            <img
+              [src]="elem.urlPic"
+              [style.height]="altezzaImg()"
+              class="card-image"
+            />
+          }
+
+          <div class="card-content">
+            <h5>
+              {{ elem.titolo }}
+            </h5>
+
+            @if (elem.descrizione) {
+              <div class="description" [innerHTML]="elem.descrizione"></div>
+            }
+
+            @if (elem.bottone) {
+              <app-button-indy
+                class="mt-auto"
+                [text]="
+                  (currentButton() == elem.titolo && secondNameButton()
+                    ? secondNameButton()
+                    : elem.bottone) || ''
+                "
+                [backgroundColor]="elem.color || 'var(--primary)'"
+                (clickButton)="clickButton(elem)"
+              />
+            }
+
+            @if (templateCardCustom()) {
+              <ng-container
+                *ngTemplateOutlet="
+                  templateCardCustom();
+                  context: { $implicit: elem }
+                "
+              />
+            }
+          </div>
+        </div>
       }
     </div>
 
@@ -45,47 +93,4 @@
       </button>
     }
   </div>
-} @else if (singleElem()) {
-  <ng-container
-    *ngTemplateOutlet="cardTemplate; context: { $implicit: singleElem() }"
-  />
 }
-
-<ng-template #cardTemplate let-elem>
-  <div
-    class="indy-card"
-    [style.width]="lunghezzaCard()"
-    [style.--card-color]="elem.color || 'var(--primary)'"
-  >
-    @if (elem?.urlPic) {
-      <img
-        [src]="elem.urlPic"
-        [style.height]="altezzaImg()"
-        class="card-image"
-      />
-    }
-
-    <div class="card-content" [class]="classBody()">
-      <h5>
-        {{ elem.titolo }}
-      </h5>
-
-      @if (elem.descrizione) {
-        <div class="description" [innerHTML]="elem.descrizione"></div>
-      }
-
-      @if (elem.bottone) {
-        <app-button-indy
-          class="mt-auto"
-          [text]="
-            currentButton() == elem.titolo && secondNameButton()
-              ? secondNameButton()
-              : elem.bottone
-          "
-          [backgroundColor]="elem.color || 'var(--primary)'"
-          (clickButton)="clickButton(elem)"
-        />
-      }
-    </div>
-  </div>
-</ng-template>

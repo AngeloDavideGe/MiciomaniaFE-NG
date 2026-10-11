@@ -7,12 +7,9 @@ import {
 } from '../../../library/functions/handler.function';
 import { IAppConfig } from '../interfaces/appConfig.interface';
 import { ILang } from '../interfaces/lang.interface';
-
+import { getLocalStorage } from '../../../library/functions/storage.function';
 import { LOADING_CONTEXT } from '../../../library/interceptors/loading.interceptor';
-import {
-  getStoredCurrentLang,
-  getStoredCurrentCursor,
-} from '../functions/storage.getFunction';
+import { environment } from '../../../environments/environment';
 
 interface IConfigService {
   config: IAppConfig;
@@ -29,9 +26,14 @@ export enum LangEnum {
 })
 export class AppConfigService {
   private http = inject(HttpClient);
+  private readonly keys = environment.LocalStorageKeys;
 
-  public currentLang = signal<LangEnum>(getStoredCurrentLang());
-  public currentCursor = signal<string>(getStoredCurrentCursor());
+  public currentLang = signal<LangEnum>(
+    getLocalStorage<LangEnum>(this.keys.CURRENT_LANG, LangEnum.it),
+  );
+  public currentCursor = signal<string>(
+    getLocalStorage<string>(this.keys.CURRENT_CURSOR, ''),
+  );
 
   public config!: IAppConfig;
   public lang!: ILang;

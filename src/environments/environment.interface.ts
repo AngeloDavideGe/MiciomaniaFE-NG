@@ -5,4 +5,10 @@ export interface IEnvironment {
     PY: string;
     DB2: string;
   };
+  LocalStorageKeys: {
+    CURRENT_USER: string;
+    ACCOUNTS_USER: string;
+    CURRENT_LANG: string;
+    CURRENT_CURSOR: string;
+  };
 }

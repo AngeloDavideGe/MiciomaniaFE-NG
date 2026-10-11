@@ -6,7 +6,7 @@ import { EditUserComponent } from './components/edit-user.component';
 import { ModalIndyComponent } from '../../../../../library/components/modal/modal-indy.component';
 import { DateFormatPipe } from '../../../../../library/pipes/date-format.pipe';
 import { NavbarIndyComponent } from '../../../../../library/components/navbar/navbar-indy.component';
-import { PostsUserComponent } from './components/posts-user.component';
+import { PostsUserComponent } from './components/posts-user/posts-user.component';
 
 export const profilo_imports: Type<any>[] = [
   ContaierMicioComponent,

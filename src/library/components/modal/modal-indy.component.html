@@ -17,7 +17,7 @@
             </p>
           }
 
-          <ng-content select="[headerModal]"></ng-content>
+          <ng-content select="[headerModal]" />
         </div>
 
         <button type="button" class="close-button" (click)="close.emit()">
@@ -27,13 +27,13 @@
 
       @if (showBody()) {
         <div class="custom-modal-body">
-          <ng-content select="[bodyModal]"></ng-content>
+          <ng-content select="[bodyModal]" />
         </div>
       }
 
       @if (showFooter()) {
         <div class="custom-modal-footer">
-          <ng-content select="[footerModal]"></ng-content>
+          <ng-content select="[footerModal]" />
 
           <div class="footer-actions">
             <app-button-indy

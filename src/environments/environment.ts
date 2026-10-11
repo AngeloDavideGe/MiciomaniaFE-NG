@@ -7,4 +7,10 @@ export const environment: IEnvironment = {
     PY: '/bepy',
     DB2: 'https://qxstdfesxeseopikjayt.supabase.co/rest/v1/',
   },
+  LocalStorageKeys: {
+    CURRENT_USER: 'currentUtente',
+    ACCOUNTS_USER: 'accountsUtente',
+    CURRENT_LANG: 'currentLingua',
+    CURRENT_CURSOR: 'currentCursor',
+  },
 };

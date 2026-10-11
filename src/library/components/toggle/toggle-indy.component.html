@@ -49,7 +49,7 @@
             }
           }
 
-          <ng-content select="[downContent]"></ng-content>
+          <ng-content select="[downContent]" />
         </ul>
       </div>
     }
@@ -95,7 +95,7 @@
 
   @case ("content") {
     <div class="dropdown-panel shadow-sm" [style]="styles()">
-      <ng-content select="[onlyContent]"></ng-content>
+      <ng-content select="[onlyContent]" />
     </div>
   }
 }

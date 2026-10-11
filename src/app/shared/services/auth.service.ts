@@ -1,8 +1,9 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
+import { getLocalStorage } from '../../../library/functions/storage.function';
 import { LOADING_CONTEXT } from '../../../library/interceptors/loading.interceptor';
-import { BaseMicioService } from './base-micio.service';
+import { iProfilo } from '../../pages/auth/components/profilo/interfaces/profilo.interface';
 import { Ruolo } from '../enums/users.enum';
 import {
   CronUtenti,
@@ -10,22 +11,28 @@ import {
   UserParams,
   UserToken,
 } from '../interfaces/users.interface';
-import { iProfilo } from '../../pages/auth/components/profilo/interfaces/profilo.interface';
+import { BaseMicioService } from './base-micio.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService extends BaseMicioService {
+  private readonly keys = environment.LocalStorageKeys;
   public token = signal<string | null>('');
-  public currentUser = signal<User | null>(null);
-  public accountsUser = signal<User[]>([]);
+  public currentUser = signal<User | null>(
+    getLocalStorage<User | null>(this.keys.CURRENT_USER, null),
+  );
+  public accountsUser = signal<User[]>(
+    getLocalStorage<User[]>(this.keys.ACCOUNTS_USER, []),
+  );
 
   public users = signal<UserParams[]>([]);
   public notifiche = signal<CronUtenti[]>([]);
 
   public usersCaricati: boolean = false;
   public notificheCaricate: boolean = false;
-  public currentUsersCaricati: Record<string, boolean> = {};
+  public profiliCaricati: Record<string, iProfilo> = {};
 
   constructor() {
     super('CS');

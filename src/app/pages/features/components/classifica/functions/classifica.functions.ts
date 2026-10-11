@@ -22,16 +22,14 @@ export function getClassificaTabs(lang: ILang['Classifica']['Tabs']): iTab[] {
   ];
 }
 
-export function getVisualizzaTabs(lang: ILang['Classifica']['Tabs']): iTab[] {
+export function getVisualizzaTabs(): iTab[] {
   return [
     {
       id: 'tabella',
-      label: lang.Tabella,
       icona: 'bi bi-grid',
     },
     {
       id: 'grafico',
-      label: lang.Grafico,
       icona: 'bi bi-list',
     },
   ];

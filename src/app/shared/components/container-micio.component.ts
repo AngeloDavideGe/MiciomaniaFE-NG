@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       [class]="class() + ' container-micio'"
       [style]="{ background: background() }"
     >
-      <ng-content></ng-content>
+      <ng-content />
     </div>
   `,
   styles: `

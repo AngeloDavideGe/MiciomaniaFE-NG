@@ -1,42 +1,27 @@
-@switch (tipo()) {
-  @case ("tab") {
-    <nav class="nav nav-tabs border-bottom-0">
-      @for (tab of tabs(); track tab.id) {
-        <button
-          class="nav-link tab-item me-2 px-3 py-2"
-          (click)="clickTabFunc(tab)"
-          [style.color]="
-            selectTab() === tab.id
-              ? tab.color || 'var(--primary)'
-              : 'var(--text)'
-          "
-          [style.border-bottom]="
-            selectTab() === tab.id
-              ? '2px solid ' + tab.color
-              : '2px solid var(--border)'
-          "
-        >
-          {{ tab.label }}
-        </button>
+<nav class="nav nav-tabs border-bottom-0">
+  @for (tab of tabs(); track tab.id) {
+    <button
+      class="nav-link tab-item me-2 px-3 py-2"
+      (click)="clickTabFunc(tab)"
+      [style.color]="
+        selectTab() === tab.id ? tab.color || 'var(--primary)' : 'var(--text)'
+      "
+      [style.border-bottom]="
+        selectTab() === tab.id
+          ? '2px solid ' + tab.color
+          : '2px solid var(--border)'
+      "
+    >
+      @if (tab.label) {
+        {{ tab.label }}
       }
-    </nav>
 
-    <div class="tab-content">
-      <ng-content select="[tabContent]"></ng-content>
-    </div>
-  }
-  @case ("lista") {
-    <div class="elemento-finale mb-3 me-2">
-      @for (tab of tabs(); track tab.id) {
-        <button
-          class="btn btn-outline-secondary tab-list-button me-2"
-          [style.--tab-accent]="tab.color || 'var(--primary)'"
-          [class.active]="selectTab() === tab.id"
-          (click)="clickTabFunc(tab)"
-        >
-          <i [class]="tab.icona"></i>
-        </button>
+      @if (tab.icona) {
+        <i
+          [class]="tab.icona"
+          [style]="{ 'padding-left': tab.label ? '1rem' : '0' }"
+        ></i>
       }
-    </div>
+    </button>
   }
-}
+</nav>

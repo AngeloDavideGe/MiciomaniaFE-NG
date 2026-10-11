@@ -1,6 +1,5 @@
 .indy-card {
   overflow: hidden;
-  border-radius: 1rem;
   background: var(--card);
   border: 1px solid color-mix(in srgb, var(--card-color) 55%, black);
   transition:
@@ -14,17 +13,10 @@
 }
 
 .card-content {
-  min-height: 12rem;
   display: flex;
   flex-direction: column;
   padding: 1.25rem;
   color: var(--text);
-  background: linear-gradient(
-    180deg,
-    var(--card-color) 0%,
-    color-mix(in srgb, var(--card-color) 70%, black) 45%,
-    black 100%
-  );
 
   h5 {
     margin-bottom: 1rem;

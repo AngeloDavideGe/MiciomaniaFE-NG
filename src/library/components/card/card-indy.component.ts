@@ -1,4 +1,3 @@
-import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,6 +10,7 @@ import {
   model,
   output,
   signal,
+  TemplateRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { debounceTimeoutCustom } from '../../functions/debounce.function';
@@ -24,12 +24,13 @@ import {
 } from '../../interfaces/pagination.interface';
 import { ButtonIndyComponent } from '../button/button-indy.component';
 import { PaginazioneIndyComponent } from '../pagination/pagination-indy.component';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-card-indy',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PaginazioneIndyComponent, NgTemplateOutlet, ButtonIndyComponent],
+  imports: [PaginazioneIndyComponent, ButtonIndyComponent, NgTemplateOutlet],
   templateUrl: './card-indy.component.html',
   styleUrl: './card-indy.component.scss',
 })
@@ -40,17 +41,18 @@ export class CardIndyComponent {
   public elemForPage = signal<number>(0);
 
   public elems = input<iCard[] | null>(null);
-  public singleElem = input<iCard | null>(null);
   public lunghezzaCard = input<string>('20rem');
+  public borderRadiusCard = input<string>('1rem');
   public altezzaImg = input<string>('20rem');
-  public cardPosition = input<string>('center');
+  public cardPosition = input<'start' | 'center' | 'end'>('center');
+  public cardGap = input<string>('1.5rem');
   public titoloLista = input<string>('');
-  public classBody = input<string>('');
   public tipoSlice = input<TypePagination>('all');
   public tipoPaginazione = input<TipoPaginazione>('singolo');
   public arrayPags = input<RaggioPage[]>(defaultArrayPags);
   public sliceAutomaticoInSec = input<number | undefined>(undefined);
   public secondNameButton = input<string | undefined>(undefined);
+  public templateCardCustom = input<TemplateRef<any> | null>(null);
 
   public singleSliceIndicators = computed(() => {
     if (this.tipoSlice() !== 'single') return [];

@@ -15,20 +15,3 @@
     border-left-color: var(--border);
   }
 }
-
-.tab-list-button {
-  color: var(--tab-accent);
-  background-color: var(--background);
-  border-color: var(--tab-accent);
-  transition:
-    background-color 0.2s ease-in-out,
-    border-color 0.2s ease-in-out,
-    color 0.2s ease-in-out;
-
-  &:hover,
-  &.active {
-    color: var(--background);
-    background-color: var(--tab-accent);
-    border-color: var(--tab-accent);
-  }
-}

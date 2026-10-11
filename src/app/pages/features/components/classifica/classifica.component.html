@@ -7,11 +7,7 @@
     <div all-row>
       <div class="elemento-centrato p-2">
         <app-tabs-indy [tabs]="tabs" [(selectTab)]="currentTab" />
-        <app-tabs-indy
-          [tabs]="viewTabs"
-          [tipo]="'lista'"
-          [(selectTab)]="viewTab"
-        />
+        <app-tabs-indy [tabs]="viewTabs" [(selectTab)]="viewTab" />
       </div>
 
       <br />
@@ -51,10 +47,10 @@
                   [titoloTabella]="lang.Tabelle.Squadre"
                   [colonne]="colonneSquadre"
                   [keyPrimary]="'nome'"
-                  [templateCustom]="customTemplate"
+                  [templateTableCustom]="templateTableCustom"
                   [recordBadge]="badgeTable"
                 >
-                  <ng-template #customTemplate let-elem>
+                  <ng-template #templateTableCustom let-elem>
                     <div class="dettagli-squadra">
                       <div class="squadra-descrizione">
                         <p>{{ elem.descrizione }}</p>

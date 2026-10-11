@@ -16,13 +16,13 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           </p>
 
           <div class="mt-3">
-            <ng-content select="[half-row]"></ng-content>
+            <ng-content select="[half-row]" />
           </div>
         </div>
       </div>
 
       <div class="all-row">
-        <ng-content select="[all-row]"></ng-content>
+        <ng-content select="[all-row]" />
       </div>
     </div>
   `,

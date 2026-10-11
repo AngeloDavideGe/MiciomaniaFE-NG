@@ -37,7 +37,7 @@ export class ClassificaComponent implements OnInit {
 
   public readonly lang = this.appConfig.lang.Classifica;
   public readonly tabs = getClassificaTabs(this.lang.Tabs);
-  public readonly viewTabs = getVisualizzaTabs(this.lang.Tabs);
+  public readonly viewTabs = getVisualizzaTabs();
   public readonly colonneGiocatori = getColonneTabellaGiocatori(
     this.lang.Colonne,
   );

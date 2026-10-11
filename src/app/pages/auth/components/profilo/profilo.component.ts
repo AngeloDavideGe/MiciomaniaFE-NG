@@ -63,48 +63,37 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private loadProfile(idUser: string): void {
-    this.profilo.set(null);
-    this.editProfiloOpen.set(false);
-    handlerFunc<iProfilo>({
+    handlerFunc<iProfilo | null>({
+      skipCall: !!this.authService.profiliCaricati[idUser],
       destroy$: this.destroy$,
       callHttp: () => this.authService.getProfiloById(idUser),
+      elseCall: () =>
+        this.profilo.set(this.authService.profiliCaricati[idUser]),
       nextCall: (data: iProfilo | null) => {
         if (!data) {
           this.router.navigate(['home']);
           return;
         }
 
-        this.updateLoadedUser(data.user);
         this.profilo.set(data);
-      },
-      errorCall: () => (this.authService.currentUsersCaricati[idUser] = false),
-    });
+        this.authService.profiliCaricati[idUser] = data;
 
-    if (this.authService.accountsUser().some((user) => user.id === idUser)) {
-      this.authService.currentUsersCaricati[idUser] = true;
-    }
+        const accountPersonale: User | undefined = this.authService
+          .accountsUser()
+          .find((x: User) => x.id == idUser);
+
+        if (accountPersonale) {
+          this.authService.accountsUser.update((users: User[]) =>
+            users.map((user: User) => (user.id == idUser ? data.user : user)),
+          );
+        }
+      },
+    });
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  private updateLoadedUser(user: User): void {
-    if (user.id === this.authService.currentUser()?.id) {
-      this.authService.currentUser.set(user);
-    }
-
-    const accountExists = this.authService
-      .accountsUser()
-      .some((account) => account.id === user.id);
-
-    if (accountExists) {
-      this.authService.accountsUser.update((accounts) =>
-        accounts.map((account) => (account.id === user.id ? user : account)),
-      );
-      this.authService.currentUsersCaricati[user.id] = true;
-    }
   }
 
   public openEditProfile(): void {

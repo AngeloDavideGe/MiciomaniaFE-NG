@@ -2,10 +2,10 @@ import { Component, computed, inject, input, output } from '@angular/core';
 import { MultiFormComponent } from '../../../../../../library/components/multi-form/multi-form.component';
 import { handlerFunc } from '../../../../../../library/functions/handler.function';
 import { RecordStrutturaMultiForm } from '../../../../../../library/interfaces/form.interface';
+import { AppConfigService } from '../../../../../core/api/appConfig.service';
 import { User } from '../../../../../shared/interfaces/users.interface';
 import { AuthService } from '../../../../../shared/services/auth.service';
 import { getEditUserForm } from '../../../functions/auth.function';
-import { AppConfigService } from '../../../../../core/api/appConfig.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -75,12 +75,11 @@ export class EditUserComponent {
       callHttp: () => this.authService.updateUser(updatedUser, true),
       nextCall: () => {
         this.authService.currentUser.set(updatedUser);
-        this.authService.accountsUser.update((accounts) =>
-          accounts.map((account) =>
+        this.authService.accountsUser.update((accounts: User[]) =>
+          accounts.map((account: User) =>
             account.id === updatedUser.id ? updatedUser : account,
           ),
         );
-        this.authService.currentUsersCaricati[updatedUser.id] = true;
         this.chiudi.emit();
       },
     });

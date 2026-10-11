@@ -1,0 +1,49 @@
+@switch (currentTab()) {
+  @case ("text") {
+    @if (postsOnlyText().length > 0) {
+      @for (post of postsOnlyText(); track post.id) {
+        <article class="post">
+          <div class="post-marker">
+            <i class="bi bi-chat-left-text"></i>
+          </div>
+          <div class="post-content">
+            <div class="post-header">
+              <div>
+                <strong>{{ user().credenziali.nome }}</strong>
+                <span class="post-date">{{
+                  post.dataCreazione | dateFormat
+                }}</span>
+              </div>
+            </div>
+            <div class="post-copy">{{ post.testo }}</div>
+          </div>
+        </article>
+      }
+    } @else {
+      <div class="empty-state">
+        <i class="bi bi-chat-left-text"></i>
+        <h3>{{ lang().NessunPost }}</h3>
+        <p>{{ lang().PostCompariranno }}</p>
+      </div>
+    }
+  }
+
+  @case ("photo") {
+    @if (postsWithImages().length > 0) {
+      <article style="padding: 0rem 0rem 1rem 1rem">
+        <app-card-indy
+          [elems]="postsWithImages()"
+          [cardPosition]="'start'"
+          [cardGap]="'0.5rem'"
+          [borderRadiusCard]="'0'"
+        />
+      </article>
+    } @else {
+      <div class="empty-state">
+        <i class="bi bi-images"></i>
+        <h3>{{ lang().NessunaFoto }}</h3>
+        <p>{{ lang().FotoCompariranno }}</p>
+      </div>
+    }
+  }
+}

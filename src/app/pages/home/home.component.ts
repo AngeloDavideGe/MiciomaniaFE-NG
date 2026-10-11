@@ -1,16 +1,15 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { ConfirmService } from '../../../library/dialogs/confirm/confirm.service';
+import { gestisciCursore } from '../../../library/functions/cursor.functions';
 import { handlerFunc } from '../../../library/functions/handler.function';
 import { isCurrentRoute } from '../../../library/functions/router.function';
+import { removeLocalStorage } from '../../../library/functions/storage.function';
 import { iCard } from '../../../library/interfaces/card.interface';
 import { ToggleProps } from '../../../library/interfaces/toggle.interface';
 import { AppConfigService } from '../../core/api/appConfig.service';
-import {
-  ACCOUNTS_USER_KEY,
-  CURRENT_USER_KEY,
-} from '../../core/functions/storage.setFunction';
 import { ILang } from '../../core/interfaces/lang.interface';
 import {
   CronUtenti,
@@ -25,7 +24,6 @@ import {
   getToggleProps,
 } from './functions/home.functions';
 import { home_imports } from './home.imports';
-import { gestisciCursore } from '../../../library/functions/cursor.functions';
 
 @Component({
   selector: 'app-home',
@@ -45,6 +43,7 @@ export class HomeComponent {
 
   public readonly pic = this.appConfig.config.defaultPicsUrl.user;
   public readonly maxUsers = this.appConfig.config.maxElement.users;
+  private readonly keys = environment.LocalStorageKeys;
   public readonly arrayRaggi = defaultHomeArrayPags();
 
   public lang = computed<ILang['Home']>(() => {
@@ -178,8 +177,8 @@ export class HomeComponent {
         this.authService.currentUser.set(null);
         this.authService.accountsUser.set([]);
         this.authService.token.set(null);
-        localStorage.removeItem(CURRENT_USER_KEY);
-        localStorage.removeItem(ACCOUNTS_USER_KEY);
+        removeLocalStorage(this.keys.CURRENT_USER);
+        removeLocalStorage(this.keys.ACCOUNTS_USER);
         this.menuOpen.set('');
       },
       notConfirmFunc: () => {},
