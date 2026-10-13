@@ -7,7 +7,6 @@
     <div all-row>
       <div class="elemento-centrato p-2">
         <app-tabs-indy [tabs]="tabs" [(selectTab)]="currentTab" />
-        <app-tabs-indy [tabs]="viewTabs" [(selectTab)]="viewTab" />
       </div>
 
       <div class="mt-2"></div>
@@ -17,64 +16,51 @@
       } @else {
         @switch (currentTab()) {
           @case ("giocatori") {
-            @switch (viewTab()) {
-              @case ("tabella") {
-                <app-table-indy
-                  [elemTable]="giocatori()"
-                  [titoloTabella]="lang.Tabelle.Giocatori"
-                  [colonne]="colonneGiocatori"
-                  [recordBadge]="badgeTable"
-                >
-                </app-table-indy>
-              }
-              @case ("grafico") {
-                <div class="classifica-grafico">
-                  <app-svg-indy
-                    [paths]="pathGiocatori()"
-                    [width]="700"
-                    [height]="graficoAltezzaGiocatori()"
-                    [viewbox]="'0 0 700 ' + graficoAltezzaGiocatori()"
-                  />
-                </div>
-              }
-            }
+            <app-table-indy
+              [elemTable]="giocatori()"
+              [titoloTabella]="lang.Tabelle.Giocatori"
+              [colonne]="colonneGiocatori"
+              [recordBadge]="badgeTable"
+            />
           }
+
           @case ("squadre") {
-            @switch (viewTab()) {
-              @case ("tabella") {
-                <app-table-indy
-                  [elemTable]="squadre()"
-                  [titoloTabella]="lang.Tabelle.Squadre"
-                  [colonne]="colonneSquadre"
-                  [keyPrimary]="'nome'"
-                  [templateTableCustom]="templateTableCustom"
-                  [recordBadge]="badgeTable"
-                >
-                  <ng-template #templateTableCustom let-elem>
-                    <div class="dettagli-squadra">
-                      <div class="squadra-descrizione">
-                        <p>{{ elem.descrizione }}</p>
-                      </div>
-                    </div>
-                  </ng-template>
-                </app-table-indy>
-              }
-              @case ("grafico") {
-                <div class="classifica-grafico">
-                  <app-svg-indy
-                    [paths]="pathSquadre()"
-                    [width]="700"
-                    [height]="graficoAltezzaSquadre()"
-                    [viewbox]="'0 0 700 ' + graficoAltezzaSquadre()"
-                    [modale]="modaleClassifica()"
-                  />
+            <app-table-indy
+              [elemTable]="squadre()"
+              [titoloTabella]="lang.Tabelle.Squadre"
+              [colonne]="colonneSquadre"
+              [keyPrimary]="'nome'"
+              [templateTableCustom]="templateTableCustom"
+              [recordBadge]="badgeTable"
+            >
+              <ng-template #templateTableCustom let-elem>
+                <div class="dettagli-squadra">
+                  <div class="squadra-descrizione">
+                    <p>{{ elem.descrizione }}</p>
+                  </div>
                 </div>
-              }
-            }
+              </ng-template>
+            </app-table-indy>
+          }
+          @case ("grafico") {
+            <div class="classifica-grafico">
+              <app-svg-indy
+                [paths]="pathSquadre()"
+                [width]="700"
+                [height]="graficoAltezzaSquadre()"
+                [modale]="modaleClassifica()"
+              />
+
+              <app-svg-indy
+                [paths]="pathGiocatori()"
+                [width]="500"
+                [height]="330"
+              />
+            </div>
           }
         }
       }
-      <div class="mt-2"></div>
+      <div class="pt-3"></div>
     </div>
   </app-descrizione-micio>
 </app-container-micio>

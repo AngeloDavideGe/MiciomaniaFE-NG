@@ -1,12 +1,18 @@
 import { GetOrderCustom } from '../../../../../../library/functions/ordinamento.function';
-import { creaBarPaths } from '../../../../../../library/functions/svg.function';
+import {
+  creaBarPaths,
+  creaCirclePaths,
+} from '../../../../../../library/functions/svg.function';
 import { PathSvgCustom } from '../../../../../../library/interfaces/svg.interface';
 import {
   Classifica,
   Giocatore,
   Squadra,
 } from '../../../../../shared/interfaces/opere.interface';
-import { opzioniGraficoClassifica } from './classifica.functions';
+import {
+  opzioniGraficoClassifica,
+  opzioniGraficoGiocatori,
+} from './classifica.functions';
 
 export function computedTabellaClassifica(
   key: keyof Classifica,
@@ -25,7 +31,7 @@ export function computedTabellaClassifica(
   return GetOrderCustom<Giocatore | Squadra>(items, 'punteggio', false).map(
     (item: Giocatore | Squadra, index: number) => ({
       ...item,
-      posizione: index + 1,
+      posizione: `#${index + 1}`,
     }),
   );
 }
@@ -51,13 +57,13 @@ export function computedPathsClassifica(
 
   switch (key) {
     case 'giocatori': {
-      return creaBarPaths(
+      return creaCirclePaths(
         items.map((item: Giocatore | Squadra) => ({
           titolo: (item as Giocatore).idUtente + ' - ' + item.punteggio,
           valore: item.punteggio,
           colore: 'var(--primary-light)',
         })),
-        opzioniGraficoClassifica(),
+        opzioniGraficoGiocatori(),
       );
     }
     case 'squadre': {

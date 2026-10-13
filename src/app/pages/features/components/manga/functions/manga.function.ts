@@ -26,6 +26,14 @@ export function getMangaTabs(lang: ILang['Manga']['Tabs']): iTab[] {
   ];
 }
 
+export function getRecordMangaTabs(): Record<string, boolean | null> {
+  return {
+    tutti: null,
+    in_corso: false,
+    completati: true,
+  };
+}
+
 export function getMangaSidebar(
   lang: ILang['Manga']['Categorie'],
 ): ISidebarItem[] {

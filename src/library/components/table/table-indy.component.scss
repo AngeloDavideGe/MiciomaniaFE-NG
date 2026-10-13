@@ -40,7 +40,7 @@
           color: var(--text-secondary);
           padding: 6px 12px;
           border-radius: 6px;
-          background: rgba(255, 255, 255, 0.05);
+          background: rgba(var(--background-rgb), 0.5);
           border: 1px solid var(--border);
         }
       }
@@ -141,7 +141,7 @@
               font-size: 0.7rem;
               color: var(--text-secondary);
               transition: color 0.2s;
-              
+
               &.active {
                 color: var(--primary);
               }
@@ -159,8 +159,16 @@
           border-bottom: 1px solid var(--border);
           transition: all 0.2s;
 
+          &:nth-child(odd) {
+            background: var(--card);
+          }
+
+          &:nth-child(even) {
+            background: var(--card-light);
+          }
+
           &:hover {
-            background: rgba(138, 77, 255, 0.05);
+            background: rgba(138, 77, 255, 0.08);
           }
 
           td {
@@ -188,7 +196,7 @@
           }
 
           &.expanded {
-            background: rgba(138, 77, 255, 0.08);
+            background: rgba(138, 77, 255, 0.12);
           }
         }
 
@@ -235,7 +243,7 @@
 
             &:hover {
               background: var(--primary);
-              color: var(--text);
+              color: var(--badge-text);
               border-color: var(--primary);
               box-shadow: var(--primary-shadow);
               transform: scale(1.05);
@@ -319,42 +327,8 @@
       margin: 0;
     }
   }
-
-  // Badge personalizzati
-  .badge {
-    &-success {
-      background: rgba(0, 255, 136, 0.15);
-      color: #00ff88;
-      border-color: rgba(0, 255, 136, 0.3);
-    }
-
-    &-warning {
-      background: rgba(255, 193, 7, 0.15);
-      color: #ffc107;
-      border-color: rgba(255, 193, 7, 0.3);
-    }
-
-    &-danger {
-      background: rgba(255, 61, 113, 0.15);
-      color: #ff3d71;
-      border-color: rgba(255, 61, 113, 0.3);
-    }
-
-    &-info {
-      background: rgba(74, 222, 255, 0.15);
-      color: #4adeff;
-      border-color: rgba(74, 222, 255, 0.3);
-    }
-    
-    &-primary {
-      background: rgba(138, 77, 255, 0.15);
-      color: var(--primary-light);
-      border-color: rgba(138, 77, 255, 0.3);
-    }
-  }
 }
 
-// Responsive per schermi piccoli
 @media (max-width: 768px) {
   .table-wrapper {
     border-radius: 8px;
@@ -390,26 +364,16 @@
           padding: 10px 12px;
           font-size: 0.65rem;
 
-          &:first-child {
-            padding-left: 16px;
-          }
-
-          &:last-child {
-            padding-right: 16px;
-          }
+          &:first-child { padding-left: 16px; }
+          &:last-child  { padding-right: 16px; }
         }
 
         tbody tr td {
           padding: 10px 12px;
           font-size: 0.75rem;
 
-          &:first-child {
-            padding-left: 16px;
-          }
-
-          &:last-child {
-            padding-right: 16px;
-          }
+          &:first-child { padding-left: 16px; }
+          &:last-child  { padding-right: 16px; }
 
           .cell-content {
             padding: 3px 8px;
@@ -456,19 +420,14 @@
           padding: 8px 10px;
           font-size: 0.7rem;
 
-          &:first-child {
-            padding-left: 12px;
-          }
-
-          &:last-child {
-            padding-right: 12px;
-          }
+          &:first-child { padding-left: 12px; }
+          &:last-child  { padding-right: 12px; }
         }
 
         .actions-cell .action-btn {
           width: 26px;
           height: 26px;
-          
+
           i {
             font-size: 0.75rem;
           }

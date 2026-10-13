@@ -4,6 +4,13 @@ export interface PathSvgCustom {
   fill?: string;
   textX?: number;
   textY?: number;
+  displayText?: string;
+  textFill?: string;
+  textSize?: number;
+  textWeight?: string | number;
+  textAnchor?: 'start' | 'middle' | 'end';
+  stroke?: string;
+  strokeWidth?: number;
   click?: Function;
 }
 
@@ -31,4 +38,12 @@ export interface SvgCircle {
   raggio?: number;
   simmetrico?: boolean;
   raggioBuco?: number;
+  legenda?: {
+    altezzaRigaLegenda?: number;
+    dimensionePallino?: number;
+    gapPallinoTesto?: number;
+    maxCaratteriLegenda?: number;
+    textSizeLegenda?: number;
+    offsetPallinoY?: number;
+  };
 }

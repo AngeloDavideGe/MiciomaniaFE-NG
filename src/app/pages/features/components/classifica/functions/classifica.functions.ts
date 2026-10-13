@@ -5,7 +5,10 @@ import {
   Squadra,
 } from '../../../../../shared/interfaces/opere.interface';
 import { ILang } from '../../../../../core/interfaces/lang.interface';
-import { SvgBar } from '../../../../../../library/interfaces/svg.interface';
+import {
+  SvgBar,
+  SvgCircle,
+} from '../../../../../../library/interfaces/svg.interface';
 
 export function getClassificaTabs(lang: ILang['Classifica']['Tabs']): iTab[] {
   return [
@@ -19,29 +22,21 @@ export function getClassificaTabs(lang: ILang['Classifica']['Tabs']): iTab[] {
       label: lang.Squadre,
       color: 'var(--primary-light)',
     },
-  ];
-}
-
-export function getVisualizzaTabs(): iTab[] {
-  return [
-    {
-      id: 'tabella',
-      icona: 'bi bi-grid',
-    },
     {
       id: 'grafico',
-      icona: 'bi bi-list',
+      label: lang.Grafico,
+      color: 'var(--primary-light)',
     },
   ];
 }
 
-export function getBadgeTable(): Record<number, string> {
+export function getBadgeTable(): Record<string, string> {
   return {
-    1: 'bg-success text-light rounded-pill px-2 py-1',
-    2: 'bg-secondary text-light rounded-pill px-2 py-1',
-    3: 'bg-warning text-dark rounded-pill px-2 py-1',
-    4: 'bg-info text-light rounded-pill px-2 py-1',
-    5: 'bg-light text-secondary rounded-pill px-2 py-1 border',
+    '#1': 'bg-success text-light rounded-pill px-2 py-1',
+    '#2': 'bg-secondary text-light rounded-pill px-2 py-1',
+    '#3': 'bg-warning text-dark rounded-pill px-2 py-1',
+    '#4': 'bg-info text-light rounded-pill px-2 py-1',
+    '#5': 'bg-light text-secondary rounded-pill px-2 py-1 border',
   };
 }
 
@@ -93,5 +88,12 @@ export function opzioniGraficoClassifica(): SvgBar {
     altezzaBarra: 42,
     spazio: 14,
     margine: 20,
+  };
+}
+
+export function opzioniGraficoGiocatori(): SvgCircle {
+  return {
+    centro: 165,
+    raggio: 150,
   };
 }

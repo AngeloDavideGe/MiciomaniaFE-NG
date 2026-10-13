@@ -14,7 +14,10 @@
 
     <div all-row>
       <div class="elemento-centrato p-2">
-        <app-tabs-indy [tabs]="tabs" (clickTab)="changeTab($event)" />
+        <app-tabs-indy
+          [tabs]="tabs"
+          (clickTab)="currentTabs.set(recordTabs[$event])"
+        />
       </div>
 
       <div class="mt-2"></div>
@@ -37,7 +40,7 @@
           <app-spinner-indy [mt]="'5rem'" />
         } @else {
           <app-card-indy
-            [elems]="filtri().elemFilter()"
+            [elems]="dataCard()"
             [altezzaImg]="'15rem'"
             [cardGap]="'1rem'"
             [lunghezzaCard]="'18rem'"

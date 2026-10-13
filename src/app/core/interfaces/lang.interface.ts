@@ -130,6 +130,7 @@ export interface ILang {
     Tabs: {
       Giocatori: string;
       Squadre: string;
+      Grafico: string;
     };
     Colonne: {
       Posizione: string;

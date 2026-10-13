@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
 import {
   Mappa,
@@ -21,7 +28,6 @@ import {
   getClassificaTabs,
   getColonneTabellaGiocatori,
   getColonneTabellaSquadre,
-  getVisualizzaTabs,
 } from './functions/classifica.functions';
 
 @Component({
@@ -37,7 +43,6 @@ export class ClassificaComponent implements OnInit {
 
   public readonly lang = this.appConfig.lang.Classifica;
   public readonly tabs = getClassificaTabs(this.lang.Tabs);
-  public readonly viewTabs = getVisualizzaTabs();
   public readonly colonneGiocatori = getColonneTabellaGiocatori(
     this.lang.Colonne,
   );
@@ -45,7 +50,6 @@ export class ClassificaComponent implements OnInit {
   public readonly badgeTable = getBadgeTable();
 
   public currentTab = signal<string>('giocatori');
-  public viewTab = signal<string>('tabella');
   public modaleClassifica = signal<Mappa | null>(null);
   public spinner = computed<boolean>(() => !this.opereService.classifica());
 
@@ -81,12 +85,8 @@ export class ClassificaComponent implements OnInit {
     ),
   );
 
-  public graficoAltezzaGiocatori = computed<number>(() =>
-    Math.max(180, this.pathGiocatori().length * 56 + 26),
-  );
-
   public graficoAltezzaSquadre = computed<number>(() =>
-    Math.max(180, this.pathSquadre().length * 56 + 26),
+    Math.max(150, this.pathSquadre().length * 10 + 10),
   );
 
   ngOnInit(): void {
@@ -98,5 +98,12 @@ export class ClassificaComponent implements OnInit {
     });
 
     this.opereService.classificaLoaded = true;
+  }
+
+  constructor() {
+    effect(() => {
+      this.currentTab();
+      this.modaleClassifica.set(null);
+    });
   }
 }

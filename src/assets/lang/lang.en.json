@@ -138,7 +138,8 @@
     },
     "Tabs": {
       "Giocatori": "Players",
-      "Squadre": "Teams"
+      "Squadre": "Teams",
+      "Grafico": "Chart"
     },
     "Colonne": {
       "Posizione": "Position",

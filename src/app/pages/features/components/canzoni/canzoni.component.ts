@@ -1,11 +1,4 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { AudioService } from '../../../../../library/dialogs/audio/audio.service';
 import { effectTimeoutCustom } from '../../../../../library/functions/debounce.function';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
