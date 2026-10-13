@@ -17,7 +17,7 @@
         <app-tabs-indy [tabs]="tabs" (clickTab)="changeTab($event)" />
       </div>
 
-      <br />
+      <div class="mt-2"></div>
 
       <app-sidebar-indy
         [titolo]="lang.CategorieTitolo"
@@ -39,16 +39,16 @@
           <app-card-indy
             [elems]="filtri().elemFilter()"
             [altezzaImg]="'15rem'"
+            [cardGap]="'1rem'"
             [lunghezzaCard]="'18rem'"
             [tipoSlice]="'page'"
             [tipoPaginazione]="'multiplo'"
             [arrayPags]="arrayRaggi"
           />
+
+          <div class="mt-2"></div>
         }
       </app-sidebar-indy>
-
-      <div class="content-wrapper"></div>
     </div>
-    <br />
   </app-descrizione-micio>
 </app-container-micio>

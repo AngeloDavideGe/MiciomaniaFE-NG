@@ -3,17 +3,21 @@ import {
   HttpInterceptorFn,
   HttpRequest,
   HttpErrorResponse,
+  HttpContextToken,
 } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import { inject } from '@angular/core';
 import { ErrorService } from '../dialogs/error/error.service';
 import { ProblemDetails } from '../interfaces/error.interface';
 
+export const ERROR_CONTEXT = new HttpContextToken<boolean>(() => true);
+
 export const errorInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   handlerFn: HttpHandlerFn,
 ) => {
   const errorService = inject(ErrorService);
+  const updateError = req.context.get(ERROR_CONTEXT);
 
   return handlerFn(req).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -32,38 +36,45 @@ export const errorInterceptor: HttpInterceptorFn = (
       }
 
       switch (error.status) {
-        case 0:
+        case 0: {
           title = 'Server non raggiungibile';
           message = 'Controlla la connessione internet';
           break;
+        }
 
-        case 401:
+        case 401: {
           title = 'Non autorizzato';
           message = 'Sessione scaduta';
           break;
+        }
 
-        case 403:
+        case 403: {
           title = 'Accesso negato';
           message = 'Non hai permessi sufficienti';
           break;
+        }
 
-        case 404:
+        case 404: {
           title = 'Non trovato';
           message = 'Risorsa non disponibile';
           break;
+        }
 
-        case 500:
+        case 500: {
           title = problem?.title || 'Errore server';
           message = problem?.detail || message;
           break;
+        }
       }
 
-      errorService.showError({
-        title,
-        message,
-        status,
-        debugMessage,
-      });
+      if (updateError) {
+        errorService.showError({
+          title,
+          message,
+          status,
+          debugMessage,
+        });
+      }
 
       return throwError(() => error);
     }),

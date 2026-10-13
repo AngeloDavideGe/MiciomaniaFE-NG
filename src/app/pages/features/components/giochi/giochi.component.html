@@ -16,7 +16,7 @@
     </div>
 
     <div all-row>
-      <br />
+      <div class="pt-1"></div>
 
       @if (isGiochi$ | async) {
         <app-card-indy
@@ -27,6 +27,7 @@
           [tipoPaginazione]="'multiplo'"
           [arrayPags]="arrayRaggi"
         />
+        <div class="pt-3"></div>
       } @else {
         <router-outlet />
       }

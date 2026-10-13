@@ -63,7 +63,7 @@ import { AppConfigService } from '../../../../../core/api/appConfig.service';
           {{ footer()?.copyright_text }}
         </div>
 
-        <br />
+        <div class="mt-2"></div>
       }
     </app-container-micio>
   </footer>`,

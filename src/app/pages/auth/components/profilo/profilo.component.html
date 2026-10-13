@@ -1,5 +1,5 @@
 <app-navbar-indy [pulsantiFine]="pulsantiNavbar" />
-<br />
+<div class="mt-2"></div>
 @if (profilo()) {
   <app-container-micio [class]="'mt-5'">
     <app-descrizione-micio
@@ -45,14 +45,12 @@
               ><i class="bi bi-calendar3"></i>
               {{ lang.EditUser.Campi.Compleanno }}
               <strong>{{
-                (user().profile.compleanno | dateFormat) || "Non specificato"
+                (user().profile.compleanno | dateFormat) || "N.D."
               }}</strong></span
             >
             <span
               ><i class="bi bi-geo-alt"></i>
-              <strong>{{
-                user().iscrizione.provincia || "Non specificato"
-              }}</strong></span
+              <strong>{{ user().iscrizione.provincia || "N.D." }}</strong></span
             >
           </div>
         </div>
@@ -100,4 +98,4 @@
   }
 }
 
-<br />
+<div class="mt-2"></div>

@@ -17,7 +17,7 @@ export class PostsUserComponent {
   public user = input.required<User>();
   public lang = input.required<ILang['Profilo']>();
   public posts = input.required<ProfilePost[]>();
-  public currentTab = input.required<'text' | 'photo'>();
+  public currentTab = input.required<string>();
 
   public postsOnlyText = signal<ProfilePost[]>([]);
   public postsWithImages = signal<iCard[]>([]);
