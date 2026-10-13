@@ -13,7 +13,7 @@ import {
   getGiochiDescrizione,
 } from './functions/giochi.function';
 import { giochi_imports } from './giochi.import';
-import { DescrizioneGiochi } from './interfaces/giochi.interface';
+import { DescrizioneGiochi, IGiochi } from './interfaces/giochi.interface';
 import { ICheckBox } from '../../../../../library/interfaces/form.interface';
 
 @Component({
@@ -38,12 +38,12 @@ export class GiochiComponent {
     Descrizione: '...',
   });
 
-  public filtri = computed<FiltriInterface<iCard>>(() =>
-    GetFiltriCustom<iCard, null>({
-      elemTable: signal<iCard[]>(getGiochi(this.lang, this.router)),
+  public filtri = computed<FiltriInterface<IGiochi>>(() =>
+    GetFiltriCustom<IGiochi, null>({
+      elemTable: signal<IGiochi[]>(getGiochi(this.lang, this.router)),
       multiSelect: [
         {
-          key: 'multiSelectFiltro',
+          key: 'filtro',
           query: this.selectedItems,
         },
       ],

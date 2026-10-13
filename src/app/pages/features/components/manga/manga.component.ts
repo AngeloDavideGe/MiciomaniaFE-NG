@@ -10,7 +10,6 @@ import {
 import { effectTimeoutCustom } from '../../../../../library/functions/debounce.function';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
 import { GetFiltriCustom } from '../../../../../library/functions/pagination.function';
-import { iCard } from '../../../../../library/interfaces/card.interface';
 import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
 import {
   iManga,
@@ -31,6 +30,7 @@ import { manga_imports } from './manga.import';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { User } from '../../../../shared/interfaces/users.interface';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
+import { MangaCard } from './interfaces/manga.interface';
 
 @Component({
   selector: 'app-manga',
@@ -64,17 +64,19 @@ export class MangaComponent implements OnInit {
     this.authService.currentUser(),
   );
 
-  public manga = computed<iCard[]>(() => this.mangaComputed('listaManga'));
-  public mangaMicio = computed<iCard[]>(() => this.mangaComputed('micioManga'));
+  public manga = computed<MangaCard[]>(() => this.mangaComputed('listaManga'));
+  public mangaMicio = computed<MangaCard[]>(() =>
+    this.mangaComputed('micioManga'),
+  );
 
-  public mangaPreferiti = computed<iCard[]>(() =>
+  public mangaPreferiti = computed<MangaCard[]>(() =>
     this.mangaPreferitiComputed('listaManga', 'manga'),
   );
-  public mangaMicioPreferiti = computed<iCard[]>(() =>
+  public mangaMicioPreferiti = computed<MangaCard[]>(() =>
     this.mangaPreferitiComputed('micioManga', 'mangamicio'),
   );
 
-  public filtri = computed<FiltriInterface<iCard>>(() => {
+  public filtri = computed<FiltriInterface<MangaCard>>(() => {
     const categoria: string = this.currentCategoria();
     const sottoCategoria: string = this.currentSottoCategoria();
 
@@ -115,7 +117,7 @@ export class MangaComponent implements OnInit {
     this.opereService.mangaLoaded = true;
   }
 
-  private mangaComputed(key: keyof iManga): iCard[] {
+  private mangaComputed(key: keyof iManga): MangaCard[] {
     const manga: iManga | null = this.opereService.manga();
 
     if (!manga) return [];
@@ -125,7 +127,7 @@ export class MangaComponent implements OnInit {
       urlPic: x.copertina,
       descrizione: x.genere,
       bottone: this.lang.BottoneLeggi,
-      tabFiltro: x.completato,
+      filtro: x.completato,
       azione: () => {},
     }));
   }
@@ -133,7 +135,7 @@ export class MangaComponent implements OnInit {
   private mangaPreferitiComputed(
     key: keyof iManga,
     preferitiKey: keyof MangaUtente,
-  ): iCard[] {
+  ): MangaCard[] {
     const manga: iManga | null = this.opereService.manga();
     const preferiti: string | null | undefined =
       this.opereService.mangaUtente()?.[preferitiKey];
@@ -158,27 +160,24 @@ export class MangaComponent implements OnInit {
       urlPic: x.copertina,
       descrizione: x.genere,
       bottone: this.lang.BottoneLeggi,
-      tabFiltro: x.completato,
+      filtro: x.completato,
       azione: () => {},
     }));
   }
 
-  private mangaFiltri(manga: Signal<iCard[]>): FiltriInterface<iCard> {
-    return GetFiltriCustom<iCard, boolean | null>({
+  private mangaFiltri(manga: Signal<MangaCard[]>): FiltriInterface<MangaCard> {
+    return GetFiltriCustom<MangaCard, boolean | null>({
       elemTable: manga,
+      tipoSelect: 'every',
       select: [
         {
           key: 'titolo',
           query: this.debounceQuery,
         },
-        {
-          key: 'descrizione',
-          query: this.debounceQuery,
-        },
       ],
       tabs: [
         {
-          key: 'tabFiltro',
+          key: 'filtro',
           query: this.currentTabs,
         },
       ],

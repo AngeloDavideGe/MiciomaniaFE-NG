@@ -1,21 +1,28 @@
 import {
   Component,
   computed,
+  effect,
   inject,
   OnInit,
-  Signal,
   signal,
 } from '@angular/core';
+import { AudioService } from '../../../../../library/dialogs/audio/audio.service';
 import { effectTimeoutCustom } from '../../../../../library/functions/debounce.function';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
 import { GetFiltriCustom } from '../../../../../library/functions/pagination.function';
 import { iCard } from '../../../../../library/interfaces/card.interface';
-import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
+import {
+  FiltriInterface,
+  FiltriSelect,
+} from '../../../../../library/interfaces/pagination.interface';
+import { AppConfigService } from '../../../../core/api/appConfig.service';
 import {
   Canzoni,
   CanzoniGet,
   OpereToolbar,
 } from '../../../../shared/interfaces/opere.interface';
+import { User } from '../../../../shared/interfaces/users.interface';
+import { AuthService } from '../../../../shared/services/auth.service';
 import { OpereService } from '../../../../shared/services/opere.service';
 import { canzoni_imports } from './canzoni.import';
 import {
@@ -23,10 +30,6 @@ import {
   getCanzoniSidebar,
   getCanzoniToolbar,
 } from './functions/canzoni.function';
-import { AudioService } from '../../../../../library/dialogs/audio/audio.service';
-import { AuthService } from '../../../../shared/services/auth.service';
-import { User } from '../../../../shared/interfaces/users.interface';
-import { AppConfigService } from '../../../../core/api/appConfig.service';
 
 @Component({
   selector: 'app-canzoni',
@@ -68,12 +71,9 @@ export class CanzoniComponent implements OnInit {
     return getCanzoniToolbar(volumi, canzoni.length, this.lang.Toolbar);
   });
 
-  public canzoni = computed<iCard[]>(() => {
-    const canzoni: Canzoni[] = this.opereService.canzoni();
-    return canzoni.map((canzone: Canzoni) => this.mapCanzoneToCard(canzone));
-  });
+  public canzoniAll = computed<Canzoni[]>(() => this.opereService.canzoni());
 
-  public canzoniPreferite = computed<iCard[]>(() => {
+  public canzoniPreferite = computed<Canzoni[]>(() => {
     const canzoni: Canzoni[] = this.opereService.canzoni();
     const preferiti: string | null | undefined =
       this.opereService.mangaUtente()?.canzonimicio;
@@ -93,20 +93,32 @@ export class CanzoniComponent implements OnInit {
       }
     });
 
-    return canzoniPreferite.map((canzone: Canzoni) =>
-      this.mapCanzoneToCard(canzone),
-    );
+    return canzoniPreferite;
   });
 
-  public filtri = computed<FiltriInterface<iCard>>(() => {
-    const categoria: string = this.currentCategoria();
+  public filtri = computed<FiltriInterface<Canzoni>>(() => {
+    const currentCategoria: string = this.currentCategoria();
 
-    if (categoria === 'preferite') {
-      return this.getFiltriCanzoni(this.canzoniPreferite);
+    if (currentCategoria == 'tutte') {
+      return GetFiltriCustom({
+        elemTable: this.canzoniAll,
+        tipoSelect: 'some',
+        select: this.getSelectFiltri(),
+      });
     } else {
-      return this.getFiltriCanzoni(this.canzoni);
+      return GetFiltriCustom({
+        elemTable: this.canzoniPreferite,
+        tipoSelect: 'some',
+        select: this.getSelectFiltri(),
+      });
     }
   });
+
+  public dataCard = computed<iCard[]>(() =>
+    this.filtri()
+      .elemFilter()
+      .map((canzone: Canzoni) => this.mapCanzoneToCard(canzone)),
+  );
 
   constructor() {
     effectTimeoutCustom(this.searchQuery, (value: string) =>
@@ -128,22 +140,6 @@ export class CanzoniComponent implements OnInit {
     this.opereService.canzoniLoaded = true;
   }
 
-  private getFiltriCanzoni(canzoni: Signal<iCard[]>): FiltriInterface<iCard> {
-    return GetFiltriCustom<iCard, null>({
-      elemTable: canzoni,
-      select: [
-        {
-          key: 'titolo',
-          query: this.debounceQuery,
-        },
-        {
-          key: 'descrizione',
-          query: this.debounceQuery,
-        },
-      ],
-    });
-  }
-
   private mapCanzoneToCard(canzone: Canzoni): iCard {
     return {
       titolo: canzone.nome,
@@ -161,5 +157,18 @@ export class CanzoniComponent implements OnInit {
         }
       },
     };
+  }
+
+  private getSelectFiltri(): FiltriSelect<Canzoni, string>[] {
+    return [
+      {
+        key: 'nome',
+        query: this.debounceQuery,
+      },
+      {
+        key: 'autore',
+        query: this.debounceQuery,
+      },
+    ];
   }
 }

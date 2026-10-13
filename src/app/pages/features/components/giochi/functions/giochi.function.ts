@@ -1,19 +1,18 @@
 import { Router } from '@angular/router';
-import { iCard } from '../../../../../../library/interfaces/card.interface';
+import { ICheckBox } from '../../../../../../library/interfaces/form.interface';
 import { RaggioPage } from '../../../../../../library/interfaces/pagination.interface';
 import { uppercaseFirstLetter } from '../../../../../../library/pipes/capitalize.pipe';
 import { ILang } from '../../../../../core/interfaces/lang.interface';
-import { DescrizioneGiochi } from '../interfaces/giochi.interface';
-import { ICheckBox } from '../../../../../../library/interfaces/form.interface';
+import { DescrizioneGiochi, IGiochi } from '../interfaces/giochi.interface';
 
-export function getGiochi(lang: ILang['Giochi'], router: Router): iCard[] {
+export function getGiochi(lang: ILang['Giochi'], router: Router): IGiochi[] {
   return [
     {
       titolo: lang.Lista['Tris'].Titolo,
       urlPic: 'https://images.unsplash.com/photo-1611996575749-79a3a250f948',
       descrizione: lang.Lista['Tris']?.Descrizione,
       bottone: lang.BottoneGioca,
-      multiSelectFiltro: 'pvb',
+      filtro: 'pvb',
       azione: () => router.navigate(['/feature/giochi/tris']),
     },
     {
@@ -21,7 +20,7 @@ export function getGiochi(lang: ILang['Giochi'], router: Router): iCard[] {
       urlPic: 'https://images.unsplash.com/photo-1567613815648-6a3c7a7a4c5d',
       descrizione: lang.Lista['BattagliaNavale']?.Descrizione,
       bottone: lang.BottoneGioca,
-      multiSelectFiltro: 'pvb',
+      filtro: 'pvb',
       azione: () => router.navigate(['/feature/giochi/battagliaNavale']),
     },
   ];

@@ -20,9 +20,9 @@
         [elementi]="categorie"
         [(selezionato)]="currentCategoria"
       >
-        @if (canzoni().length > 0) {
+        @if (canzoniAll().length > 0) {
           <app-card-indy
-            [elems]="filtri().elemFilter()"
+            [elems]="dataCard()"
             [altezzaImg]="'15rem'"
             [lunghezzaCard]="'18rem'"
             (changeButton)="currentButton = $event"

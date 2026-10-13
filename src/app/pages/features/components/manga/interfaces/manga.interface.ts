@@ -1,3 +1,5 @@
+import { iCard } from '../../../../../../library/interfaces/card.interface';
+
 export interface IManga {
   id: number;
   nome: string;
@@ -6,4 +8,8 @@ export interface IManga {
   copertina: string;
   path: string;
   completato: boolean;
+}
+
+export interface MangaCard extends iCard {
+  filtro: boolean | null;
 }
