@@ -1,9 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   input,
-  signal,
+  model,
 } from '@angular/core';
 import { PulsanteNavbar } from '../../interfaces/navbar.interface';
 
@@ -16,18 +15,11 @@ import { PulsanteNavbar } from '../../interfaces/navbar.interface';
   styleUrl: './navbar-indy.component.scss',
 })
 export class NavbarIndyComponent {
-  public selectPulsante = signal<string>('');
-
+  public selectPulsante = model<string>('');
   public pulsantiInizio = input<PulsanteNavbar[]>([]);
   public pulsantiCentro = input<PulsanteNavbar[]>([]);
   public pulsantiFine = input<PulsanteNavbar[]>([]);
-  public initialPulsante = input<string>('');
-
-  constructor() {
-    effect(() => {
-      this.selectPulsante.set(this.initialPulsante());
-    });
-  }
+  public altezzaNavbar = input<string>('3.5rem');
 
   public clickPulsante(pulsante: PulsanteNavbar): void {
     this.selectPulsante.update((x: string) =>

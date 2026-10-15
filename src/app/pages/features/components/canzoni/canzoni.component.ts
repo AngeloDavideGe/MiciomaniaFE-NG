@@ -23,6 +23,7 @@ import {
   getCanzoniSidebar,
   getCanzoniToolbar,
 } from './functions/canzoni.function';
+import { CategorieCanzoni } from './models/canzoni.model';
 
 @Component({
   selector: 'app-canzoni',
@@ -46,7 +47,7 @@ export class CanzoniComponent implements OnInit {
 
   public searchQuery = signal<string>('');
   public debounceQuery = signal<string>('');
-  public currentCategoria = signal<string>('tutte');
+  public currentCategoria = signal<CategorieCanzoni>(CategorieCanzoni.tutte);
 
   public currentUser = computed<User | null>(() =>
     this.authService.currentUser(),

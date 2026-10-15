@@ -8,7 +8,7 @@
     stroke-linejoin="round"
     stroke-width="1.2"
     version="1.2"
-    [attr.viewBox]="viewbox() || '0 0 ' + width() + ' ' + height()"
+    [attr.viewBox]="'0 0 ' + width() + ' ' + height()"
     xmlns="http://www.w3.org/2000/svg"
     [style.transform]="transform()"
   >
@@ -40,7 +40,7 @@
             [attr.font-size]="path.textSize || 16"
           >
             <title>{{ path.title }}</title>
-            {{ path.displayText ?? path.title }}
+            {{ path.displayText || path.title }}
           </text>
         }
       }

@@ -1,6 +1,6 @@
-<header class="top-navbar">
+<header class="top-navbar" [style]="{ height: altezzaNavbar() }">
   <nav>
-    <div class="elemento-iniziale mt-3">
+    <div class="elemento-iniziale" style="--align-start: center">
       @if (pulsantiInizio().length > 0) {
         @for (pulsante of pulsantiInizio(); track pulsante.id) {
           <a
@@ -16,7 +16,7 @@
       <ng-content select="[leftContent]" />
     </div>
 
-    <div class="elemento-centrato mt-3">
+    <div class="elemento-centrato">
       @if (pulsantiCentro().length > 0) {
         @for (pulsante of pulsantiCentro(); track pulsante.id) {
           <a
@@ -32,7 +32,7 @@
       <ng-content select="[centerContent]" />
     </div>
 
-    <div class="menu elemento-finale mt-3">
+    <div class="menu elemento-finale" style="--align-end: center">
       @if (pulsantiFine().length > 0) {
         @for (pulsante of pulsantiFine(); track pulsante.id) {
           <a

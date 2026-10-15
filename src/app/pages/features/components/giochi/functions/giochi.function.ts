@@ -3,7 +3,11 @@ import { ICheckBox } from '../../../../../../library/interfaces/form.interface';
 import { RaggioPage } from '../../../../../../library/interfaces/pagination.interface';
 import { uppercaseFirstLetter } from '../../../../../../library/pipes/capitalize.pipe';
 import { ILang } from '../../../../../core/interfaces/lang.interface';
-import { DescrizioneGiochi, IGiochi } from '../interfaces/giochi.interface';
+import {
+  CategorieGiochi,
+  DescrizioneGiochi,
+  IGiochi,
+} from '../models/giochi.model';
 
 export function getGiochi(lang: ILang['Giochi'], router: Router): IGiochi[] {
   return [
@@ -12,7 +16,7 @@ export function getGiochi(lang: ILang['Giochi'], router: Router): IGiochi[] {
       urlPic: 'https://images.unsplash.com/photo-1611996575749-79a3a250f948',
       descrizione: lang.Lista['Tris']?.Descrizione,
       bottone: lang.BottoneGioca,
-      filtro: 'pvb',
+      filtro: CategorieGiochi.pvp,
       azione: () => router.navigate(['/feature/giochi/tris']),
     },
     {
@@ -20,7 +24,7 @@ export function getGiochi(lang: ILang['Giochi'], router: Router): IGiochi[] {
       urlPic: 'https://images.unsplash.com/photo-1567613815648-6a3c7a7a4c5d',
       descrizione: lang.Lista['BattagliaNavale']?.Descrizione,
       bottone: lang.BottoneGioca,
-      filtro: 'pvb',
+      filtro: CategorieGiochi.pvp,
       azione: () => router.navigate(['/feature/giochi/battagliaNavale']),
     },
   ];
@@ -61,15 +65,15 @@ export function getGiochiDescrizione(
 export function getGiochiCheckbox(): ICheckBox[] {
   return [
     {
-      id: 'pvp',
+      id: CategorieGiochi.pvp,
       testo: 'Player vs Player',
     },
     {
-      id: 'pvb',
+      id: CategorieGiochi.pvb,
       testo: 'Player vs Bot',
     },
     {
-      id: 'pve',
+      id: CategorieGiochi.pve,
       testo: 'Player vs Environment',
     },
   ];

@@ -9,21 +9,22 @@ import {
   SvgBar,
   SvgCircle,
 } from '../../../../../../library/interfaces/svg.interface';
+import { TabsClassifica } from '../models/classifica.model';
 
 export function getClassificaTabs(lang: ILang['Classifica']['Tabs']): iTab[] {
   return [
     {
-      id: 'giocatori',
+      id: TabsClassifica.giocatori,
       label: lang.Giocatori,
       color: 'var(--primary-light)',
     },
     {
-      id: 'squadre',
+      id: TabsClassifica.squadre,
       label: lang.Squadre,
       color: 'var(--primary-light)',
     },
     {
-      id: 'grafico',
+      id: TabsClassifica.grafico,
       label: lang.Grafico,
       color: 'var(--primary-light)',
     },

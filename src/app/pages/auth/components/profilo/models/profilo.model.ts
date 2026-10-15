@@ -12,3 +12,8 @@ export interface ProfilePost {
   idUtente: string;
   immaginePost?: string | null;
 }
+
+export enum TabsProfilo {
+  text = 'text',
+  photo = 'photo',
+}

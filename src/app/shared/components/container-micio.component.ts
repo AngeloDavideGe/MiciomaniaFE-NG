@@ -20,7 +20,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       border: 1px solid var(--border);
       border-radius: 1.25rem;
       box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.25);
-      transition: all 0.25s ease;
 
       @media (max-width: 576px) {
         margin-inline: 0;
@@ -30,6 +29,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   `,
 })
 export class ContaierMicioComponent {
-  public background = input<string>('var(--card)');
   public class = input<string>('');
+  public background = input<string>('var(--card)');
 }

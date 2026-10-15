@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GetFiltriCustom } from '../../../../../library/functions/pagination.function';
 import { isCurrentRoute } from '../../../../../library/functions/router.function';
-import { iCard } from '../../../../../library/interfaces/card.interface';
+import { ICheckBox } from '../../../../../library/interfaces/form.interface';
 import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
 import {
@@ -13,8 +13,7 @@ import {
   getGiochiDescrizione,
 } from './functions/giochi.function';
 import { giochi_imports } from './giochi.import';
-import { DescrizioneGiochi, IGiochi } from './interfaces/giochi.interface';
-import { ICheckBox } from '../../../../../library/interfaces/form.interface';
+import { DescrizioneGiochi, IGiochi } from './models/giochi.model';
 
 @Component({
   selector: 'app-giochi',

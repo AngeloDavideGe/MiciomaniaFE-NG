@@ -1,8 +1,3 @@
-// ============================================
-// PROFILE PAGE - Classi restanti (global o parent)
-// Angular 21 Best Practice - SCSS annidato
-// ============================================
-
 .profile-summary {
   display: flex;
   align-items: center;
@@ -181,10 +176,6 @@
   border-radius: 0.75rem;
   background: var(--card);
 }
-
-// ============================================
-// RESPONSIVE
-// ============================================
 
 @media (max-width: 760px) {
   .profile-summary {

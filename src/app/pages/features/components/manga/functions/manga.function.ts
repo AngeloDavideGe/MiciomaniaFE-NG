@@ -5,21 +5,26 @@ import {
 import { RaggioPage } from '../../../../../../library/interfaces/pagination.interface';
 import { OpereToolbar } from '../../../../../shared/interfaces/opere.interface';
 import { ILang } from '../../../../../core/interfaces/lang.interface';
+import {
+  CategorieManga,
+  SottoCategorieManga,
+  TabsManga,
+} from '../models/manga.model';
 
 export function getMangaTabs(lang: ILang['Manga']['Tabs']): iTab[] {
   return [
     {
-      id: 'tutti',
+      id: TabsManga.tutti,
       label: lang.Tutti,
       color: 'var(--primary-light)',
     },
     {
-      id: 'in_corso',
+      id: TabsManga.inCorso,
       label: lang.InCorso,
       color: 'var(--primary-light)',
     },
     {
-      id: 'completati',
+      id: TabsManga.completati,
       label: lang.Completati,
       color: 'var(--primary-light)',
     },
@@ -28,9 +33,9 @@ export function getMangaTabs(lang: ILang['Manga']['Tabs']): iTab[] {
 
 export function getRecordMangaTabs(): Record<string, boolean | null> {
   return {
-    tutti: null,
-    in_corso: false,
-    completati: true,
+    [TabsManga.tutti]: null,
+    [TabsManga.inCorso]: false,
+    [TabsManga.completati]: true,
   };
 }
 
@@ -39,12 +44,12 @@ export function getMangaSidebar(
 ): ISidebarItem[] {
   return [
     {
-      id: 'ufficiali',
+      id: CategorieManga.ufficiali,
       nome: lang.Ufficiali,
       icona: 'bi-grid',
     },
     {
-      id: 'miciomania',
+      id: CategorieManga.miciomania,
       nome: lang.Miciomania,
       icona: 'bi-play-circle',
     },
@@ -56,12 +61,12 @@ export function getMangaSidebarSub(
 ): ISidebarItem[] {
   return [
     {
-      id: 'tutti',
+      id: SottoCategorieManga.tutti,
       nome: lang.Tutti,
       icona: 'bi-grid',
     },
     {
-      id: 'preferiti',
+      id: SottoCategorieManga.preferiti,
       nome: lang.Preferiti,
       icona: 'bi-heart',
     },

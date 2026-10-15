@@ -31,6 +31,8 @@ export interface SvgBar {
   altezzaBarra?: number;
   spazio?: number;
   margine?: number;
+  textSizeAsse?: number;
+  maxCaratteriAsseY?: number;
 }
 
 export interface SvgCircle {

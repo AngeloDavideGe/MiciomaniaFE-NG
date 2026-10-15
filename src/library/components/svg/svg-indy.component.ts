@@ -20,7 +20,6 @@ import { PathSvgCustom, Mappa } from '../../interfaces/svg.interface';
 export class SvgIndyComponent {
   public paths = input.required<PathSvgCustom[]>();
   public colori = input<Record<string, string>>({});
-  public viewbox = input<string>('');
   public translate = input<string>('');
   public transform = input<string>('');
   public width = input<number>(200);

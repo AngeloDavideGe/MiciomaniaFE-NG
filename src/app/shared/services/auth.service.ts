@@ -3,7 +3,6 @@ import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { getLocalStorage } from '../../../library/functions/storage.function';
 import { LOADING_CONTEXT } from '../../../library/interceptors/loading.interceptor';
-import { iProfilo } from '../../pages/auth/components/profilo/interfaces/profilo.interface';
 import { Ruolo } from '../enums/users.enum';
 import {
   CronUtenti,
@@ -13,6 +12,7 @@ import {
 } from '../interfaces/users.interface';
 import { BaseMicioService } from './base-micio.service';
 import { environment } from '../../../environments/environment';
+import { iProfilo } from '../../pages/auth/components/profilo/models/profilo.model';
 
 @Injectable({
   providedIn: 'root',

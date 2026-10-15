@@ -9,19 +9,19 @@ export function creaCirclePaths(
   dati: DatiSvg[],
   svgCircle?: SvgCircle,
 ): PathSvgCustom[] {
-  const centroConfigurato: number = svgCircle?.centro ?? 150;
+  const centroConfigurato: number = svgCircle?.centro || 150;
   const centro: number = Number.isFinite(centroConfigurato)
     ? centroConfigurato
     : 150;
-  const raggioConfigurato: number = svgCircle?.raggio ?? 120;
+  const raggioConfigurato: number = svgCircle?.raggio || 120;
   const raggio: number = Number.isFinite(raggioConfigurato)
     ? Math.max(0, raggioConfigurato)
     : 120;
-  const raggioBucoConfigurato: number = svgCircle?.raggioBuco ?? 0;
+  const raggioBucoConfigurato: number = svgCircle?.raggioBuco || 0;
   const raggioInterno: number = Number.isFinite(raggioBucoConfigurato)
     ? Math.min(Math.max(0, raggioBucoConfigurato), raggio)
     : 0;
-  const simmetrico: boolean = svgCircle?.simmetrico ?? false;
+  const simmetrico: boolean = svgCircle?.simmetrico || false;
 
   if (dati.length === 0 || raggio === 0) {
     return [];
@@ -42,10 +42,6 @@ export function creaCirclePaths(
     const altoInterno: number = centro - raggioInterno;
     const bassoInterno: number = centro + raggioInterno;
     return `M ${centro} ${alto} A ${raggio} ${raggio} 0 1 1 ${centro} ${basso} A ${raggio} ${raggio} 0 1 1 ${centro} ${alto} L ${centro} ${altoInterno} A ${raggioInterno} ${raggioInterno} 0 1 0 ${centro} ${bassoInterno} A ${raggioInterno} ${raggioInterno} 0 1 0 ${centro} ${altoInterno} Z`;
-  };
-
-  const formatSvgValue = (valore: number): string => {
-    return Number(valore.toPrecision(12)).toString();
   };
 
   const datiValidi: DatiSvg[] = simmetrico
@@ -107,8 +103,26 @@ export function creaCirclePaths(
 
       const raggioTesto: number =
         raggioInterno + (raggio - raggioInterno) * 0.55;
-      const mostraPercentuale: boolean =
-        percentuale >= 0.045 && ampiezza * raggioTesto >= 24;
+      const textSize: number = Math.min(13, Math.max(10, raggio * 0.11));
+      const percentualeTesto: string = `${Math.round(percentuale * 100)}%`;
+      const lunghezzaArco: number = ampiezza * raggioTesto;
+
+      const larghezzaPercentuale: number =
+        percentualeTesto.length * textSize * 0.6;
+      const larghezzaTitolo: number = data.titolo.length * textSize * 0.6;
+
+      const spazioPerPercentuale: boolean =
+        lunghezzaArco >= larghezzaPercentuale + 12;
+      const spazioPerTitolo: boolean =
+        lunghezzaArco >= larghezzaPercentuale + larghezzaTitolo + 24;
+
+      let displayText: string = '';
+      if (spazioPerTitolo) {
+        displayText = `${data.titolo} (${percentualeTesto})`;
+      } else if (spazioPerPercentuale) {
+        displayText = percentualeTesto;
+      }
+
       angoloCorrente = angoloFinale;
 
       return {
@@ -119,11 +133,9 @@ export function creaCirclePaths(
           (indice % 2 === 0 ? 'var(--primary)' : 'var(--primary-light)'),
         textX: centro + raggioTesto * Math.cos(angoloMedio),
         textY: centro + raggioTesto * Math.sin(angoloMedio),
-        displayText: mostraPercentuale
-          ? `${Math.round(percentuale * 100)}%`
-          : '',
+        displayText,
         textFill: 'var(--text)',
-        textSize: Math.min(13, Math.max(10, raggio * 0.11)),
+        textSize: textSize,
         textWeight: 600,
         stroke: 'var(--card)',
         strokeWidth: spessoreSeparatore,
@@ -137,11 +149,11 @@ export function creaCirclePaths(
   const yLegendaIniziale: number = centro - raggio;
   const altezzaRigaLegenda: number =
     svgCircle?.legenda?.altezzaRigaLegenda || 26;
-  const dimensionePallino: number = svgCircle?.legenda?.dimensionePallino || 14;
+  const dimensionePallino: number = svgCircle?.legenda?.dimensionePallino || 12;
   const gapPallinoTesto: number = svgCircle?.legenda?.gapPallinoTesto || 10;
   const maxCaratteriLegenda: number =
     svgCircle?.legenda?.maxCaratteriLegenda || 24;
-  const textSizeLegenda: number = svgCircle?.legenda?.textSizeLegenda || 13;
+  const textSizeLegenda: number = svgCircle?.legenda?.textSizeLegenda || 15;
   const offsetPallinoY: number = svgCircle?.legenda?.offsetPallinoY || -7;
 
   datiValidi.forEach((data: DatiSvg, indice: number) => {
@@ -194,19 +206,7 @@ export function creaCirclePaths(
     return risultato;
   }
 
-  return [
-    ...risultato,
-    {
-      title: 'Totale',
-      d: '',
-      displayText: formatSvgValue(totaleVisualizzato),
-      textX: centro,
-      textY: centro,
-      textFill: 'var(--text)',
-      textSize: Math.min(18, Math.max(11, raggioInterno * 0.42)),
-      textWeight: 700,
-    },
-  ];
+  return risultato;
 }
 
 export function creaBarPaths(
@@ -217,14 +217,22 @@ export function creaBarPaths(
   const altezzaBarra: number = svgBar?.altezzaBarra || 32;
   const spazio: number = svgBar?.spazio || 12;
   const margine: number = svgBar?.margine || 10;
+  const textSize: number = svgBar?.textSizeAsse || 14;
+  const maxCaratteriAsseY: number = svgBar?.maxCaratteriAsseY || 20;
+  const coloreAsse: string = 'var(--text-secondary)';
+  const coloreGriglia: string = 'var(--border)';
+  const coloreAccento: string = 'var(--primary)';
+  const spessoreAsse: number = 2;
 
   if (dati.length === 0) {
     return [];
   }
 
+  const larghezzaCarattere: number = textSize * 0.6;
+  const paddingCalcolato: number = maxCaratteriAsseY * larghezzaCarattere + 16;
   const paddingEtichette: number = Math.min(
-    132,
-    Math.max(48, larghezzaMassima * 0.2),
+    larghezzaMassima * 0.5,
+    Math.max(48, paddingCalcolato),
   );
   const x0: number = margine + paddingEtichette;
   const larghezzaUtile: number = Math.max(
@@ -248,13 +256,6 @@ export function creaBarPaths(
     return Number(valore.toPrecision(12)).toString();
   };
 
-  const truncateLabel = (label: string, maxLength: number): string => {
-    if (label.length <= maxLength) {
-      return label;
-    }
-    return `${label.slice(0, maxLength - 1)}…`;
-  };
-
   const passo: number = niceStep(massimo);
   const massimoAsse: number =
     massimo > 0 ? Math.ceil(massimo / passo) * passo : 1;
@@ -262,10 +263,6 @@ export function creaBarPaths(
   const baseY: number =
     margine + (dati.length - 1) * (altezzaBarra + spazio) + altezzaBarra;
 
-  const coloreAsse: string = 'var(--text-secondary)';
-  const coloreGriglia: string = 'var(--border)';
-  const coloreAccento: string = 'var(--primary)';
-  const spessoreAsse: number = 1.5;
   const elementiGrafici: PathSvgCustom[] = [];
   const numeroIntervalli: number = Math.ceil(massimoAsse / passo);
 
@@ -298,7 +295,7 @@ export function creaBarPaths(
       textX: x,
       textY: baseY + 17,
       textFill: coloreAsse,
-      textSize: 11,
+      textSize: textSize,
       textWeight: 500,
     });
   }
@@ -339,22 +336,18 @@ export function creaBarPaths(
         'Z',
       ].join(' ');
 
-      const etichettaVisibile: string = truncateLabel(
-        dato.titolo,
-        Math.max(8, Math.floor((paddingEtichette - 18) / 7)),
-      );
       const valoreDentroBarra: boolean = larghezza >= 34;
 
       return [
         {
           title: dato.titolo,
           d: '',
-          displayText: etichettaVisibile,
+          displayText: dato.titolo,
           textX: x0 - 10,
           textY: y + altezzaBarra / 2,
           textAnchor: 'end',
           textFill: 'var(--text-secondary)',
-          textSize: 11,
+          textSize: textSize,
           textWeight: 500,
         },
         {
@@ -373,7 +366,7 @@ export function creaBarPaths(
           textY: y + altezzaBarra / 2,
           textAnchor: valoreDentroBarra ? 'end' : 'start',
           textFill: 'var(--text)',
-          textSize: 11,
+          textSize: textSize,
           textWeight: 600,
         },
       ];

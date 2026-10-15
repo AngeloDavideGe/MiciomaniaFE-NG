@@ -1,5 +1,5 @@
 @switch (currentTab()) {
-  @case ("text") {
+  @case (tabsEnum.text) {
     @if (postsOnlyText().length > 0) {
       @for (post of postsOnlyText(); track post.id) {
         <article class="post">
@@ -28,7 +28,7 @@
     }
   }
 
-  @case ("photo") {
+  @case (tabsEnum.photo) {
     @if (postsWithImages().length > 0) {
       <article style="padding: 0rem 0rem 1rem 1rem">
         <app-card-indy

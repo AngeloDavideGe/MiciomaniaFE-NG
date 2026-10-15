@@ -20,16 +20,10 @@ import { ToggleProps, ToggleStyles } from '../../interfaces/toggle.interface';
 export class ToggleIndyComponent {
   public currentButton = signal<string>('');
 
-  private readonly DEFAULT_STYLES: ToggleStyles = {
-    top: '4rem',
-    width: '15rem',
-    position: 'fixed',
-    right: 0,
-  };
-
   public titolo = input<string>('');
   public titoloVisible = input<boolean>(false);
   public imgIcona = input<string>('');
+  public dimToggleIcona = input<string>('2.5rem');
   public icona = input<string>('bi bi-list');
   public toggleMenus = input<ToggleProps[]>([]);
   public toggleStyles = input<ToggleStyles>({});
@@ -39,7 +33,10 @@ export class ToggleIndyComponent {
   public aperturaMenu = output<boolean>();
 
   public styles = computed<ToggleStyles>(() => ({
-    ...this.DEFAULT_STYLES,
+    top: '3.5rem',
+    width: '15rem',
+    position: 'fixed',
+    right: 0,
     ...this.toggleStyles(),
   }));
 

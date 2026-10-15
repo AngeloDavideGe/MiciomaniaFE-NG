@@ -1,7 +1,8 @@
 <app-navbar-indy [pulsantiFine]="pulsantiNavbar" />
-<div class="mt-2"></div>
+<div style="padding-top: 4rem"></div>
+
 @if (profilo()) {
-  <app-container-micio [class]="'mt-5'">
+  <app-container-micio>
     <app-descrizione-micio
       [titolo]="''"
       [descrizione]="''"
@@ -98,4 +99,4 @@
   }
 }
 
-<div class="mt-2"></div>
+<div class="pt-2"></div>

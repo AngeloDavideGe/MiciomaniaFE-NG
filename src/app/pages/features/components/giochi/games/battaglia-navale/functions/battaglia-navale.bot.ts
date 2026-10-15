@@ -9,9 +9,7 @@ export function BattagliaNavaleBotMove(
   difficulty: BattagliaNavaleDifficulty = 'easy',
   ultimiColpi: BNUltimiColpi = [null, null],
 ): [number, number] {
-  return (
-    BattagliaNavaleBotMoves(board, difficulty, ultimiColpi)[0] ?? [0, 0]
-  );
+  return BattagliaNavaleBotMoves(board, difficulty, ultimiColpi)[0] || [0, 0];
 }
 
 export function BattagliaNavaleBotMoves(
@@ -62,12 +60,7 @@ function BNBotHardMove(
   let target = last;
 
   while (moves.length < 3) {
-    const around = getSurroundingShipMoves(
-      board,
-      target[0],
-      target[1],
-      moves,
-    );
+    const around = getSurroundingShipMoves(board, target[0], target[1], moves);
     if (!around.length) {
       if (!moves.length) return [pickRandomMove(availableMoves)];
       break;

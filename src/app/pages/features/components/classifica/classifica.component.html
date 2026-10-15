@@ -15,7 +15,7 @@
         <app-spinner-indy [mt]="'5rem'"></app-spinner-indy>
       } @else {
         @switch (currentTab()) {
-          @case ("giocatori") {
+          @case (enumTabs.giocatori) {
             <app-table-indy
               [elemTable]="giocatori()"
               [titoloTabella]="lang.Tabelle.Giocatori"
@@ -24,7 +24,7 @@
             />
           }
 
-          @case ("squadre") {
+          @case (enumTabs.squadre) {
             <app-table-indy
               [elemTable]="squadre()"
               [titoloTabella]="lang.Tabelle.Squadre"
@@ -42,7 +42,7 @@
               </ng-template>
             </app-table-indy>
           }
-          @case ("grafico") {
+          @case (enumTabs.grafico) {
             <div class="classifica-grafico">
               <app-svg-indy
                 [paths]="pathSquadre()"

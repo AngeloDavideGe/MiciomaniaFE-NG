@@ -29,6 +29,7 @@ import {
   getColonneTabellaGiocatori,
   getColonneTabellaSquadre,
 } from './functions/classifica.functions';
+import { TabsClassifica } from './models/classifica.model';
 
 @Component({
   selector: 'app-classifica',
@@ -46,10 +47,11 @@ export class ClassificaComponent implements OnInit {
   public readonly colonneGiocatori = getColonneTabellaGiocatori(
     this.lang.Colonne,
   );
+  public readonly enumTabs = TabsClassifica;
   public readonly colonneSquadre = getColonneTabellaSquadre(this.lang.Colonne);
   public readonly badgeTable = getBadgeTable();
 
-  public currentTab = signal<string>('giocatori');
+  public currentTab = signal<string>(TabsClassifica.giocatori);
   public modaleClassifica = signal<Mappa | null>(null);
   public spinner = computed<boolean>(() => !this.opereService.classifica());
 

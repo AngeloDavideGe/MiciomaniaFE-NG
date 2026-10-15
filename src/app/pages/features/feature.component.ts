@@ -23,14 +23,14 @@ import { AppConfigService } from '../../core/api/appConfig.service';
 
       <app-bottom-navbar-indy
         [pulsanti]="pulsantiBottombar"
-        [initialPulsante]="initialPulsante()"
+        [selectPulsante]="initialPulsante()"
       />
     }
   `,
   styles: `
     .router-section {
-      padding-top: 4.5rem;
-      padding-bottom: 4.5rem;
+      padding-top: 4rem;
+      padding-bottom: 4rem;
     }
   `,
 })

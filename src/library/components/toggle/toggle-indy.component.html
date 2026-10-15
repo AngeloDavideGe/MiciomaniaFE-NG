@@ -5,10 +5,15 @@
         [src]="imgIcona()"
         alt="Profile Picture"
         class="toggle-avatar"
+        [style]="{ width: dimToggleIcona(), height: dimToggleIcona() }"
         (click)="toggleMenu()"
       />
     } @else {
-      <button class="toggle-button" (click)="toggleMenu()">
+      <button
+        class="toggle-button"
+        [style]="{ width: dimToggleIcona(), height: dimToggleIcona() }"
+        (click)="toggleMenu()"
+      >
         <i [class]="menuOpen() == titolo() ? 'bi bi-x' : icona()"></i>
       </button>
 

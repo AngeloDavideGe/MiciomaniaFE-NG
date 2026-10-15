@@ -32,6 +32,7 @@ import { AuthService } from '../../../../shared/services/auth.service';
 import { User } from '../../../../shared/interfaces/users.interface';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
 import { iCard } from '../../../../../library/interfaces/card.interface';
+import { CategorieManga, SottoCategorieManga } from './models/manga.model';
 
 @Component({
   selector: 'app-manga',
@@ -54,8 +55,8 @@ export class MangaComponent implements OnInit {
 
   public searchQuery = signal<string>('');
   public debounceQuery = signal<string>('');
-  public currentCategoria = signal<string>('ufficiali');
-  public currentSottoCategoria = signal<string>('tutti');
+  public currentCategoria = signal<string>(CategorieManga.ufficiali);
+  public currentSottoCategoria = signal<string>(SottoCategorieManga.tutti);
   public currentTabs = signal<boolean | null>(null);
   public mangaToolbar = signal<OpereToolbar[]>(
     getMangaToolbar(0, 0, this.lang.Toolbar),
@@ -84,14 +85,14 @@ export class MangaComponent implements OnInit {
     const categoria: string = this.currentCategoria();
     const sottoCategoria: string = this.currentSottoCategoria();
 
-    if (categoria == 'ufficiali') {
-      if (sottoCategoria == 'preferiti') {
+    if (categoria == CategorieManga.ufficiali) {
+      if (sottoCategoria == SottoCategorieManga.preferiti) {
         return this.mangaFiltri(this.mangaPreferiti);
       } else {
         return this.mangaFiltri(this.manga);
       }
     } else {
-      if (sottoCategoria == 'preferiti') {
+      if (sottoCategoria == SottoCategorieManga.preferiti) {
         return this.mangaFiltri(this.mangaMicioPreferiti);
       } else {
         return this.mangaFiltri(this.mangaMicio);

@@ -16,21 +16,21 @@
     </div>
 
     <div all-row>
-      <div class="pt-1"></div>
-
-      @if (isGiochi$ | async) {
-        <app-card-indy
-          [elems]="filtri().elemFilter()"
-          [altezzaImg]="'15rem'"
-          [lunghezzaCard]="'18rem'"
-          [tipoSlice]="'page'"
-          [tipoPaginazione]="'multiplo'"
-          [arrayPags]="arrayRaggi"
-        />
-        <div class="pt-3"></div>
-      } @else {
-        <router-outlet />
-      }
+      <div class="pt-1" style="min-height: 15rem">
+        @if (isGiochi$ | async) {
+          <app-card-indy
+            [elems]="filtri().elemFilter()"
+            [altezzaImg]="'15rem'"
+            [lunghezzaCard]="'18rem'"
+            [tipoSlice]="'page'"
+            [tipoPaginazione]="'multiplo'"
+            [arrayPags]="arrayRaggi"
+          />
+          <div class="pt-3"></div>
+        } @else {
+          <router-outlet />
+        }
+      </div>
     </div>
   </app-descrizione-micio>
 </app-container-micio>

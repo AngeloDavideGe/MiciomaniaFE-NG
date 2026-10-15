@@ -12,65 +12,69 @@
       </button>
     }
 
-    <div
-      class="grid-card-layout"
-      [style]="{
-        '--card-position': cardPosition(),
-        '--card-gap': cardGap(),
-        '--card-width': lunghezzaCard(),
-      }"
-    >
-      @for (elem of filtri.elemFilter(); track elem.titolo) {
-        <div
-          class="indy-card"
-          [style]="{
-            width: lunghezzaCard(),
-            'border-radius': borderRadiusCard(),
-            '--card-color': elem.color || 'var(--primary)',
-          }"
-        >
-          @if (elem?.urlPic) {
-            <img
-              [src]="elem.urlPic"
-              [style.height]="altezzaImg()"
-              class="card-image"
-            />
-          }
-
-          <div class="card-content">
-            <h5>
-              {{ elem.titolo }}
-            </h5>
-
-            @if (elem.descrizione) {
-              <div class="description" [innerHTML]="elem.descrizione"></div>
-            }
-
-            @if (elem.bottone) {
-              <app-button-indy
-                class="mt-auto"
-                [text]="
-                  (currentButton() == elem.titolo && secondNameButton()
-                    ? secondNameButton()
-                    : elem.bottone) || ''
-                "
-                [backgroundColor]="elem.color || 'var(--primary)'"
-                (clickButton)="clickButton(elem)"
+    @if (filtri.elemFilter().length > 0) {
+      <div
+        class="grid-card-layout"
+        [style]="{
+          '--card-position': cardPosition(),
+          '--card-gap': cardGap(),
+          '--card-width': lunghezzaCard(),
+        }"
+      >
+        @for (elem of filtri.elemFilter(); track elem.titolo) {
+          <div
+            class="indy-card"
+            [style]="{
+              width: lunghezzaCard(),
+              'border-radius': borderRadiusCard(),
+              '--card-color': elem.color || 'var(--primary)',
+            }"
+          >
+            @if (elem?.urlPic) {
+              <img
+                [src]="elem.urlPic"
+                [style.height]="altezzaImg()"
+                class="card-image"
               />
             }
 
-            @if (templateCardCustom()) {
-              <ng-container
-                *ngTemplateOutlet="
-                  templateCardCustom();
-                  context: { $implicit: elem }
-                "
-              />
-            }
+            <div class="card-content">
+              <h5>
+                {{ elem.titolo }}
+              </h5>
+
+              @if (elem.descrizione) {
+                <div class="description" [innerHTML]="elem.descrizione"></div>
+              }
+
+              @if (elem.bottone) {
+                <app-button-indy
+                  class="mt-auto"
+                  [text]="
+                    (currentButton() == elem.titolo && secondNameButton()
+                      ? secondNameButton()
+                      : elem.bottone) || ''
+                  "
+                  [backgroundColor]="elem.color || 'var(--primary)'"
+                  (clickButton)="clickButton(elem)"
+                />
+              }
+
+              @if (templateCardCustom()) {
+                <ng-container
+                  *ngTemplateOutlet="
+                    templateCardCustom();
+                    context: { $implicit: elem }
+                  "
+                />
+              }
+            </div>
           </div>
-        </div>
-      }
-    </div>
+        }
+      </div>
+    } @else {
+      <div class="elemento-centrato">NO ELEMENTS</div>
+    }
 
     @if (singleSliceIndicators().length > 0) {
       <div class="slice-indicators" aria-hidden="true">

@@ -69,7 +69,7 @@ export function computedPathsClassifica(
     case 'squadre': {
       return creaBarPaths(
         items.map((item: Giocatore | Squadra) => ({
-          titolo: (item as Squadra).nome + ' - ' + item.punteggio,
+          titolo: (item as Squadra).nome,
           valore: item.punteggio,
           colore: (item as Squadra).colore || 'var(--primary-light)',
           click: () => func?.(item),

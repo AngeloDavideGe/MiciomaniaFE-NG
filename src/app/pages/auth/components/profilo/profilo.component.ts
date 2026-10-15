@@ -16,7 +16,7 @@ import { AppConfigService } from '../../../../core/api/appConfig.service';
 import { paraMapCustom } from '../../../../../library/functions/router.function';
 import { Subject } from 'rxjs';
 import { iTab } from '../../../../../library/interfaces/navbar.interface';
-import { iProfilo, ProfilePost } from './interfaces/profilo.interface';
+import { iProfilo, ProfilePost, TabsProfilo } from './models/profilo.model';
 
 @Component({
   selector: 'app-profile',
@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.appConfig.lang.Feature.Navbar,
   );
 
-  public currentTab = signal<string>('text');
+  public currentTab = signal<string>(TabsProfilo.text);
   public editProfiloOpen = signal<boolean>(false);
   public profilo = signal<iProfilo | null>(null);
   private destroy$ = new Subject<void>();

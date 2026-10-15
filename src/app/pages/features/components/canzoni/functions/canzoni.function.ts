@@ -2,6 +2,7 @@ import { ISidebarItem } from '../../../../../../library/interfaces/navbar.interf
 import { RaggioPage } from '../../../../../../library/interfaces/pagination.interface';
 import { OpereToolbar } from '../../../../../shared/interfaces/opere.interface';
 import { ILang } from '../../../../../core/interfaces/lang.interface';
+import { CategorieCanzoni } from '../models/canzoni.model';
 
 export function getCanzoniToolbar(
   album: number,
@@ -27,12 +28,12 @@ export function getCanzoniSidebar(
 ): ISidebarItem[] {
   return [
     {
-      id: 'tutte',
+      id: CategorieCanzoni.tutte,
       nome: lang.Tutte,
       icona: 'bi-grid',
     },
     {
-      id: 'preferite',
+      id: CategorieCanzoni.preferite,
       nome: lang.Preferite,
       icona: 'bi-play-circle',
     },
