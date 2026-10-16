@@ -99,11 +99,11 @@ export function defaultMangaArrayPags(): RaggioPage[] {
       raggio: 5,
     },
     {
-      width: 1567,
+      width: 1553,
       raggio: 4,
     },
     {
-      width: 1263,
+      width: 1249,
       raggio: 3,
     },
     {

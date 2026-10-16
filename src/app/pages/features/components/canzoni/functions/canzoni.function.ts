@@ -47,15 +47,15 @@ export function defaultCanzoniArrayPags(): RaggioPage[] {
       raggio: 5,
     },
     {
-      width: 1550,
+      width: 1553,
       raggio: 4,
     },
     {
-      width: 1238,
+      width: 1241,
       raggio: 3,
     },
     {
-      width: 986,
+      width: 987,
       raggio: 2,
     },
     {

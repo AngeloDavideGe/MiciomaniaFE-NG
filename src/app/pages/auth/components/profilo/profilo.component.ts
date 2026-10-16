@@ -20,6 +20,7 @@ import { AuthService } from '../../../../shared/services/auth.service';
 import { getProfiloTabs } from './functions/profilo.function';
 import { iProfilo, ProfilePost, TabsProfilo } from './models/profilo.model';
 import { profilo_imports } from './profilo.imports';
+import { loadAllUsers } from '../../../../shared/functions/users.handler';
 
 @Component({
   selector: 'app-profile',
@@ -60,7 +61,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       func: (id: string) => this.loadProfile(id),
     });
 
-    this.loadAllUsers();
+    loadAllUsers(this.authService);
   }
 
   ngOnDestroy(): void {
@@ -101,16 +102,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.isPersonalProfile()) {
       this.editProfiloOpen.set(true);
     }
-  }
-
-  private loadAllUsers(): void {
-    handlerFunc<UserParams[]>({
-      skipCall: this.authService.usersCaricati,
-      callHttp: () => this.authService.getAllUsersHttp(),
-      nextCall: (data: UserParams[]) => this.authService.users.set(data),
-      errorCall: () => (this.authService.usersCaricati = false),
-    });
-
-    this.authService.usersCaricati = true;
   }
 }

@@ -24,8 +24,8 @@ export class ConfirmService {
     messaggio: string;
     buttonNo?: string;
     buttonSi?: string;
-    confirmFunc: Function;
-    notConfirmFunc: Function;
+    confirmFunc?: Function;
+    notConfirmFunc?: Function;
   }): void {
     handlerFunc<boolean>({
       callHttp: () =>
@@ -37,9 +37,9 @@ export class ConfirmService {
         }),
       nextCall: (result: boolean) => {
         if (result) {
-          params.confirmFunc();
+          params.confirmFunc?.();
         } else {
-          params.notConfirmFunc();
+          params.notConfirmFunc?.();
         }
       },
     });

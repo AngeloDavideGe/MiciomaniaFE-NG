@@ -1,16 +1,27 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  HostListener,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ConfirmService } from '../../../library/dialogs/confirm/confirm.service';
 import { gestisciCursore } from '../../../library/functions/cursor.functions';
+import { debounceTimeoutCustom } from '../../../library/functions/debounce.function';
 import { handlerFunc } from '../../../library/functions/handler.function';
-import { isCurrentRoute } from '../../../library/functions/router.function';
 import { removeLocalStorage } from '../../../library/functions/storage.function';
 import { iCard } from '../../../library/interfaces/card.interface';
-import { ToggleProps } from '../../../library/interfaces/toggle.interface';
+import {
+  ToggleProps,
+  ToggleStyles,
+} from '../../../library/interfaces/toggle.interface';
 import { AppConfigService } from '../../core/api/appConfig.service';
 import { ILang } from '../../core/interfaces/lang.interface';
+import { loadAllUsers } from '../../shared/functions/users.handler';
 import {
   CronUtenti,
   User,
@@ -32,7 +43,7 @@ import { home_imports } from './home.imports';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   public router = inject(Router);
   public authService = inject(AuthService);
   private appConfig = inject(AppConfigService);
@@ -40,6 +51,8 @@ export class HomeComponent {
   private confirmService = inject(ConfirmService);
 
   private openNow: boolean = true;
+  public menuOpen = signal<string>('');
+  public isMobile = signal<boolean>(window.innerWidth < 768);
 
   public readonly pic = this.appConfig.config.defaultPicsUrl.user;
   public readonly maxUsers = this.appConfig.config.maxElement.users;
@@ -96,19 +109,6 @@ export class HomeComponent {
     ];
   });
 
-  public menuOpen = signal<string>('');
-
-  public isHome$: Observable<boolean> = isCurrentRoute({
-    router: this.router,
-    eventName: '/home',
-    tapFunc: (isCurrent: boolean) => {
-      if (isCurrent) {
-        this.loadAllUsers();
-        this.loadNotifiche();
-      }
-    },
-  });
-
   public userPic = computed<Record<string, UserReduced> | null>(() => {
     const users: UserParams[] = this.authService.users();
 
@@ -150,6 +150,15 @@ export class HomeComponent {
     return [toggle];
   });
 
+  public toggleStylesNotifiche = computed<ToggleStyles>(() =>
+    this.isMobile()
+      ? { width: '100%', height: '100vh' }
+      : {
+          width: 'min(22rem, calc(100vw - 2rem))',
+          height: 'min(32rem, calc(100vh - 5rem))',
+        },
+  );
+
   constructor() {
     effect(() => {
       this.authService.currentUser();
@@ -169,6 +178,16 @@ export class HomeComponent {
     effect(() => gestisciCursore(this.appConfig.currentCursor()));
   }
 
+  ngOnInit(): void {
+    loadAllUsers(this.authService);
+    this.loadNotifiche();
+  }
+
+  @HostListener('window:resize')
+  onResize = debounceTimeoutCustom(() => {
+    this.isMobile.set(window.innerWidth < 768);
+  });
+
   public logoutAllAccounts(): void {
     this.confirmService.confirmCustom({
       titolo: this.lang().LogoutAllTitolo,
@@ -181,19 +200,7 @@ export class HomeComponent {
         removeLocalStorage(this.keys.ACCOUNTS_USER);
         this.menuOpen.set('');
       },
-      notConfirmFunc: () => {},
     });
-  }
-
-  private loadAllUsers(): void {
-    handlerFunc<UserParams[]>({
-      skipCall: this.authService.usersCaricati,
-      callHttp: () => this.authService.getAllUsersHttp(),
-      nextCall: (data: UserParams[]) => this.authService.users.set(data),
-      errorCall: () => (this.authService.usersCaricati = false),
-    });
-
-    this.authService.usersCaricati = true;
   }
 
   private loadNotifiche(): void {

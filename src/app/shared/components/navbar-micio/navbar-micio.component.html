@@ -6,11 +6,7 @@
       [titolo]="lang.CercaUtenti"
       [caricamento]="caricamento()"
       [tipo]="'content'"
-      [toggleStyles]="{
-        width: 'min(22rem, calc(100vw - 2rem))',
-        height: 'min(32rem, calc(100vh - 5rem))',
-        right: '1rem',
-      }"
+      [toggleStyles]="toggleStyles()"
     >
       <div onlyContent class="user-search-panel">
         <label class="user-search">
@@ -25,9 +21,9 @@
           />
         </label>
 
-        @if (dataToggle().length > 0) {
+        @if (filtri.elemFilter().length > 0) {
           <ul class="user-results">
-            @for (utente of dataToggle(); track utente.id) {
+            @for (utente of filtri.elemFilter(); track utente.id) {
               <li class="user-result-item">
                 <button
                   type="button"

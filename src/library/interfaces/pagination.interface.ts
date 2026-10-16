@@ -38,7 +38,7 @@ export interface InputFiltri<T, F> {
   slice?: TypePagination;
   select?: FiltriSelect<T, string>[];
   multiSelect?: FiltriSelect<T, ICheckBox[]>[];
-  tabs?: FiltriSelect<T, F | null>[];
+  tabs?: FiltriSelect<T, F>[];
   ordinaElem?: WritableSignal<Ordinamento<T, 'desc' | 'cresc'> | null>;
 }
 

@@ -93,7 +93,7 @@ export class CardIndyComponent {
       if (elements) {
         this.elemForPage.set(this.getNumCards());
 
-        this.filtri = GetFiltriCustom<iCard, null>({
+        this.filtri = GetFiltriCustom<iCard>({
           elemTable: signal(elements),
           elemForPage: this.elemForPage,
           slice: tipoSlice,

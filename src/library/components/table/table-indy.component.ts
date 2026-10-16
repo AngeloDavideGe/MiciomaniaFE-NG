@@ -159,13 +159,13 @@ export class TabellaIndyComponent<T> {
     );
 
     if (this.dataTableHttp()) {
-      this.filtri = GetFiltriCustom<T, null>({
+      this.filtri = GetFiltriCustom<T>({
         elemTable: this.dataTableHttp()!.elems,
         elemForPage: this.elemForPage,
         totalElemHttp: this.dataTableHttp()!.totalElems,
       });
     } else {
-      this.filtri = GetFiltriCustom<T, null>({
+      this.filtri = GetFiltriCustom<T>({
         elemTable: this.elemTable,
         elemForPage: this.elemForPage,
         ordinaElem: this.ordinaElem,

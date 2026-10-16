@@ -155,7 +155,7 @@ export class CanzoniComponent implements OnInit {
   private getCanzoniFiltri(
     canzoni: Signal<Canzoni[]>,
   ): FiltriInterface<Canzoni> {
-    return GetFiltriCustom<Canzoni, null>({
+    return GetFiltriCustom<Canzoni>({
       elemTable: canzoni,
       tipoSelect: 'some',
       select: [

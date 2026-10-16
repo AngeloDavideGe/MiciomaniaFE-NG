@@ -38,7 +38,7 @@ export class GiochiComponent {
   });
 
   public filtri = computed<FiltriInterface<IGiochi>>(() =>
-    GetFiltriCustom<IGiochi, null>({
+    GetFiltriCustom<IGiochi>({
       elemTable: signal<IGiochi[]>(getGiochi(this.lang, this.router)),
       multiSelect: [
         {

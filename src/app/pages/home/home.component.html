@@ -1,82 +1,78 @@
-@if (isHome$ | async) {
-  <app-navbar-indy>
-    <div rightContent>
-      <div class="elementi-laterali gap-3">
-        <app-toggle-indy
-          [icona]="'bi bi-bell'"
-          [titolo]="lang().Notifiche"
-          [tipo]="'single'"
-          [toggleMenus]="notificheToggle()"
-          [toggleStyles]="{ width: '20rem', height: '30rem' }"
-          [(menuOpen)]="menuOpen"
-        />
-        <app-toggle-indy
-          [icona]="'bi bi-gear'"
-          [titolo]="lang().Impostazioni"
-          [toggleMenus]="impostazioniToggle()"
-          [toggleStyles]="{ width: '20rem' }"
-          [(menuOpen)]="menuOpen"
-        />
-        <app-toggle-indy
-          [titolo]="lang().AccountUtente"
-          [imgIcona]="imgToggle()"
-          [tipo]="'single'"
-          [toggleMenus]="accountToggle()"
-          [toggleStyles]="{ width: '20rem', right: '1rem' }"
-          [(menuOpen)]="menuOpen"
-        >
-          <div downContent class="account-actions">
-            <div class="account-divider"></div>
-
-            @if (authService.accountsUser().length < maxUsers) {
-              <button type="button" (click)="router.navigate(['auth/login'])">
-                <span class="account-action-icon">
-                  <i class="bi bi-plus-lg"></i>
-                </span>
-                <span>{{ lang().AggiungiAccount }}</span>
-              </button>
-            }
-
-            @if (authService.currentUser()) {
-              <button
-                type="button"
-                class="logout-all"
-                (click)="logoutAllAccounts()"
-              >
-                {{ lang().EsciAccount }}
-              </button>
-            }
-          </div>
-        </app-toggle-indy>
-      </div>
-    </div>
-  </app-navbar-indy>
-
-  <section style="padding-top: 4rem">
-    <app-container-micio>
-      <app-descrizione-micio
-        [titolo]="lang().Benvenuti"
-        [descrizione]="lang().Descrizione"
-        [immagine]="
-          'https://images.unsplash.com/photo-1515879218367-8466d910aaa4'
-        "
+<app-navbar-indy>
+  <div rightContent>
+    <div class="elementi-laterali gap-3">
+      <app-toggle-indy
+        [icona]="'bi bi-bell'"
+        [titolo]="lang().Notifiche"
+        [tipo]="'single'"
+        [toggleMenus]="notificheToggle()"
+        [toggleStyles]="toggleStylesNotifiche()"
+        [(menuOpen)]="menuOpen"
       />
-    </app-container-micio>
-  </section>
+      <app-toggle-indy
+        [icona]="'bi bi-gear'"
+        [titolo]="lang().Impostazioni"
+        [toggleMenus]="impostazioniToggle()"
+        [toggleStyles]="isMobile() ? { width: '100%' } : { width: '20rem' }"
+        [(menuOpen)]="menuOpen"
+      />
+      <app-toggle-indy
+        [titolo]="lang().AccountUtente"
+        [imgIcona]="imgToggle()"
+        [tipo]="'single'"
+        [toggleMenus]="accountToggle()"
+        [toggleStyles]="isMobile() ? { width: '100%' } : { width: '20rem' }"
+        [(menuOpen)]="menuOpen"
+      >
+        <div downContent class="account-actions">
+          <div class="account-divider"></div>
 
-  <section class="card-section">
-    <app-card-indy
-      [elems]="cardsHome()"
-      [titoloLista]="lang().CardsTitle"
-      [tipoSlice]="'single'"
-      [altezzaImg]="'13rem'"
-      [cardPosition]="'start'"
-      [arrayPags]="arrayRaggi"
+          @if (authService.accountsUser().length < maxUsers) {
+            <button type="button" (click)="router.navigate(['auth/login'])">
+              <span class="account-action-icon">
+                <i class="bi bi-plus-lg"></i>
+              </span>
+              <span>{{ lang().AggiungiAccount }}</span>
+            </button>
+          }
+
+          @if (authService.currentUser()) {
+            <button
+              type="button"
+              class="logout-all"
+              (click)="logoutAllAccounts()"
+            >
+              {{ lang().EsciAccount }}
+            </button>
+          }
+        </div>
+      </app-toggle-indy>
+    </div>
+  </div>
+</app-navbar-indy>
+
+<section style="padding-top: 4rem">
+  <app-container-micio>
+    <app-descrizione-micio
+      [titolo]="lang().Benvenuti"
+      [descrizione]="lang().Descrizione"
+      [immagine]="
+        'https://images.unsplash.com/photo-1515879218367-8466d910aaa4'
+      "
     />
-  </section>
+  </app-container-micio>
+</section>
 
-  <app-social-link></app-social-link>
-  <!-- <app-footer></app-footer> -->
-}
+<section class="card-section">
+  <app-card-indy
+    [elems]="cardsHome()"
+    [titoloLista]="lang().CardsTitle"
+    [tipoSlice]="'single'"
+    [altezzaImg]="'13rem'"
+    [cardPosition]="'start'"
+    [arrayPags]="arrayRaggi"
+  />
+</section>
 
-<router-outlet />
+<app-social-link></app-social-link>
+<!-- <app-footer></app-footer> -->

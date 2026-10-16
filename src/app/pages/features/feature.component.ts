@@ -1,10 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { isCurrentRoute } from '../../../library/functions/router.function';
 import { AppConfigService } from '../../core/api/appConfig.service';
 import { feature_imports } from './feature.import';
 import { getBottomNavItems } from './functions/feature.function';
+import { loadAllUsers } from '../../shared/functions/users.handler';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -31,8 +33,9 @@ import { getBottomNavItems } from './functions/feature.function';
     }
   `,
 })
-export class FeatureComponent {
+export class FeatureComponent implements OnInit {
   private router = inject(Router);
+  private authService = inject(AuthService);
   private appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Feature;
@@ -59,4 +62,8 @@ export class FeatureComponent {
       return cond;
     },
   });
+
+  ngOnInit(): void {
+    loadAllUsers(this.authService);
+  }
 }

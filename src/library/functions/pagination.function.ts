@@ -9,13 +9,13 @@ import { ICheckBox } from '../interfaces/form.interface';
 
 const maxElementForPage = 20;
 
-export function GetFiltriCustom<T, F>(
+export function GetFiltriCustom<T, F = null>(
   params: InputFiltri<T, F>,
 ): FiltriInterface<T> {
   const currentPage = signal<number>(1);
   const currentSlice = signal<number>(0);
 
-  params.tipoSelect = params.tipoSelect ? params.tipoSelect : 'every';
+  params.tipoSelect = params.tipoSelect || 'every';
   const RecordFiltri: Record<string, Function> = GetRecordFiltri<T, F>(params);
 
   const searchElems = computed<T[]>(() => {

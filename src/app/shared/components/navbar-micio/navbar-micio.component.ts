@@ -4,18 +4,23 @@ import {
   inject,
   signal,
   computed,
+  HostListener,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarIndyComponent } from '../../../../library/components/navbar/navbar-indy.component';
 import { PaginazioneIndyComponent } from '../../../../library/components/pagination/pagination-indy.component';
 import { ToggleIndyComponent } from '../../../../library/components/toggle/toggle-indy.component';
-import { effectTimeoutCustom } from '../../../../library/functions/debounce.function';
+import {
+  debounceTimeoutCustom,
+  effectTimeoutCustom,
+} from '../../../../library/functions/debounce.function';
 import { GetFiltriCustom } from '../../../../library/functions/pagination.function';
 import { PulsanteNavbar } from '../../../../library/interfaces/navbar.interface';
 import { AppConfigService } from '../../../core/api/appConfig.service';
 import { ILang } from '../../../core/interfaces/lang.interface';
 import { UserParams } from '../../interfaces/users.interface';
 import { AuthService } from '../../services/auth.service';
+import { ToggleStyles } from '../../../../library/interfaces/toggle.interface';
 
 @Component({
   selector: 'app-navbar-micio',
@@ -37,12 +42,13 @@ export class NavbarMicioComponent {
   public menuOpen = signal<string>('');
   public searchQuery = signal<string>('');
   public debounceQuery = signal<string>('');
+  public isMobile = signal<boolean>(window.innerWidth < 768);
 
   public caricamento = computed<boolean>(
     () => this.authService.users().length == 0,
   );
 
-  public filtri = GetFiltriCustom<UserParams, null>({
+  public filtri = GetFiltriCustom<UserParams>({
     elemTable: this.authService.users,
     tipoSelect: 'some',
     select: [
@@ -57,8 +63,13 @@ export class NavbarMicioComponent {
     ],
   });
 
-  public dataToggle = computed<UserParams[]>(() =>
-    this.debounceQuery() ? this.filtri.elemFilter() : [],
+  public toggleStyles = computed<ToggleStyles>(() =>
+    this.isMobile()
+      ? { width: '100%', height: '100vh' }
+      : {
+          width: 'min(22rem, calc(100vw - 2rem))',
+          height: 'min(32rem, calc(100vh - 5rem))',
+        },
   );
 
   constructor() {
@@ -67,6 +78,11 @@ export class NavbarMicioComponent {
       this.filtri.currentPage.set(1);
     });
   }
+
+  @HostListener('window:resize')
+  onResize = debounceTimeoutCustom(() => {
+    this.isMobile.set(window.innerWidth < 768);
+  });
 
   public aggiornaRicerca(event: Event): void {
     this.searchQuery.set((event.target as HTMLInputElement).value.trim());
