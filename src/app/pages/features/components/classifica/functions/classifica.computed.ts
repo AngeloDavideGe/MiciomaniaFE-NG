@@ -1,3 +1,4 @@
+import { CHART_COLORS } from '../../../../../../library/constants/utility.constant';
 import { GetOrderCustom } from '../../../../../../library/functions/ordinamento.function';
 import {
   creaBarPaths,
@@ -58,10 +59,10 @@ export function computedPathsClassifica(
   switch (key) {
     case 'giocatori': {
       return creaCirclePaths(
-        items.map((item: Giocatore | Squadra) => ({
+        items.map((item: Giocatore | Squadra, index: number) => ({
           titolo: (item as Giocatore).idUtente + ' - ' + item.punteggio,
           valore: item.punteggio,
-          colore: 'var(--primary-light)',
+          colore: CHART_COLORS[index] || 'var(--primary-light)',
         })),
         opzioniGraficoGiocatori(),
       );

@@ -3,14 +3,16 @@
     <div class="elemento-iniziale" style="--align-start: center">
       @if (pulsantiInizio().length > 0) {
         @for (pulsante of pulsantiInizio(); track pulsante.id) {
-          <a
-            [class.active]="pulsante.id === selectPulsante()"
-            (click)="clickPulsante(pulsante)"
-          >
-            <div class="icon">
-              <i [class]="pulsante.icon" [title]="pulsante.text"></i>
-            </div>
-          </a>
+          @if (pulsante.condition) {
+            <a
+              [class.active]="pulsante.id === selectPulsante()"
+              (click)="clickPulsante(pulsante)"
+            >
+              <div class="icon">
+                <i [class]="pulsante.icon" [title]="pulsante.text"></i>
+              </div>
+            </a>
+          }
         }
       }
       <ng-content select="[leftContent]" />
@@ -19,14 +21,16 @@
     <div class="elemento-centrato">
       @if (pulsantiCentro().length > 0) {
         @for (pulsante of pulsantiCentro(); track pulsante.id) {
-          <a
-            [class.active]="pulsante.id === selectPulsante()"
-            (click)="clickPulsante(pulsante)"
-          >
-            <div class="icon">
-              <i [class]="pulsante.icon" [title]="pulsante.text"></i>
-            </div>
-          </a>
+          @if (pulsante.condition) {
+            <a
+              [class.active]="pulsante.id === selectPulsante()"
+              (click)="clickPulsante(pulsante)"
+            >
+              <div class="icon">
+                <i [class]="pulsante.icon" [title]="pulsante.text"></i>
+              </div>
+            </a>
+          }
         }
       }
       <ng-content select="[centerContent]" />
@@ -35,14 +39,16 @@
     <div class="menu elemento-finale" style="--align-end: center">
       @if (pulsantiFine().length > 0) {
         @for (pulsante of pulsantiFine(); track pulsante.id) {
-          <a
-            [class.active]="pulsante.id === selectPulsante()"
-            (click)="clickPulsante(pulsante)"
-          >
-            <div class="icon">
-              <i [class]="pulsante.icon" [title]="pulsante.text"></i>
-            </div>
-          </a>
+          @if (pulsante.condition) {
+            <a
+              [class.active]="pulsante.id === selectPulsante()"
+              (click)="clickPulsante(pulsante)"
+            >
+              <div class="icon">
+                <i [class]="pulsante.icon" [title]="pulsante.text"></i>
+              </div>
+            </a>
+          }
         }
       }
       <ng-content select="[rightContent]" />

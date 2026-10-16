@@ -1,5 +1,7 @@
 <div class="home-navbar-wrapper">
-  @if (tipo() != "content") {
+  @if (caricamento()) {
+    <app-spinner-indy [dim]="dimToggleIcona()" />
+  } @else {
     @if (imgIcona()) {
       <img
         [src]="imgIcona()"
@@ -99,8 +101,10 @@
   }
 
   @case ("content") {
-    <div class="dropdown-panel shadow-sm" [style]="styles()">
-      <ng-content select="[onlyContent]" />
-    </div>
+    @if (menuOpen() == titolo()) {
+      <div class="dropdown-panel shadow-sm" [style]="styles()">
+        <ng-content select="[onlyContent]" />
+      </div>
+    }
   }
 }

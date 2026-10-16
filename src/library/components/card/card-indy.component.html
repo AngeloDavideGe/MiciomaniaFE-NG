@@ -1,11 +1,11 @@
 @if (elems()) {
-  <div class="mb-4" [style]="{ 'text-align': cardPosition() }">
+  <div [style]="{ 'text-align': cardPosition() }">
     <h5 class="card-title-list">
       {{ titoloLista() }}
     </h5>
   </div>
 
-  <div class="position-relative w-100">
+  <div class="position-relative w-100 mt-4">
     @if (viewFirstButton()) {
       <button class="carousel-button start" (click)="filtri.previousSlice()">
         <i class="bi bi-chevron-left"></i>
@@ -73,7 +73,9 @@
         }
       </div>
     } @else {
-      <div class="elemento-centrato">NO ELEMENTS</div>
+      <div class="elemento-centrato">
+        <span class="no-elem-cards"> NO ELEMENTS </span>
+      </div>
     }
 
     @if (singleSliceIndicators().length > 0) {

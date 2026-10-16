@@ -3,6 +3,7 @@ export interface PulsanteNavbar {
   icon: string;
   text: string;
   azione: Function;
+  condition: boolean;
 }
 
 export interface iTab {

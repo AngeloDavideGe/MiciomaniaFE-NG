@@ -25,38 +25,6 @@ export const mesi: string[] = [
   'dicembre',
 ];
 
-export const regioni: { label: string; province: string[] }[] = [
-  { label: 'Abruzzo', province: ["L'Aquila", 'Pescara', 'Chieti'] },
-  { label: 'Basilicata', province: ['Potenza', 'Matera'] },
-  { label: 'Calabria', province: ['Catanzaro', 'Cosenza', 'Reggio Calabria'] },
-  { label: 'Campania', province: ['Napoli', 'Salerno', 'Caserta', 'Avellino'] },
-  {
-    label: 'Emilia-Romagna',
-    province: ['Bologna', 'Modena', 'Parma', 'Rimini'],
-  },
-  {
-    label: 'Friuli Venezia Giulia',
-    province: ['Trieste', 'Udine', 'Pordenone'],
-  },
-  { label: 'Lazio', province: ['Roma', 'Latina', 'Frosinone'] },
-  { label: 'Liguria', province: ['Genova', 'La Spezia', 'Savona'] },
-  {
-    label: 'Lombardia',
-    province: ['Milano', 'Brescia', 'Bergamo', 'Monza e Brianza'],
-  },
-  { label: 'Marche', province: ['Ancona', 'Pesaro e Urbino', 'Macerata'] },
-  { label: 'Molise', province: ['Campobasso', 'Isernia'] },
-  { label: 'Piemonte', province: ['Torino', 'Cuneo', 'Novara', 'Alessandria'] },
-  { label: 'Puglia', province: ['Bari', 'Lecce', 'Foggia', 'Taranto'] },
-  { label: 'Sardegna', province: ['Cagliari', 'Sassari', 'Nuoro'] },
-  { label: 'Sicilia', province: ['Palermo', 'Catania', 'Messina', 'Siracusa'] },
-  { label: 'Toscana', province: ['Firenze', 'Pisa', 'Livorno', 'Lucca'] },
-  { label: 'Trentino-Alto Adige', province: ['Trento', 'Bolzano'] },
-  { label: 'Umbria', province: ['Perugia', 'Terni'] },
-  { label: "Valle d'Aosta", province: ['Aosta'] },
-  { label: 'Veneto', province: ['Venezia', 'Verona', 'Padova', 'Vicenza'] },
-];
-
 export const colori: string[] = [
   'rosso',
   'verde',
@@ -69,6 +37,29 @@ export const colori: string[] = [
   'nero',
   'bianco',
   'grigio',
+];
+
+export const CHART_COLORS: string[] = [
+  '#E63946',
+  '#F4A261',
+  '#2A9D8F',
+  '#264653',
+  '#E76F51',
+  '#457B9D',
+  '#6A4C93',
+  '#1D3557',
+  '#D62828',
+  '#F77F00',
+  '#06A77D',
+  '#3A0CA3',
+  '#7209B7',
+  '#B5179E',
+  '#9D0208',
+  '#0077B6',
+  '#023E8A',
+  '#5A189A',
+  '#C1121F',
+  '#386641',
 ];
 
 export const inizialiAlfabeto: string[] = [
@@ -98,4 +89,146 @@ export const inizialiAlfabeto: string[] = [
   'X',
   'Y',
   'Z',
+];
+
+export const regioni: { label: string; province: string[] }[] = [
+  { label: 'Abruzzo', province: ["L'Aquila", 'Teramo', 'Pescara', 'Chieti'] },
+  { label: 'Basilicata', province: ['Potenza', 'Matera'] },
+  {
+    label: 'Calabria',
+    province: [
+      'Catanzaro',
+      'Cosenza',
+      'Crotone',
+      'Vibo Valentia',
+      'Reggio Calabria',
+    ],
+  },
+  {
+    label: 'Campania',
+    province: ['Napoli', 'Salerno', 'Caserta', 'Avellino', 'Benevento'],
+  },
+  {
+    label: 'Emilia-Romagna',
+    province: [
+      'Bologna',
+      'Ferrara',
+      'Forlì-Cesena',
+      'Modena',
+      'Parma',
+      'Piacenza',
+      'Ravenna',
+      'Reggio Emilia',
+      'Rimini',
+    ],
+  },
+  {
+    label: 'Friuli-Venezia Giulia',
+    province: ['Gorizia', 'Pordenone', 'Trieste', 'Udine'],
+  },
+  {
+    label: 'Lazio',
+    province: ['Roma', 'Frosinone', 'Latina', 'Rieti', 'Viterbo'],
+  },
+  { label: 'Liguria', province: ['Genova', 'Imperia', 'La Spezia', 'Savona'] },
+  {
+    label: 'Lombardia',
+    province: [
+      'Milano',
+      'Bergamo',
+      'Brescia',
+      'Como',
+      'Cremona',
+      'Lecco',
+      'Lodi',
+      'Mantova',
+      'Monza e Brianza',
+      'Pavia',
+      'Sondrio',
+      'Varese',
+    ],
+  },
+  {
+    label: 'Marche',
+    province: [
+      'Ancona',
+      'Ascoli Piceno',
+      'Fermo',
+      'Macerata',
+      'Pesaro e Urbino',
+    ],
+  },
+  { label: 'Molise', province: ['Campobasso', 'Isernia'] },
+  {
+    label: 'Piemonte',
+    province: [
+      'Torino',
+      'Alessandria',
+      'Asti',
+      'Biella',
+      'Cuneo',
+      'Novara',
+      'Verbano-Cusio-Ossola',
+      'Vercelli',
+    ],
+  },
+  {
+    label: 'Puglia',
+    province: [
+      'Bari',
+      'Barletta-Andria-Trani',
+      'Brindisi',
+      'Foggia',
+      'Lecce',
+      'Taranto',
+    ],
+  },
+  {
+    label: 'Sardegna',
+    province: ['Cagliari', 'Nuoro', 'Oristano', 'Sassari', 'Sud Sardegna'],
+  },
+  {
+    label: 'Sicilia',
+    province: [
+      'Palermo',
+      'Agrigento',
+      'Caltanissetta',
+      'Catania',
+      'Enna',
+      'Messina',
+      'Ragusa',
+      'Siracusa',
+      'Trapani',
+    ],
+  },
+  {
+    label: 'Toscana',
+    province: [
+      'Firenze',
+      'Arezzo',
+      'Grosseto',
+      'Livorno',
+      'Lucca',
+      'Massa-Carrara',
+      'Pisa',
+      'Pistoia',
+      'Prato',
+      'Siena',
+    ],
+  },
+  { label: 'Trentino-Alto Adige', province: ['Trento', 'Bolzano'] },
+  { label: 'Umbria', province: ['Perugia', 'Terni'] },
+  { label: "Valle d'Aosta", province: ['Aosta'] },
+  {
+    label: 'Veneto',
+    province: [
+      'Venezia',
+      'Belluno',
+      'Padova',
+      'Rovigo',
+      'Treviso',
+      'Verona',
+      'Vicenza',
+    ],
+  },
 ];

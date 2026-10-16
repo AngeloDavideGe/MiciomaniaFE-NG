@@ -1,0 +1,56 @@
+<app-navbar-indy [pulsantiFine]="pulsantiNavbar">
+  <div rightContent>
+    <app-toggle-indy
+      [icona]="'bi bi-search'"
+      [(menuOpen)]="menuOpen"
+      [titolo]="lang.CercaUtenti"
+      [caricamento]="caricamento()"
+      [tipo]="'content'"
+      [toggleStyles]="{
+        width: 'min(22rem, calc(100vw - 2rem))',
+        height: 'min(32rem, calc(100vh - 5rem))',
+        right: '1rem',
+      }"
+    >
+      <div onlyContent class="user-search-panel">
+        <label class="user-search">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <input
+            type="search"
+            [value]="searchQuery()"
+            [placeholder]="lang.CercaUtentiPlaceholder"
+            [attr.aria-label]="lang.CercaUtenti"
+            autocomplete="off"
+            (input)="aggiornaRicerca($event)"
+          />
+        </label>
+
+        @if (dataToggle().length > 0) {
+          <ul class="user-results">
+            @for (utente of dataToggle(); track utente.id) {
+              <li class="user-result-item">
+                <button
+                  type="button"
+                  class="user-result"
+                  (click)="apriProfilo(utente.id)"
+                >
+                  <img
+                    [src]="utente.profilePic || defaultPic"
+                    [alt]="utente.nome"
+                  />
+                  <span class="user-result-name">{{ utente.nome }}</span>
+                  <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                </button>
+              </li>
+            }
+          </ul>
+          <app-paginazione-indy [filtri]="filtri" [tipo]="'singolo'" />
+        } @else {
+          <p class="user-search-empty">
+            {{ lang.NessunUtenteTrovato }}
+          </p>
+        }
+      </div>
+    </app-toggle-indy>
+  </div>
+</app-navbar-indy>

@@ -65,7 +65,10 @@
       "Canzoni": "Songs",
       "Giochi": "Games",
       "Post": "Posts",
-      "Classifica": "Ranking"
+      "Classifica": "Ranking",
+      "CercaUtenti": "Search Users",
+      "CercaUtentiPlaceholder": "Search by name or ID...",
+      "NessunUtenteTrovato": "No users found"
     }
   },
   "Canzoni": {

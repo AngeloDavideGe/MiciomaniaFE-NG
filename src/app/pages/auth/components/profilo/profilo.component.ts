@@ -7,16 +7,19 @@ import {
   signal,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { handlerFunc } from '../../../../../library/functions/handler.function';
-import { User } from '../../../../shared/interfaces/users.interface';
-import { AuthService } from '../../../../shared/services/auth.service';
-import { getProfileNavbar, getProfiloTabs } from './functions/profilo.function';
-import { profilo_imports } from './profilo.imports';
-import { AppConfigService } from '../../../../core/api/appConfig.service';
-import { paraMapCustom } from '../../../../../library/functions/router.function';
 import { Subject } from 'rxjs';
+import { handlerFunc } from '../../../../../library/functions/handler.function';
+import { paraMapCustom } from '../../../../../library/functions/router.function';
 import { iTab } from '../../../../../library/interfaces/navbar.interface';
+import { AppConfigService } from '../../../../core/api/appConfig.service';
+import {
+  User,
+  UserParams,
+} from '../../../../shared/interfaces/users.interface';
+import { AuthService } from '../../../../shared/services/auth.service';
+import { getProfiloTabs } from './functions/profilo.function';
 import { iProfilo, ProfilePost, TabsProfilo } from './models/profilo.model';
+import { profilo_imports } from './profilo.imports';
 
 @Component({
   selector: 'app-profile',
@@ -34,10 +37,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public readonly lang = this.appConfig.lang.Profilo;
   public readonly tabs: iTab[] = getProfiloTabs(this.lang.Tabs);
   public readonly defaultPic = this.appConfig.config.defaultPicsUrl.user;
-  public readonly pulsantiNavbar = getProfileNavbar(
-    this.router,
-    this.appConfig.lang.Feature.Navbar,
-  );
 
   public currentTab = signal<string>(TabsProfilo.text);
   public editProfiloOpen = signal<boolean>(false);
@@ -60,6 +59,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
       destroy: this.destroy$,
       func: (id: string) => this.loadProfile(id),
     });
+
+    this.loadAllUsers();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private loadProfile(idUser: string): void {
@@ -91,14 +97,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   public openEditProfile(): void {
     if (this.isPersonalProfile()) {
       this.editProfiloOpen.set(true);
     }
+  }
+
+  private loadAllUsers(): void {
+    handlerFunc<UserParams[]>({
+      skipCall: this.authService.usersCaricati,
+      callHttp: () => this.authService.getAllUsersHttp(),
+      nextCall: (data: UserParams[]) => this.authService.users.set(data),
+      errorCall: () => (this.authService.usersCaricati = false),
+    });
+
+    this.authService.usersCaricati = true;
   }
 }

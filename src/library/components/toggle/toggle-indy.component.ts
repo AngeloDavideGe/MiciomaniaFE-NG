@@ -8,11 +8,12 @@ import {
   signal,
 } from '@angular/core';
 import { ToggleProps, ToggleStyles } from '../../interfaces/toggle.interface';
+import { SpinnerIndyComponent } from '../spinner/spinner-indy.component';
 
 @Component({
   selector: 'app-toggle-indy',
   standalone: true,
-  imports: [],
+  imports: [SpinnerIndyComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './toggle-indy.component.html',
   styleUrl: './toggle-indy.component.scss',
@@ -28,6 +29,7 @@ export class ToggleIndyComponent {
   public toggleMenus = input<ToggleProps[]>([]);
   public toggleStyles = input<ToggleStyles>({});
   public tipo = input<'single' | 'multiple' | 'content'>('multiple');
+  public caricamento = input<boolean>(false);
 
   public menuOpen = model<string>('');
   public aperturaMenu = output<boolean>();

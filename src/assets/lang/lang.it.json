@@ -65,7 +65,10 @@
       "Canzoni": "Canzoni",
       "Giochi": "Giochi",
       "Post": "Post",
-      "Classifica": "Classifica"
+      "Classifica": "Classifica",
+      "CercaUtenti": "Cerca Utenti",
+      "CercaUtentiPlaceholder": "Cerca per nome o ID...",
+      "NessunUtenteTrovato": "Nessun utente trovato"
     }
   },
   "Canzoni": {

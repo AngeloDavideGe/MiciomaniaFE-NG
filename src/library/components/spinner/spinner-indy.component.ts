@@ -5,8 +5,20 @@ import { Component, input } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <div class="spinner-template-stile" [style.padding-top]="mt()">
-      <div class="spinner" role="status">
+    <div
+      class="spinner-template-stile"
+      [style]="{
+        'margin-top': mt(),
+      }"
+    >
+      <div
+        class="spinner"
+        role="status"
+        [style]="{
+          width: dim(),
+          height: dim(),
+        }"
+      >
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
@@ -20,8 +32,6 @@ import { Component, input } from '@angular/core';
       }
 
       .spinner {
-        width: 3rem;
-        height: 3rem;
         border-radius: 50%;
         border: 4px solid var(--border);
         border-top-color: var(--primary);
@@ -40,4 +50,5 @@ import { Component, input } from '@angular/core';
 })
 export class SpinnerIndyComponent {
   public mt = input<string>('0');
+  public dim = input<string>('3rem');
 }

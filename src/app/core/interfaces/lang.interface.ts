@@ -66,6 +66,9 @@ export interface ILang {
       Giochi: string;
       Post: string;
       Classifica: string;
+      CercaUtenti: string;
+      CercaUtentiPlaceholder: string;
+      NessunUtenteTrovato: string;
     };
   };
   Canzoni: {

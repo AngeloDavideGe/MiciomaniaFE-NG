@@ -43,19 +43,19 @@ export function getCanzoniSidebar(
 export function defaultCanzoniArrayPags(): RaggioPage[] {
   return [
     {
-      width: 1904,
+      width: 1862,
       raggio: 5,
     },
     {
-      width: 1591.2,
+      width: 1550,
       raggio: 4,
     },
     {
-      width: 1279.2,
+      width: 1238,
       raggio: 3,
     },
     {
-      width: 986.4,
+      width: 986,
       raggio: 2,
     },
     {

@@ -5,8 +5,8 @@ import { DescrizioneMicioComponent } from '../../../../shared/components/descriz
 import { EditUserComponent } from './components/edit-user.component';
 import { ModalIndyComponent } from '../../../../../library/components/modal/modal-indy.component';
 import { DateFormatPipe } from '../../../../../library/pipes/date-format.pipe';
-import { NavbarIndyComponent } from '../../../../../library/components/navbar/navbar-indy.component';
 import { PostsUserComponent } from './components/posts-user/posts-user.component';
+import { NavbarMicioComponent } from '../../../../shared/components/navbar-micio/navbar-micio.component';
 
 export const profilo_imports: Type<any>[] = [
   ContaierMicioComponent,
@@ -15,6 +15,6 @@ export const profilo_imports: Type<any>[] = [
   ModalIndyComponent,
   EditUserComponent,
   DateFormatPipe,
-  NavbarIndyComponent,
+  NavbarMicioComponent,
   PostsUserComponent,
 ];

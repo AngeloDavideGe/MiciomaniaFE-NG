@@ -1,13 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { feature_imports } from './feature.import';
-import {
-  getBottomNavItems,
-  getFeatureNavbar,
-} from './functions/feature.function';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { isCurrentRoute } from '../../../library/functions/router.function';
 import { AppConfigService } from '../../core/api/appConfig.service';
+import { feature_imports } from './feature.import';
+import { getBottomNavItems } from './functions/feature.function';
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +12,7 @@ import { AppConfigService } from '../../core/api/appConfig.service';
   imports: feature_imports,
   template: `
     @if (!(isFeature$ | async)) {
-      <app-navbar-indy [pulsantiFine]="pulsantiNavbar" />
+      <app-navbar-micio />
 
       <section class="router-section">
         <router-outlet />
@@ -39,10 +36,6 @@ export class FeatureComponent {
   private appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Feature;
-  public readonly pulsantiNavbar = getFeatureNavbar(
-    this.router,
-    this.lang.Navbar,
-  );
   public readonly pulsantiBottombar = getBottomNavItems(
     this.router,
     this.lang.Navbar,

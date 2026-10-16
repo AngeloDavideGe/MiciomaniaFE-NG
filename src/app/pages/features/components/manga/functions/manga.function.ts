@@ -95,19 +95,19 @@ export function getMangaToolbar(
 export function defaultMangaArrayPags(): RaggioPage[] {
   return [
     {
-      width: 1904,
+      width: 1871,
       raggio: 5,
     },
     {
-      width: 1591.2,
+      width: 1567,
       raggio: 4,
     },
     {
-      width: 1279.2,
+      width: 1263,
       raggio: 3,
     },
     {
-      width: 986.4,
+      width: 978,
       raggio: 2,
     },
     {

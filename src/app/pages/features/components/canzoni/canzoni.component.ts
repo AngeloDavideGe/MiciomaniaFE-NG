@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  OnInit,
+  Signal,
+  signal,
+} from '@angular/core';
 import { AudioService } from '../../../../../library/dialogs/audio/audio.service';
 import { effectTimeoutCustom } from '../../../../../library/functions/debounce.function';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
@@ -93,18 +100,10 @@ export class CanzoniComponent implements OnInit {
   public filtri = computed<FiltriInterface<Canzoni>>(() => {
     const currentCategoria: string = this.currentCategoria();
 
-    if (currentCategoria == 'tutte') {
-      return GetFiltriCustom({
-        elemTable: this.canzoniAll,
-        tipoSelect: 'some',
-        select: this.getSelectFiltri(),
-      });
+    if (currentCategoria == CategorieCanzoni.tutte) {
+      return this.getCanzoniFiltri(this.canzoniAll);
     } else {
-      return GetFiltriCustom({
-        elemTable: this.canzoniPreferite,
-        tipoSelect: 'some',
-        select: this.getSelectFiltri(),
-      });
+      return this.getCanzoniFiltri(this.canzoniPreferite);
     }
   });
 
@@ -153,16 +152,22 @@ export class CanzoniComponent implements OnInit {
     };
   }
 
-  private getSelectFiltri(): FiltriSelect<Canzoni, string>[] {
-    return [
-      {
-        key: 'nome',
-        query: this.debounceQuery,
-      },
-      {
-        key: 'autore',
-        query: this.debounceQuery,
-      },
-    ];
+  private getCanzoniFiltri(
+    canzoni: Signal<Canzoni[]>,
+  ): FiltriInterface<Canzoni> {
+    return GetFiltriCustom<Canzoni, null>({
+      elemTable: canzoni,
+      tipoSelect: 'some',
+      select: [
+        {
+          key: 'nome',
+          query: this.debounceQuery,
+        },
+        {
+          key: 'autore',
+          query: this.debounceQuery,
+        },
+      ],
+    });
   }
 }
