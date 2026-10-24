@@ -1,3 +1,5 @@
+@use "./../../scss/mixin.scss" as mixin;
+
 .table-wrapper {
   background: var(--card);
   border: 1px solid var(--border);
@@ -95,8 +97,7 @@
   }
 
   .table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    @include mixin.scrollbar-custom();
 
     .table-custom {
       width: 100%;
@@ -364,16 +365,24 @@
           padding: 10px 12px;
           font-size: 0.65rem;
 
-          &:first-child { padding-left: 16px; }
-          &:last-child  { padding-right: 16px; }
+          &:first-child {
+            padding-left: 16px;
+          }
+          &:last-child {
+            padding-right: 16px;
+          }
         }
 
         tbody tr td {
           padding: 10px 12px;
           font-size: 0.75rem;
 
-          &:first-child { padding-left: 16px; }
-          &:last-child  { padding-right: 16px; }
+          &:first-child {
+            padding-left: 16px;
+          }
+          &:last-child {
+            padding-right: 16px;
+          }
 
           .cell-content {
             padding: 3px 8px;
@@ -420,8 +429,12 @@
           padding: 8px 10px;
           font-size: 0.7rem;
 
-          &:first-child { padding-left: 12px; }
-          &:last-child  { padding-right: 12px; }
+          &:first-child {
+            padding-left: 12px;
+          }
+          &:last-child {
+            padding-right: 12px;
+          }
         }
 
         .actions-cell .action-btn {

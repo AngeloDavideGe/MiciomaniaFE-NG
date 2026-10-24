@@ -42,7 +42,7 @@ export interface InputFiltri<T, F> {
   ordinaElem?: WritableSignal<Ordinamento<T, 'desc' | 'cresc'> | null>;
 }
 
-export type TypePagination = 'page' | 'single' | 'all';
+export type TypePagination = 'page' | 'single' | 'all' | 'scroll';
 export type TypeButton = 'Default' | 'Play' | 'Download' | 'No';
 
 export interface RaggioPage {

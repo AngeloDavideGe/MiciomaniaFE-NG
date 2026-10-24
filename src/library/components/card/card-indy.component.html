@@ -14,7 +14,10 @@
 
     @if (filtri.elemFilter().length > 0) {
       <div
-        class="grid-card-layout"
+        [class]="{
+          'grid-card-layout': true,
+          'scroll-card-layout': tipoSlice() == 'scroll',
+        }"
         [style]="{
           '--card-position': cardPosition(),
           '--card-gap': cardGap(),

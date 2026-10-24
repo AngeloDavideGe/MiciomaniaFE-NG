@@ -94,6 +94,9 @@ export function GetFiltriCustom<T, F = null>(
       case 'all': {
         return totElem;
       }
+      case 'scroll': {
+        return totElem;
+      }
       default: {
         return totElem.slice(
           (currentPages - 1) * elemForPage,

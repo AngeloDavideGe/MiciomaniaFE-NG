@@ -1,0 +1,46 @@
+@use './mixin.scss' as mixin;
+
+.elemento {
+  &-iniziale {
+    --align-start: start;
+    @include mixin.flex-justify(flex-start, var(--align-start));
+  }
+
+  &-finale {
+    --align-end: start;
+    @include mixin.flex-justify(flex-end, var(--align-end));
+  }
+
+  &-centrato {
+    --align-center: baseline;
+    @include mixin.flex-justify(center, var(--align-center));
+  }
+}
+
+.elementi {
+  &-laterali {
+    @include mixin.flex-justify(space-between, center);
+  }
+
+  &-colonna {
+    @include mixin.flex-justify(center, center, column);
+  }
+}
+
+.grid-card-layout {
+  --card-gap: 1.5rem;
+  --card-width: 20rem;
+  --card-position: center;
+
+  grid-template-columns: repeat(auto-fill, var(--card-width));
+  gap: var(--card-gap);
+
+  @media (max-width: 767.98px) {
+    @include mixin.flex-justify(center, stretch, row, grid);
+  }
+
+  @media (min-width: 767.98px) {
+    @include mixin.flex-justify(var(--card-position), stretch, row, grid);
+  }
+}
+

@@ -1,3 +1,29 @@
+@use './../../scss/mixin' as mix;
+
+.card-title-list {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.no-elem-cards {
+  margin-top: 2rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.scroll-card-layout {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: var(--card-gap);
+  @include mix.scrollbar-custom();
+
+  .indy-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+}
+
 .indy-card {
   overflow: hidden;
   background: var(--card);
@@ -5,41 +31,30 @@
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
-}
 
-.card-image {
-  width: 100%;
-  object-fit: cover;
-}
-
-.card-content {
-  display: flex;
-  flex-direction: column;
-  padding: 1.25rem;
-  color: var(--text);
-
-  h5 {
-    margin-bottom: 1rem;
-    font-weight: 700;
-    color: var(--text);
+  .card-image {
+    width: 100%;
+    object-fit: cover;
   }
-}
 
-.description {
-  margin-bottom: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    color: var(--text);
 
-.card-title-list {
-  color: var(--text);
-  font-weight: 700;
-}
+    h5 {
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
 
-.no-elem-cards{
-  margin-top: 2rem;
-  color: var(--text);
-  font-weight: 600;
+    .description {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+  }
 }
 
 .slice-indicators {
@@ -48,24 +63,24 @@
   align-items: center;
   gap: 0.5rem;
   margin-top: 1rem;
-}
 
-.slice-indicator {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: var(--text-secondary);
-  opacity: 0.55;
-  transition:
-    background 0.2s ease,
-    opacity 0.2s ease,
-    transform 0.2s ease;
+  .slice-indicator {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    opacity: 0.55;
+    transition:
+      background 0.2s ease,
+      opacity 0.2s ease,
+      transform 0.2s ease;
 
-  &.active {
-    background: var(--primary-light);
-    opacity: 1;
-    transform: scale(1.35);
-    box-shadow: var(--primary-shadow);
+    &.active {
+      background: var(--primary-light);
+      opacity: 1;
+      transform: scale(1.35);
+      box-shadow: var(--primary-shadow);
+    }
   }
 }
 
@@ -86,16 +101,17 @@
   transition:
     background 0.2s ease,
     transform 0.2s ease;
+
   &:hover {
     background: var(--primary);
     transform: translateY(-50%) scale(1.1);
   }
-}
 
-.carousel-button.start {
-  left: 0;
-}
+  &.start {
+    left: 0;
+  }
 
-.carousel-button.end {
-  right: 0;
+  &.end {
+    right: 0;
+  }
 }

@@ -1,4 +1,9 @@
-@mixin flex-justify($posizione, $aling: start, $direction: row, $display: flex) {
+@mixin flex-justify(
+  $posizione,
+  $aling: start,
+  $direction: row,
+  $display: flex
+) {
   display: $display;
   justify-content: $posizione;
   align-items: $aling;
@@ -16,46 +21,45 @@
   height: 100%;
 }
 
-.elemento {
-  &-iniziale {
-    --align-start: start;
-    @include flex-justify(flex-start, var(--align-start));
+@mixin scrollbar-custom() {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 77, 255, 0.55) transparent;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    height: 6px;
   }
 
-  &-finale {
-    --align-end: start;
-    @include flex-justify(flex-end, var(--align-end));
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 999px;
+    margin: 0 4px;
   }
 
-  &-centrato {
-    --align-center: baseline;
-    @include flex-justify(center, var(--align-center));
-  }
-}
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      90deg,
+      rgba(138, 77, 255, 0.55) 0%,
+      rgba(183, 130, 255, 0.85) 100%
+    );
+    border-radius: 999px;
+    transition: background 0.25s ease;
 
-.elementi {
-  &-laterali {
-    @include flex-justify(space-between, center);
-  }
-
-  &-colonna {
-    @include flex-justify(center, center, column);
-  }
-}
-
-.grid-card-layout {
-  --card-gap: 1.5rem;
-  --card-width: 20rem;
-  --card-position: center;
-
-  grid-template-columns: repeat(auto-fill, var(--card-width));
-  gap: var(--card-gap);
-
-  @media (max-width: 767.98px) {
-    @include flex-justify(center, stretch, row, grid);
+    &:hover {
+      background: linear-gradient(
+        90deg,
+        var(--primary) 0%,
+        var(--primary-light) 100%
+      );
+      box-shadow: 0 0 12px rgba(138, 77, 255, 0.55);
+    }
   }
 
-  @media (min-width: 767.98px) {
-    @include flex-justify(var(--card-position), stretch, row, grid);
+  &::-webkit-scrollbar-corner {
+    background: transparent;
   }
 }
