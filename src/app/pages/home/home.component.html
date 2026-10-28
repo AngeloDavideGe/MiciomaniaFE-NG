@@ -52,15 +52,11 @@
 </app-navbar-indy>
 
 <section style="padding-top: 4rem">
-  <app-container-micio>
-    <app-descrizione-micio
-      [titolo]="lang().Benvenuti"
-      [descrizione]="lang().Descrizione"
-      [immagine]="
-        'https://images.unsplash.com/photo-1515879218367-8466d910aaa4'
-      "
-    />
-  </app-container-micio>
+  <app-container-micio
+    [titolo]="lang().Benvenuti"
+    [descrizione]="lang().Descrizione"
+    [immagine]="'https://images.unsplash.com/photo-1515879218367-8466d910aaa4'"
+  />
 </section>
 
 <section class="card-section">
@@ -75,4 +71,4 @@
 </section>
 
 <app-social-link></app-social-link>
-<!-- <app-footer></app-footer> -->
+<app-footer></app-footer>

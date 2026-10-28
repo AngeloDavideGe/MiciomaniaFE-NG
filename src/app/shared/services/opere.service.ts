@@ -7,7 +7,7 @@ import {
   Classifica,
   iManga,
   MangaGet,
-  MangaUtente,
+  OpereUtente,
 } from '../interfaces/opere.interface';
 import { User } from '../interfaces/users.interface';
 
@@ -16,8 +16,8 @@ import { User } from '../interfaces/users.interface';
 })
 export class OpereService extends BaseMicioService {
   public manga = signal<iManga | null>(null);
-  public mangaUtente = signal<MangaUtente | null>(null);
   public canzoni = signal<Canzoni[]>([]);
+  public opereUtente = signal<OpereUtente | null>(null);
   public classifica = signal<Classifica | null>(null);
 
   public mangaLoaded: boolean = false;
@@ -35,18 +35,18 @@ export class OpereService extends BaseMicioService {
   getManga(currentUser: User | null): Observable<MangaGet> {
     return forkJoin({
       manga: this.getCustom<iManga>('Manga/get_all_manga'),
-      mangaUtente: this.getMangaUtente(currentUser),
+      opereUtente: this.getOpereUtente(currentUser),
     });
   }
 
   getAllCanzoni(currentUser: User | null): Observable<CanzoniGet> {
     return forkJoin({
       canzoni: this.getCustom<Canzoni[]>('Manga/get_all_canzoni'),
-      mangaUtente: this.getMangaUtente(currentUser),
+      opereUtente: this.getOpereUtente(currentUser),
     });
   }
 
-  private getMangaUtente(currentUser: User | null): Observable<MangaUtente> {
+  private getOpereUtente(currentUser: User | null): Observable<OpereUtente> {
     if (!currentUser) {
       return of({
         manga: null,
@@ -55,10 +55,10 @@ export class OpereService extends BaseMicioService {
       });
     }
 
-    if (this.mangaUtente()) {
-      return of(this.mangaUtente()!);
+    if (this.opereUtente()) {
+      return of(this.opereUtente()!);
     } else {
-      return this.getCustom<MangaUtente>(
+      return this.getCustom<OpereUtente>(
         `Manga/get_manga_utente/${currentUser?.id}`,
       );
     }

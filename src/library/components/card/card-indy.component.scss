@@ -16,7 +16,7 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   gap: var(--card-gap);
-  @include mix.scrollbar-custom();
+  @include mix.scrollbar-x();
 
   .indy-card {
     flex: 0 0 auto;

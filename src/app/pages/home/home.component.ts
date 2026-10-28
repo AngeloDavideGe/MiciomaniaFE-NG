@@ -168,7 +168,7 @@ export class HomeComponent implements OnInit {
       } else {
         this.opereService.canzoni.set([]);
         this.opereService.manga.set(null);
-        this.opereService.mangaUtente.set(null);
+        this.opereService.opereUtente.set(null);
 
         this.opereService.mangaLoaded = false;
         this.opereService.canzoniLoaded = false;

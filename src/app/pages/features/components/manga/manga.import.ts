@@ -4,12 +4,10 @@ import { SidebarIndyComponent } from '../../../../../library/components/sidebar/
 import { SpinnerIndyComponent } from '../../../../../library/components/spinner/spinner-indy.component';
 import { TabsIndyComponent } from '../../../../../library/components/tabs/tabs-indy.component';
 import { ContaierMicioComponent } from '../../../../shared/components/container-micio.component';
-import { DescrizioneMicioComponent } from '../../../../shared/components/descrizione-micio.component';
 import { ToolbarMicioComponent } from '../../../../shared/components/toolbar-micio.component';
 
 export const manga_imports: Type<any>[] = [
   ContaierMicioComponent,
-  DescrizioneMicioComponent,
   ToolbarMicioComponent,
   SidebarIndyComponent,
   TabsIndyComponent,

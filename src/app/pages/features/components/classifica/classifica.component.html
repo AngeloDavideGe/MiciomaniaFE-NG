@@ -1,66 +1,64 @@
-<app-container-micio>
-  <app-descrizione-micio
-    [titolo]="lang.Titolo"
-    [descrizione]="lang.Descrizione"
-    [immagine]="'https://images.unsplash.com/photo-1515879218367-8466d910aaa4'"
-  >
-    <div all-row>
-      <div class="elemento-centrato p-2">
-        <app-tabs-indy [tabs]="tabs" [(selectTab)]="currentTab" />
-      </div>
+<app-container-micio
+  [titolo]="lang.Titolo"
+  [descrizione]="lang.Descrizione"
+  [immagine]="'https://images.unsplash.com/photo-1515879218367-8466d910aaa4'"
+>
+  <div all-row>
+    <div class="elemento-centrato p-2">
+      <app-tabs-indy [tabs]="tabs" [(selectTab)]="currentTab" />
+    </div>
 
-      <div class="mt-2"></div>
+    <div class="mt-2"></div>
 
-      @if (spinner()) {
-        <app-spinner-indy [mt]="'5rem'"></app-spinner-indy>
-      } @else {
-        @switch (currentTab()) {
-          @case (enumTabs.giocatori) {
-            <app-table-indy
-              [elemTable]="giocatori()"
-              [titoloTabella]="lang.Tabelle.Giocatori"
-              [colonne]="colonneGiocatori"
-              [recordBadge]="badgeTable"
-            />
-          }
+    @if (spinner()) {
+      <app-spinner-indy [mt]="'5rem'"></app-spinner-indy>
+    } @else {
+      @switch (currentTab()) {
+        @case (enumTabs.giocatori) {
+          <app-table-indy
+            [elemTable]="giocatori()"
+            [titoloTabella]="lang.Tabelle.Giocatori"
+            [colonne]="colonneGiocatori"
+            [recordBadge]="badgeTable"
+          />
+        }
 
-          @case (enumTabs.squadre) {
-            <app-table-indy
-              [elemTable]="squadre()"
-              [titoloTabella]="lang.Tabelle.Squadre"
-              [colonne]="colonneSquadre"
-              [keyPrimary]="'nome'"
-              [templateTableCustom]="templateTableCustom"
-              [recordBadge]="badgeTable"
-            >
-              <ng-template #templateTableCustom let-elem>
-                <div class="dettagli-squadra">
-                  <div class="squadra-descrizione">
-                    <p>{{ elem.descrizione }}</p>
-                  </div>
+        @case (enumTabs.squadre) {
+          <app-table-indy
+            [elemTable]="squadre()"
+            [titoloTabella]="lang.Tabelle.Squadre"
+            [colonne]="colonneSquadre"
+            [keyPrimary]="'nome'"
+            [templateTableCustom]="templateTableCustom"
+            [recordBadge]="badgeTable"
+          >
+            <ng-template #templateTableCustom let-elem>
+              <div class="dettagli-squadra">
+                <div class="squadra-descrizione">
+                  <p>{{ elem.descrizione }}</p>
                 </div>
-              </ng-template>
-            </app-table-indy>
-          }
-          @case (enumTabs.grafico) {
-            <div class="classifica-grafico">
-              <app-svg-indy
-                [paths]="pathSquadre()"
-                [width]="700"
-                [height]="graficoAltezzaSquadre()"
-                [modale]="modaleClassifica()"
-              />
+              </div>
+            </ng-template>
+          </app-table-indy>
+        }
+        @case (enumTabs.grafico) {
+          <div class="classifica-grafico elemento-iniziale">
+            <app-svg-indy
+              [paths]="pathSquadre()"
+              [width]="700"
+              [height]="graficoAltezzaSquadre()"
+              [modale]="modaleClassifica()"
+            />
 
-              <app-svg-indy
-                [paths]="pathGiocatori()"
-                [width]="500"
-                [height]="330"
-              />
-            </div>
-          }
+            <app-svg-indy
+              [paths]="pathGiocatori()"
+              [width]="500"
+              [height]="330"
+            />
+          </div>
         }
       }
-      <div class="pt-3"></div>
-    </div>
-  </app-descrizione-micio>
+    }
+    <div class="pt-3"></div>
+  </div>
 </app-container-micio>

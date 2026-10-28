@@ -1,11 +1,11 @@
 export interface MangaGet {
   manga: iManga;
-  mangaUtente: MangaUtente;
+  opereUtente: OpereUtente;
 }
 
 export interface CanzoniGet {
   canzoni: Canzoni[];
-  mangaUtente: MangaUtente;
+  opereUtente: OpereUtente;
 }
 
 export interface iManga {
@@ -24,7 +24,7 @@ export interface Manga {
   capitoli: number;
 }
 
-export interface MangaUtente {
+export interface OpereUtente {
   manga: string | null;
   mangamicio: string | null;
   canzonimicio: string | null;

@@ -2,71 +2,69 @@
 <div style="padding-top: 4rem"></div>
 
 @if (profilo()) {
-  <app-container-micio>
-    <app-descrizione-micio
-      [titolo]="''"
-      [descrizione]="''"
-      [immagine]="
-        'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80'
-      "
-    >
-      <div half-row class="profile-summary">
-        <div class="profile-identity">
-          <div class="avatar-wrap">
-            <img
-              [src]="user().credenziali.profilePic || defaultPic"
-              [alt]="lang.AvatarAlt"
-            />
-          </div>
-          <div>
-            <div class="name-line">
-              <h2>{{ user().credenziali.nome }}</h2>
-            </div>
-            <p class="handle">{{ user().id }}</p>
-            <span class="premium"
-              ><i class="bi bi-star-fill"></i>{{ user().admin.ruolo }}</span
-            >
-          </div>
+  <app-container-micio
+    [titolo]="''"
+    [descrizione]="''"
+    [immagine]="
+      'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80'
+    "
+  >
+    <div half-row class="profile-summary">
+      <div class="profile-identity">
+        <div class="avatar-wrap">
+          <img
+            [src]="user().credenziali.profilePic || defaultPic"
+            [alt]="lang.AvatarAlt"
+          />
         </div>
-        @if (isPersonalProfile()) {
-          <button class="edit-button" type="button" (click)="openEditProfile()">
-            <i class="bi bi-pencil-square"></i>
-            <span>{{ lang.ModificaProfilo }}</span>
-          </button>
-        }
+        <div>
+          <div class="name-line">
+            <h2>{{ user().credenziali.nome }}</h2>
+          </div>
+          <p class="handle">{{ user().id }}</p>
+          <span class="premium"
+            ><i class="bi bi-star-fill"></i>{{ user().admin.ruolo }}</span
+          >
+        </div>
       </div>
+      @if (isPersonalProfile()) {
+        <button class="edit-button" type="button" (click)="openEditProfile()">
+          <i class="bi bi-pencil-square"></i>
+          <span>{{ lang.ModificaProfilo }}</span>
+        </button>
+      }
+    </div>
 
-      <div all-row class="profile-body">
-        <div class="">
-          <p class="bio">
-            {{ user().profile.bio }}
-          </p>
-          <div class="profile-meta">
-            <span
-              ><i class="bi bi-calendar3"></i>
-              {{ lang.EditUser.Campi.Compleanno }}
-              <strong>{{
-                (user().profile.compleanno | dateFormat) || "N.D."
-              }}</strong></span
-            >
-            <span
-              ><i class="bi bi-geo-alt"></i>
-              <strong>{{ user().iscrizione.provincia || "N.D." }}</strong></span
-            >
-          </div>
-        </div>
-        <div class="profile-stats" [attr.aria-label]="'Stats'">
-          <div>
-            <strong>{{ profilo()?.tweets?.length || 0 }}</strong
-            ><span>{{ lang.Post }}</span>
-          </div>
-          <div>
-            <strong>{{ user().iscrizione.punteggio || 0 }}</strong
-            ><span>{{ lang.Punti }}</span>
-          </div>
+    <div all-row class="profile-body">
+      <div class="">
+        <p class="bio">
+          {{ user().profile.bio }}
+        </p>
+        <div class="profile-meta">
+          <span
+            ><i class="bi bi-calendar3"></i>
+            {{ lang.EditUser.Campi.Compleanno }}
+            <strong>{{
+              (user().profile.compleanno | dateFormat) || "N.D."
+            }}</strong></span
+          >
+          <span
+            ><i class="bi bi-geo-alt"></i>
+            <strong>{{ user().iscrizione.provincia || "N.D." }}</strong></span
+          >
         </div>
       </div>
-    </app-descrizione-micio>
+      <div class="profile-stats" [attr.aria-label]="'Stats'">
+        <div>
+          <strong>{{ profilo()?.tweets?.length || 0 }}</strong
+          ><span>{{ lang.Post }}</span>
+        </div>
+        <div>
+          <strong>{{ user().iscrizione.punteggio || 0 }}</strong
+          ><span>{{ lang.Punti }}</span>
+        </div>
+      </div>
+    </div>
 
     <section class="posts-section" [attr.aria-label]="lang.Post">
       <div class="tabs-wrap">

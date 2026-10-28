@@ -1,41 +1,39 @@
-<app-container-micio>
-  <app-descrizione-micio
-    [titolo]="lang.Titolo"
-    [descrizione]="lang.Descrizione"
-    [immagine]="'https://images.unsplash.com/photo-1515879218367-8466d910aaa4'"
-  >
-    <div half-row>
-      <app-toolbar-micio
-        [stats]="canzoniToolbar()"
-        [placeholder]="lang.CercaPlaceholder"
-        [(searchQuery)]="searchQuery"
-      />
-    </div>
+<app-container-micio
+  [titolo]="lang.Titolo"
+  [descrizione]="lang.Descrizione"
+  [immagine]="'https://images.unsplash.com/photo-1515879218367-8466d910aaa4'"
+>
+  <div half-row>
+    <app-toolbar-micio
+      [stats]="canzoniToolbar()"
+      [placeholder]="lang.CercaPlaceholder"
+      [(searchQuery)]="searchQuery"
+    />
+  </div>
 
-    <div all-row>
-      <br />
+  <div all-row>
+    <br />
 
-      <app-sidebar-indy
-        [titolo]="lang.CategorieTitolo"
-        [elementi]="categorie"
-        [(selezionato)]="currentCategoria"
-      >
-        @if (canzoniAll().length > 0) {
-          <app-card-indy
-            [elems]="dataCard()"
-            [altezzaImg]="'15rem'"
-            [lunghezzaCard]="'18rem'"
-            (changeButton)="currentButton = $event"
-            [(currentButton)]="currentButtonSignal"
-            [tipoSlice]="'page'"
-            [tipoPaginazione]="'multiplo'"
-            [arrayPags]="arrayRaggi"
-            [secondNameButton]="'Stop'"
-          />
-        } @else {
-          <app-spinner-indy [mt]="'5rem'" />
-        }
-      </app-sidebar-indy>
-    </div>
-  </app-descrizione-micio>
+    <app-sidebar-indy
+      [titolo]="lang.CategorieTitolo"
+      [elementi]="categorie"
+      [(selezionato)]="currentCategoria"
+    >
+      @if (canzoniAll().length > 0) {
+        <app-card-indy
+          [elems]="dataCard()"
+          [altezzaImg]="'15rem'"
+          [lunghezzaCard]="'18rem'"
+          (changeButton)="currentButton = $event"
+          [(currentButton)]="currentButtonSignal"
+          [tipoSlice]="'page'"
+          [tipoPaginazione]="'multiplo'"
+          [arrayPags]="arrayRaggi"
+          [secondNameButton]="'Stop'"
+        />
+      } @else {
+        <app-spinner-indy [mt]="'5rem'" />
+      }
+    </app-sidebar-indy>
+  </div>
 </app-container-micio>

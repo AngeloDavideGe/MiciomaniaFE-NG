@@ -36,17 +36,6 @@ import { Component, input, output } from '@angular/core';
         color 0.2s ease-in-out,
         transform 0.2s ease-in-out;
 
-      &:hover:not(:disabled) {
-        background: var(--primary-light);
-        box-shadow: var(--primary-shadow);
-        color: var(--background);
-        transform: translateY(-2px);
-      }
-
-      &:active:not(:disabled) {
-        transform: translateY(0);
-      }
-
       &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
@@ -57,8 +46,19 @@ import { Component, input, output } from '@angular/core';
         transition: transform 0.2s ease-in-out;
       }
 
-      &:hover:not(:disabled) i {
-        transform: translateX(3px);
+      &:hover:not(:disabled) {
+        background: var(--primary-light);
+        box-shadow: var(--primary-shadow);
+        color: var(--background);
+        transform: translateY(-2px);
+
+        i {
+          transform: translateX(3px);
+        }
+      }
+
+      &:active:not(:disabled) {
+        transform: translateY(0);
       }
     }
   `,

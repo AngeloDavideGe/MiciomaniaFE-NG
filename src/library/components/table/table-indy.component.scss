@@ -97,7 +97,7 @@
   }
 
   .table-container {
-    @include mixin.scrollbar-custom();
+    @include mixin.scrollbar-x();
 
     .table-custom {
       width: 100%;

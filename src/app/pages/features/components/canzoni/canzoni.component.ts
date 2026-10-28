@@ -77,7 +77,7 @@ export class CanzoniComponent implements OnInit {
   public canzoniPreferite = computed<Canzoni[]>(() => {
     const canzoni: Canzoni[] = this.opereService.canzoni();
     const preferiti: string | null | undefined =
-      this.opereService.mangaUtente()?.canzonimicio;
+      this.opereService.opereUtente()?.canzonimicio;
 
     if (!preferiti || canzoni.length === 0) return [];
 
@@ -125,7 +125,7 @@ export class CanzoniComponent implements OnInit {
       callHttp: () => this.opereService.getAllCanzoni(this.currentUser()),
       nextCall: (data: CanzoniGet) => {
         this.opereService.canzoni.set(data.canzoni);
-        this.opereService.mangaUtente.set(data.mangaUtente);
+        this.opereService.opereUtente.set(data.opereUtente);
       },
       errorCall: () => (this.opereService.canzoniLoaded = false),
     });

@@ -11,7 +11,7 @@ import { AppConfigService } from '../../../../../core/api/appConfig.service';
   standalone: true,
   imports: [ContaierMicioComponent, SpinnerIndyComponent],
   template: `<footer class="footer-section">
-    <app-container-micio [background]="'transparent'">
+    <app-container-micio [background]="'transparent'" [customContent]="true">
       @if (!footer()) {
         <div class="spinner-wrapper">
           <app-spinner-indy></app-spinner-indy>
@@ -28,7 +28,7 @@ import { AppConfigService } from '../../../../../core/api/appConfig.service';
           <div>
             <h5>{{ lang.LinkUtili }}</h5>
             <ul>
-              @for (link of footer()?.quick_links || []; track link.url) {
+              @for (link of footer()?.quick_links || []; track link.label) {
                 <li>
                   <a>{{ link.label }}</a>
                 </li>
@@ -39,7 +39,7 @@ import { AppConfigService } from '../../../../../core/api/appConfig.service';
           <div>
             <h5>{{ lang.Info }}</h5>
             <ul>
-              @for (link of footer()?.info_links || []; track link.url) {
+              @for (link of footer()?.info_links || []; track link.label) {
                 <li>
                   <a>{{ link.label }}</a>
                 </li>
@@ -50,7 +50,7 @@ import { AppConfigService } from '../../../../../core/api/appConfig.service';
           <div>
             <h5>{{ lang.Supporto }}</h5>
             <ul>
-              @for (link of footer()?.support_links || []; track link.url) {
+              @for (link of footer()?.support_links || []; track link.label) {
                 <li>
                   <a>{{ link.label }}</a>
                 </li>
@@ -62,10 +62,10 @@ import { AppConfigService } from '../../../../../core/api/appConfig.service';
         <div class="footer-bottom">
           {{ footer()?.copyright_text }}
         </div>
-
-        <div class="mt-2"></div>
       }
+      <div class="pt-3"></div>
     </app-container-micio>
+    <div class="pt-3"></div>
   </footer>`,
   styleUrl: './footer.component.scss',
 })

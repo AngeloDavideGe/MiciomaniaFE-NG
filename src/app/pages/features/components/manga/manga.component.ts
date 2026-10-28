@@ -10,14 +10,18 @@ import {
 import { effectTimeoutCustom } from '../../../../../library/functions/debounce.function';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
 import { GetFiltriCustom } from '../../../../../library/functions/pagination.function';
+import { iCard } from '../../../../../library/interfaces/card.interface';
 import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
+import { AppConfigService } from '../../../../core/api/appConfig.service';
 import {
   iManga,
   Manga,
   MangaGet,
-  MangaUtente,
   OpereToolbar,
+  OpereUtente,
 } from '../../../../shared/interfaces/opere.interface';
+import { User } from '../../../../shared/interfaces/users.interface';
+import { AuthService } from '../../../../shared/services/auth.service';
 import { OpereService } from '../../../../shared/services/opere.service';
 import {
   defaultMangaArrayPags,
@@ -28,10 +32,6 @@ import {
   getRecordMangaTabs,
 } from './functions/manga.function';
 import { manga_imports } from './manga.import';
-import { AuthService } from '../../../../shared/services/auth.service';
-import { User } from '../../../../shared/interfaces/users.interface';
-import { AppConfigService } from '../../../../core/api/appConfig.service';
-import { iCard } from '../../../../../library/interfaces/card.interface';
 import { CategorieManga, SottoCategorieManga } from './models/manga.model';
 
 @Component({
@@ -118,7 +118,7 @@ export class MangaComponent implements OnInit {
       callHttp: () => this.opereService.getManga(this.currentUser()),
       nextCall: (data: MangaGet) => {
         this.opereService.manga.set(data.manga);
-        this.opereService.mangaUtente.set(data.mangaUtente);
+        this.opereService.opereUtente.set(data.opereUtente);
       },
       errorCall: () => (this.opereService.mangaLoaded = false),
     });
@@ -139,11 +139,11 @@ export class MangaComponent implements OnInit {
 
   private mangaPreferitiComputed(
     key: keyof iManga,
-    preferitiKey: keyof MangaUtente,
+    preferitiKey: keyof OpereUtente,
   ): Manga[] {
     const manga: iManga | null = this.opereService.manga();
     const preferiti: string | null | undefined =
-      this.opereService.mangaUtente()?.[preferitiKey];
+      this.opereService.opereUtente()?.[preferitiKey];
 
     if (!preferiti || !manga) return [];
 

@@ -74,7 +74,7 @@
   "Canzoni": {
     "Titolo": "Canzoni",
     "Descrizione": "Ascolta le tue canzoni preferite cantate da Miciomania e Sirius",
-    "CercaPlaceholder": "Cerca per nome, autore...",
+    "CercaPlaceholder": "Cerca per nome",
     "CategorieTitolo": "Categorie",
     "BottoneAscolta": "Ascolta",
     "Toolbar": {
@@ -110,7 +110,7 @@
   "Manga": {
     "Titolo": "Manga",
     "Descrizione": "Leggi i tuoi manga preferiti e scopri le avventure di Indy e Claudia",
-    "CercaPlaceholder": "Cerca per nome, autore...",
+    "CercaPlaceholder": "Cerca per nome",
     "CategorieTitolo": "Categorie",
     "SottocategorieTitolo": "Sottocategorie",
     "BottoneLeggi": "Leggi",

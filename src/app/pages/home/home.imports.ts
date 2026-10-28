@@ -4,7 +4,6 @@ import { CardIndyComponent } from '../../../library/components/card/card-indy.co
 import { NavbarIndyComponent } from '../../../library/components/navbar/navbar-indy.component';
 import { ToggleIndyComponent } from '../../../library/components/toggle/toggle-indy.component';
 import { ContaierMicioComponent } from '../../shared/components/container-micio.component';
-import { DescrizioneMicioComponent } from '../../shared/components/descrizione-micio.component';
 import { FooterComponent } from './components/ui/footer/footer.component';
 import { SocialLinkComponent } from './components/ui/social-link/social-link.component';
 
@@ -13,7 +12,6 @@ export const home_imports: Type<any>[] = [
   ToggleIndyComponent,
   CardIndyComponent,
   ContaierMicioComponent,
-  DescrizioneMicioComponent,
   SocialLinkComponent,
   FooterComponent,
   AsyncPipe,

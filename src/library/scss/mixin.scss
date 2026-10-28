@@ -4,24 +4,16 @@
   $direction: row,
   $display: flex
 ) {
-  display: $display;
   justify-content: $posizione;
   align-items: $aling;
+  display: $display;
 
   @if ($direction != row) {
     flex-direction: $direction;
   }
 }
 
-@mixin full-screen() {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-@mixin scrollbar-custom() {
+@mixin scrollbar-x() {
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;

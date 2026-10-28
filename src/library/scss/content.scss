@@ -4,26 +4,31 @@
   &-iniziale {
     --align-start: start;
     @include mixin.flex-justify(flex-start, var(--align-start));
+    @include mixin.scrollbar-x();
   }
 
   &-finale {
     --align-end: start;
     @include mixin.flex-justify(flex-end, var(--align-end));
+    @include mixin.scrollbar-x();
   }
 
   &-centrato {
     --align-center: baseline;
     @include mixin.flex-justify(center, var(--align-center));
+    @include mixin.scrollbar-x();
   }
 }
 
 .elementi {
   &-laterali {
     @include mixin.flex-justify(space-between, center);
+    @include mixin.scrollbar-x();
   }
-
+  
   &-colonna {
     @include mixin.flex-justify(center, center, column);
+    @include mixin.scrollbar-x();
   }
 }
 
