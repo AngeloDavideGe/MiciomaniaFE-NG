@@ -7,12 +7,18 @@ import {
   Signal,
   signal,
 } from '@angular/core';
+import { CardIndyComponent } from '../../../../../library/components/card/card-indy.component';
+import { SidebarIndyComponent } from '../../../../../library/components/sidebar/sidebar-indy.component';
+import { SpinnerIndyComponent } from '../../../../../library/components/spinner/spinner-indy.component';
+import { TabsIndyComponent } from '../../../../../library/components/tabs/tabs-indy.component';
 import { effectTimeoutCustom } from '../../../../../library/functions/debounce.function';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
 import { GetFiltriCustom } from '../../../../../library/functions/pagination.function';
 import { iCard } from '../../../../../library/interfaces/card.interface';
 import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
+import { ContaierMicioComponent } from '../../../../shared/components/container-micio.component';
+import { ToolbarMicioComponent } from '../../../../shared/components/toolbar-micio.component';
 import {
   iManga,
   Manga,
@@ -31,13 +37,19 @@ import {
   getMangaToolbar,
   getRecordMangaTabs,
 } from './functions/manga.function';
-import { manga_imports } from './manga.import';
 import { CategorieManga, SottoCategorieManga } from './models/manga.model';
 
 @Component({
   selector: 'app-manga',
   standalone: true,
-  imports: manga_imports,
+  imports: [
+    ContaierMicioComponent,
+    ToolbarMicioComponent,
+    SidebarIndyComponent,
+    TabsIndyComponent,
+    CardIndyComponent,
+    SpinnerIndyComponent,
+  ],
   templateUrl: './manga.component.html',
   styleUrl: './manga.component.scss',
 })

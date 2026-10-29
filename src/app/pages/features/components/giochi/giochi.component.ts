@@ -1,24 +1,33 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
+import { CardIndyComponent } from '../../../../../library/components/card/card-indy.component';
 import { GetFiltriCustom } from '../../../../../library/functions/pagination.function';
 import { isCurrentRoute } from '../../../../../library/functions/router.function';
 import { ICheckBox } from '../../../../../library/interfaces/form.interface';
 import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
+import { ContaierMicioComponent } from '../../../../shared/components/container-micio.component';
+import { ToolbarMicioComponent } from '../../../../shared/components/toolbar-micio.component';
 import {
   defaultGiochiArrayPags,
   getGiochi,
   getGiochiCheckbox,
   getGiochiDescrizione,
 } from './functions/giochi.function';
-import { giochi_imports } from './giochi.import';
 import { DescrizioneGiochi, IGiochi } from './models/giochi.model';
 
 @Component({
   selector: 'app-giochi',
   standalone: true,
-  imports: giochi_imports,
+  imports: [
+    ContaierMicioComponent,
+    ToolbarMicioComponent,
+    CardIndyComponent,
+    RouterOutlet,
+    AsyncPipe,
+  ],
   templateUrl: './giochi.component.html',
   styleUrl: './giochi.component.scss',
 })

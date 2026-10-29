@@ -65,7 +65,11 @@
         </div>
       </div>
     </div>
+  </app-container-micio>
 
+  <div style="padding-top: 1rem"></div>
+
+  <app-container-micio [customContent]="true" [background]="'var(background)'">
     <section class="posts-section" [attr.aria-label]="lang.Post">
       <div class="tabs-wrap">
         <app-tabs-indy [tabs]="tabs" (clickTab)="currentTab.set($event)" />

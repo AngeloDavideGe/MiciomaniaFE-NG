@@ -23,5 +23,4 @@ export interface ChangePageHttp {
   order: 'desc' | 'cresc' | null;
   orderKey: string | null;
   search: string | null;
-  searchKey: string | null;
 }

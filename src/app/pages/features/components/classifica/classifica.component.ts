@@ -18,7 +18,6 @@ import {
   Squadra,
 } from '../../../../shared/interfaces/opere.interface';
 import { OpereService } from '../../../../shared/services/opere.service';
-import { classifica_imports } from './classifica.imports';
 import {
   computedPathsClassifica,
   computedTabellaClassifica,
@@ -30,11 +29,22 @@ import {
   getColonneTabellaSquadre,
 } from './functions/classifica.functions';
 import { TabsClassifica } from './models/classifica.model';
+import { SpinnerIndyComponent } from '../../../../../library/components/spinner/spinner-indy.component';
+import { SvgIndyComponent } from '../../../../../library/components/svg/svg-indy.component';
+import { TabellaIndyComponent } from '../../../../../library/components/table/table-indy.component';
+import { TabsIndyComponent } from '../../../../../library/components/tabs/tabs-indy.component';
+import { ContaierMicioComponent } from '../../../../shared/components/container-micio.component';
 
 @Component({
   selector: 'app-classifica',
   standalone: true,
-  imports: classifica_imports,
+  imports: [
+    ContaierMicioComponent,
+    SpinnerIndyComponent,
+    TabsIndyComponent,
+    TabellaIndyComponent,
+    SvgIndyComponent,
+  ],
   templateUrl: './classifica.component.html',
   styleUrl: './classifica.component.scss',
 })

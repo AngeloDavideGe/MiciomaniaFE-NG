@@ -1,17 +1,24 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { isCurrentRoute } from '../../../library/functions/router.function';
 import { AppConfigService } from '../../core/api/appConfig.service';
-import { feature_imports } from './feature.import';
-import { getBottomNavItems } from './functions/feature.function';
 import { loadAllUsers } from '../../shared/functions/users.handler';
 import { AuthService } from '../../shared/services/auth.service';
+import { getBottomNavItems } from './functions/feature.function';
+import { AsyncPipe } from '@angular/common';
+import { BottomNavbarComponent } from '../../../library/components/navbar-bottom/bottom-navbar-indy.component';
+import { NavbarMicioComponent } from '../../shared/components/navbar-micio/navbar-micio.component';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: feature_imports,
+  imports: [
+    NavbarMicioComponent,
+    BottomNavbarComponent,
+    RouterOutlet,
+    AsyncPipe,
+  ],
   template: `
     @if (!(isFeature$ | async)) {
       <app-navbar-micio />

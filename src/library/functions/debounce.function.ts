@@ -1,4 +1,10 @@
-import { effect, WritableSignal } from '@angular/core';
+import {
+  DestroyRef,
+  effect,
+  EffectRef,
+  inject,
+  WritableSignal,
+} from '@angular/core';
 
 export function debounceTimeoutCustom<T extends (...args: any[]) => void>(
   func: T,
@@ -34,14 +40,16 @@ export function effectTimeoutCustom<T>(
   func: (value: T) => void,
   delay: number = 300,
   first: boolean = false,
-): void {
-  let timeoutId: ReturnType<typeof setTimeout>;
+): EffectRef {
+  const destroyRef = inject(DestroyRef);
+
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
   let isFirstClick: boolean = true;
 
-  effect(() => {
+  const ref: EffectRef = effect(() => {
     const value: T = signalVar();
 
-    const setFunc: Function = () => {
+    const setFunc = () => {
       isFirstClick = false;
       func(value);
       setTimeout(() => (isFirstClick = true), delay);
@@ -51,19 +59,30 @@ export function effectTimeoutCustom<T>(
       if (isFirstClick) {
         setFunc();
       } else {
-        timeoutId = clearTimeoutCustom(timeoutId, () => setFunc(), delay);
+        timeoutId = clearTimeoutCustom(timeoutId, setFunc, delay);
       }
     } else {
       timeoutId = clearTimeoutCustom(timeoutId, () => func(value), delay);
     }
   });
+
+  destroyRef.onDestroy(() => {
+    if (timeoutId !== undefined) {
+      clearTimeout(timeoutId);
+      timeoutId = undefined;
+    }
+  });
+
+  return ref;
 }
 
 function clearTimeoutCustom(
-  timeout: ReturnType<typeof setTimeout>,
-  func: Function,
+  timeout: ReturnType<typeof setTimeout> | undefined,
+  func: () => void,
   delay: number = 300,
-): any {
-  clearTimeout(timeout);
+): ReturnType<typeof setTimeout> {
+  if (timeout !== undefined) {
+    clearTimeout(timeout);
+  }
   return setTimeout(func, delay);
 }

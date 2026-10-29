@@ -9,6 +9,9 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { CardIndyComponent } from '../../../library/components/card/card-indy.component';
+import { NavbarIndyComponent } from '../../../library/components/navbar/navbar-indy.component';
+import { ToggleIndyComponent } from '../../../library/components/toggle/toggle-indy.component';
 import { ConfirmService } from '../../../library/dialogs/confirm/confirm.service';
 import { gestisciCursore } from '../../../library/functions/cursor.functions';
 import { debounceTimeoutCustom } from '../../../library/functions/debounce.function';
@@ -21,6 +24,7 @@ import {
 } from '../../../library/interfaces/toggle.interface';
 import { AppConfigService } from '../../core/api/appConfig.service';
 import { ILang } from '../../core/interfaces/lang.interface';
+import { ContaierMicioComponent } from '../../shared/components/container-micio.component';
 import { loadAllUsers } from '../../shared/functions/users.handler';
 import {
   CronUtenti,
@@ -29,17 +33,25 @@ import {
 } from '../../shared/interfaces/users.interface';
 import { AuthService } from '../../shared/services/auth.service';
 import { OpereService } from '../../shared/services/opere.service';
+import { FooterComponent } from './components/ui/footer/footer.component';
+import { SocialLinkComponent } from './components/ui/social-link/social-link.component';
 import {
   defaultHomeArrayPags,
   getCategorieCard,
   getToggleProps,
 } from './functions/home.functions';
-import { home_imports } from './home.imports';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: home_imports,
+  imports: [
+    NavbarIndyComponent,
+    ToggleIndyComponent,
+    CardIndyComponent,
+    ContaierMicioComponent,
+    SocialLinkComponent,
+    FooterComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

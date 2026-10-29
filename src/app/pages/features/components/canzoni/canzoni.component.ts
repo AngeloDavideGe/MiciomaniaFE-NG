@@ -11,10 +11,7 @@ import { effectTimeoutCustom } from '../../../../../library/functions/debounce.f
 import { handlerFunc } from '../../../../../library/functions/handler.function';
 import { GetFiltriCustom } from '../../../../../library/functions/pagination.function';
 import { iCard } from '../../../../../library/interfaces/card.interface';
-import {
-  FiltriInterface,
-  FiltriSelect,
-} from '../../../../../library/interfaces/pagination.interface';
+import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
 import {
   Canzoni,
@@ -24,18 +21,28 @@ import {
 import { User } from '../../../../shared/interfaces/users.interface';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { OpereService } from '../../../../shared/services/opere.service';
-import { canzoni_imports } from './canzoni.import';
 import {
   defaultCanzoniArrayPags,
   getCanzoniSidebar,
   getCanzoniToolbar,
 } from './functions/canzoni.function';
 import { CategorieCanzoni } from './models/canzoni.model';
+import { CardIndyComponent } from '../../../../../library/components/card/card-indy.component';
+import { SidebarIndyComponent } from '../../../../../library/components/sidebar/sidebar-indy.component';
+import { SpinnerIndyComponent } from '../../../../../library/components/spinner/spinner-indy.component';
+import { ContaierMicioComponent } from '../../../../shared/components/container-micio.component';
+import { ToolbarMicioComponent } from '../../../../shared/components/toolbar-micio.component';
 
 @Component({
   selector: 'app-canzoni',
   standalone: true,
-  imports: canzoni_imports,
+  imports: [
+    ContaierMicioComponent,
+    ToolbarMicioComponent,
+    SidebarIndyComponent,
+    SpinnerIndyComponent,
+    CardIndyComponent,
+  ],
   templateUrl: './canzoni.component.html',
   styleUrl: './canzoni.component.scss',
 })

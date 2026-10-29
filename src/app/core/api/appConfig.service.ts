@@ -11,16 +11,6 @@ import { getLocalStorage } from '../../../library/functions/storage.function';
 import { LOADING_CONTEXT } from '../../../library/interceptors/loading.interceptor';
 import { environment } from '../../../environments/environment';
 
-interface IConfigService {
-  config: IAppConfig;
-  lang: ILang;
-}
-
-export enum LangEnum {
-  it = 'it',
-  en = 'en',
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -38,7 +28,7 @@ export class AppConfigService {
   public config!: IAppConfig;
   public lang!: ILang;
 
-  public loadConfig(): Promise<void> {
+  public async loadConfig(): Promise<void> {
     return handlerFuncAsync<IConfigService>({
       callHttp: () =>
         forkJoin({
@@ -66,4 +56,14 @@ export class AppConfigService {
       },
     });
   }
+}
+
+interface IConfigService {
+  config: IAppConfig;
+  lang: ILang;
+}
+
+export enum LangEnum {
+  it = 'it',
+  en = 'en',
 }

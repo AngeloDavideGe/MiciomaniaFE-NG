@@ -1,3 +1,5 @@
+import { DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   debounceTime,
   MonoTypeOperatorFunction,
@@ -11,6 +13,8 @@ import {
   finalize,
   firstValueFrom,
   Subscription,
+  takeWhile,
+  first,
 } from 'rxjs';
 
 export function handlerFunc<T, S = T, M = S>(
@@ -31,6 +35,11 @@ export function handlerFunc<T, S = T, M = S>(
 export async function handlerFuncAsync<T, S = T, M = S>(
   params: HandlerInterface<T, S, M>,
 ): Promise<void> {
+  if (params.skipCall) {
+    params.elseCall?.();
+    return Promise.resolve();
+  }
+
   try {
     const result: M = await firstValueFrom<M>(callHttpFunc(params));
     params.nextCall?.(result);
@@ -47,7 +56,12 @@ export function callHttpFunc<T, S = T, M = S>(
 ): Observable<M> {
   return params.callHttp().pipe(
     debounceTime(params.debounce || 0),
-    getTakeFunc(params.numTake, params.destroy$),
+    getTakeFunc(
+      params.numTake,
+      params.destroy$,
+      params.destroyRef,
+      params.takeWhilePredicate,
+    ),
     switchMap(
       (value: T): Observable<S> =>
         params.switchMapCall
@@ -65,9 +79,19 @@ export function callHttpFunc<T, S = T, M = S>(
 function getTakeFunc<T>(
   numTake?: number,
   destroy$?: Subject<void>,
+  destroyRef?: DestroyRef,
+  takeWhilePredicate?: (value: T) => boolean,
 ): MonoTypeOperatorFunction<T> {
   if (destroy$) {
     return takeUntil(destroy$);
+  }
+
+  if (destroyRef) {
+    return takeUntilDestroyed(destroyRef);
+  }
+
+  if (takeWhilePredicate) {
+    return takeWhile(takeWhilePredicate);
   }
 
   return take(numTake || 1);
@@ -78,6 +102,7 @@ interface HandlerInterface<T, S = T, M = S> {
   numTake?: number;
   skipCall?: boolean;
   destroy$?: Subject<void>;
+  destroyRef?: DestroyRef;
   callHttp: () => Observable<T>;
   switchMapCall?: (value: T) => Observable<S>;
   mapCall?: (value: S) => M;
@@ -86,4 +111,5 @@ interface HandlerInterface<T, S = T, M = S> {
   errorCall?: (error?: Error) => void;
   completeCall?: () => void;
   elseCall?: () => void;
+  takeWhilePredicate?: (value: T) => boolean;
 }

@@ -69,14 +69,6 @@ export class TabellaIndyComponent<T> {
   public filtroDefault: boolean = true;
   public raggiPage: RaggioPage[] = this.getRaggiPage();
   public expandedRow = signal<any>(null);
-  private changePageHttp: ChangePageHttp = {
-    page: 1,
-    elemForPage: this.elemForPage(),
-    order: null,
-    orderKey: null,
-    search: null,
-    searchKey: null,
-  };
 
   public ordinaColonna: Function = debounceTimeoutCustom((key: keyof T) => {
     if (!this.colonne()[key]!.sortCol) return;
@@ -114,8 +106,8 @@ export class TabellaIndyComponent<T> {
       this.filtri.currentPage.set(this.filtri.totalPage() > 0 ? 1 : 0);
     });
 
-    const debouncedHttp: Function = debounceTimeoutCustom(() => {
-      this.changeElements.emit(this.changePageHttp);
+    const debouncedHttp: Function = debounceTimeoutCustom((changePageHttp) => {
+      this.changeElements.emit(changePageHttp);
     }, true);
 
     effect(() => debounced(this.searchQuery()));
@@ -126,16 +118,15 @@ export class TabellaIndyComponent<T> {
       const elemForPage: number = this.elemForPage();
       const currentPage: number = this.filtri.currentPage();
 
-      this.changePageHttp = {
+      const changePageHttp: ChangePageHttp = {
         page: currentPage,
         elemForPage: elemForPage,
         order: order ? order.order : null,
         orderKey: order ? (order.key as string) : null,
         search: search ? search : null,
-        searchKey: search ? (this.keyofElem[0] as string) : null,
       };
 
-      debouncedHttp();
+      debouncedHttp(changePageHttp);
     });
   }
 

@@ -8,24 +8,35 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { ModalIndyComponent } from '../../../../../library/components/modal/modal-indy.component';
+import { TabsIndyComponent } from '../../../../../library/components/tabs/tabs-indy.component';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
 import { paraMapCustom } from '../../../../../library/functions/router.function';
 import { iTab } from '../../../../../library/interfaces/navbar.interface';
+import { DateFormatPipe } from '../../../../../library/pipes/date-format.pipe';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
-import {
-  User,
-  UserParams,
-} from '../../../../shared/interfaces/users.interface';
+import { ContaierMicioComponent } from '../../../../shared/components/container-micio.component';
+import { NavbarMicioComponent } from '../../../../shared/components/navbar-micio/navbar-micio.component';
+import { loadAllUsers } from '../../../../shared/functions/users.handler';
+import { User } from '../../../../shared/interfaces/users.interface';
 import { AuthService } from '../../../../shared/services/auth.service';
+import { EditUserComponent } from './components/edit-user.component';
+import { PostsUserComponent } from './components/posts-user/posts-user.component';
 import { getProfiloTabs } from './functions/profilo.function';
 import { iProfilo, ProfilePost, TabsProfilo } from './models/profilo.model';
-import { profilo_imports } from './profilo.imports';
-import { loadAllUsers } from '../../../../shared/functions/users.handler';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: profilo_imports,
+  imports: [
+    ContaierMicioComponent,
+    TabsIndyComponent,
+    ModalIndyComponent,
+    EditUserComponent,
+    DateFormatPipe,
+    NavbarMicioComponent,
+    PostsUserComponent,
+  ],
   templateUrl: './profilo.component.html',
   styleUrl: './profilo.component.scss',
 })
