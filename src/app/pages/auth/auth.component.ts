@@ -15,7 +15,7 @@ import { isCurrentRoute } from '../../../library/functions/router.function';
   `,
 })
 export class AuthComponent {
-  private router = inject(Router);
+  private readonly router = inject(Router);
 
   public isAuth$: Observable<boolean> = isCurrentRoute({
     router: this.router,

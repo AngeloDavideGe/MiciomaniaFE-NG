@@ -31,9 +31,9 @@ import { ToggleStyles } from '../../../../library/interfaces/toggle.interface';
   styleUrl: './navbar-micio.component.scss',
 })
 export class NavbarMicioComponent {
-  private appConfig = inject(AppConfigService);
-  private authService = inject(AuthService);
-  private router = inject(Router);
+  private readonly appConfig = inject(AppConfigService);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   public readonly lang = this.appConfig.lang.Feature.Navbar;
   public readonly defaultPic = this.appConfig.config.defaultPicsUrl.user;

@@ -23,8 +23,8 @@ import { AuthService } from './shared/services/auth.service';
   `,
 })
 export class AppComponent implements OnInit {
-  private authService = inject(AuthService);
-  private appConfig = inject(AppConfigService);
+  private readonly authService = inject(AuthService);
+  private readonly appConfig = inject(AppConfigService);
   private readonly keys = environment.LocalStorageKeys;
 
   ngOnInit(): void {

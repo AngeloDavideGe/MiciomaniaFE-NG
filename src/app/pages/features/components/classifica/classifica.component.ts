@@ -49,8 +49,8 @@ import { ContaierMicioComponent } from '../../../../shared/components/container-
   styleUrl: './classifica.component.scss',
 })
 export class ClassificaComponent implements OnInit {
-  private opereService = inject(OpereService);
-  private appConfig = inject(AppConfigService);
+  private readonly opereService = inject(OpereService);
+  private readonly appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Classifica;
   public readonly tabs = getClassificaTabs(this.lang.Tabs);

@@ -46,9 +46,9 @@ import { AppConfigService } from '../../../core/api/appConfig.service';
   styleUrl: '../styles/auth.style.scss',
 })
 export class RegisterComponent {
-  public router = inject(Router);
+  private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
-  private appConfig = inject(AppConfigService);
+  private readonly appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Register;
   public readonly formRegister = getRegisterForm(this.lang.Form);

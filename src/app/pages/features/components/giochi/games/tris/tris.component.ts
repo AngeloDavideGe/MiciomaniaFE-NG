@@ -13,7 +13,7 @@ import { AppConfigService } from '../../../../../../core/api/appConfig.service';
   styleUrl: './tris.component.scss',
 })
 export class TrisComponent {
-  private appConfigService = inject(AppConfigService);
+  private readonly appConfigService = inject(AppConfigService);
 
   public lang = this.appConfigService.lang.Giochi;
   public board = signal<TrisState[][]>(boardEmpty(trisRows, trisCols, null));

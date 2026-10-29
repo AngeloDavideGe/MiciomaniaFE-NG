@@ -34,7 +34,7 @@ import { CheckBoxIndyComponent } from '../checkbox/checkbox-indy.component';
   styleUrl: './form-indy.component.scss',
 })
 export class FormIndyComponent implements OnInit, AfterViewInit, OnDestroy {
-  private formBuilder = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   public form!: FormGroup<FormInterface>;
   public arrayForm: StrutturaForm[] = [];
   public keys: string[] = [];

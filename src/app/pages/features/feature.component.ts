@@ -41,9 +41,9 @@ import { NavbarMicioComponent } from '../../shared/components/navbar-micio/navba
   `,
 })
 export class FeatureComponent implements OnInit {
-  private router = inject(Router);
-  private authService = inject(AuthService);
-  private appConfig = inject(AppConfigService);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
+  private readonly appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Feature;
   public readonly pulsantiBottombar = getBottomNavItems(

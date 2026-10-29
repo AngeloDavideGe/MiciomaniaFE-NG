@@ -181,8 +181,8 @@ import { ErrorParams } from '../../interfaces/error.interface';
   `,
 })
 export class ErrorPageComponent {
-  private errorService = inject(ErrorService);
-  private router = inject(Router);
+  private readonly errorService = inject(ErrorService);
+  private readonly router = inject(Router);
 
   public error = computed<ErrorParams | null>(() => this.errorService.error());
 

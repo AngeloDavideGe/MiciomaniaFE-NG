@@ -56,20 +56,20 @@ import {
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  public router = inject(Router);
-  public authService = inject(AuthService);
-  private appConfig = inject(AppConfigService);
-  private opereService = inject(OpereService);
-  private confirmService = inject(ConfirmService);
-
-  private openNow: boolean = true;
-  public menuOpen = signal<string>('');
-  public isMobile = signal<boolean>(window.innerWidth < 768);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
+  private readonly appConfig = inject(AppConfigService);
+  private readonly opereService = inject(OpereService);
+  private readonly confirmService = inject(ConfirmService);
 
   public readonly pic = this.appConfig.config.defaultPicsUrl.user;
   public readonly maxUsers = this.appConfig.config.maxElement.users;
   private readonly keys = environment.LocalStorageKeys;
   public readonly arrayRaggi = defaultHomeArrayPags();
+
+  private openNow: boolean = true;
+  public menuOpen = signal<string>('');
+  public isMobile = signal<boolean>(window.innerWidth < 768);
 
   public lang = computed<ILang['Home']>(() => {
     this.appConfig.currentLang();

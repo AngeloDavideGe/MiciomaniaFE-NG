@@ -5,7 +5,6 @@ import {
   Component,
   inject,
   input,
-  Input,
   OnDestroy,
   OnInit,
   output,
@@ -40,7 +39,7 @@ import { FormIndyComponent } from '../form/form-indy.component';
   styleUrl: './multi-form.component.scss',
 })
 export class MultiFormComponent implements OnInit, AfterViewInit, OnDestroy {
-  private formBuilder = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
 
   public form!: FormGroup;
   public keys: string[] = [];

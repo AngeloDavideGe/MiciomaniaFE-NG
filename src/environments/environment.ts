@@ -2,6 +2,7 @@ import { IEnvironment } from './environment.interface';
 
 export const environment: IEnvironment = {
   production: false,
+  appConfigUrl: 'assets/data/appConfig.json',
   BE: {
     CS: '/becs',
     PY: '/bepy',

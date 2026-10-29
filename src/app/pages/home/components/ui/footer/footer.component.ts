@@ -70,8 +70,8 @@ import { AppConfigService } from '../../../../../core/api/appConfig.service';
   styleUrl: './footer.component.scss',
 })
 export class FooterComponent implements OnInit {
-  private mnService = inject(MNService);
-  private appConfig = inject(AppConfigService);
+  private readonly mnService = inject(MNService);
+  private readonly appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Home.Footer;
   public footer = computed<IFooter | null>(() => this.mnService.footer());

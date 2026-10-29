@@ -21,8 +21,8 @@ import { getEditUserForm } from '../../../functions/auth.function';
   styles: ``,
 })
 export class EditUserComponent {
-  public authService = inject(AuthService);
-  private appConfig = inject(AppConfigService);
+  private readonly authService = inject(AuthService);
+  private readonly appConfig = inject(AppConfigService);
   public readonly lang = this.appConfig.lang.Profilo.EditUser;
 
   public currentUser = input.required<User | null>();

@@ -1,5 +1,6 @@
 export interface IEnvironment {
   production: boolean;
+  appConfigUrl: string;
   BE: {
     CS: string;
     PY: string;

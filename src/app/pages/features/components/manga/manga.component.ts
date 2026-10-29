@@ -54,9 +54,9 @@ import { CategorieManga, SottoCategorieManga } from './models/manga.model';
   styleUrl: './manga.component.scss',
 })
 export class MangaComponent implements OnInit {
-  private opereService = inject(OpereService);
-  private authService = inject(AuthService);
-  private appConfig = inject(AppConfigService);
+  private readonly opereService = inject(OpereService);
+  private readonly authService = inject(AuthService);
+  private readonly appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Manga;
   public readonly categorie = getMangaSidebar(this.lang.Categorie);

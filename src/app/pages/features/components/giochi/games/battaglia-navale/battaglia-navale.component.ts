@@ -19,7 +19,7 @@ import {
   styleUrl: './battaglia-navale.component.scss',
 })
 export class BattagliaNavaleComponent {
-  private appConfigService = inject(AppConfigService);
+  private readonly appConfigService = inject(AppConfigService);
 
   public lang = this.appConfigService.lang.Giochi;
   public playerBoard = signal<BattagliaNavaleCell[][]>(initializeBNBoard());

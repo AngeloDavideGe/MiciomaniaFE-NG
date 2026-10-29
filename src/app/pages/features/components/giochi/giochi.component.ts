@@ -32,8 +32,8 @@ import { DescrizioneGiochi, IGiochi } from './models/giochi.model';
   styleUrl: './giochi.component.scss',
 })
 export class GiochiComponent {
-  private appConfig = inject(AppConfigService);
-  private router = inject(Router);
+  private readonly appConfig = inject(AppConfigService);
+  private readonly router = inject(Router);
 
   public readonly lang = this.appConfig.lang.Giochi;
   public readonly arrayRaggi = defaultGiochiArrayPags();

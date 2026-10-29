@@ -41,10 +41,10 @@ import { iProfilo, ProfilePost, TabsProfilo } from './models/profilo.model';
   styleUrl: './profilo.component.scss',
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private authService = inject(AuthService);
-  private appConfig = inject(AppConfigService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly authService = inject(AuthService);
+  private readonly appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Profilo;
   public readonly tabs: iTab[] = getProfiloTabs(this.lang.Tabs);

@@ -12,8 +12,8 @@ import { AppConfigService } from '../../../../../core/api/appConfig.service';
   styleUrl: './social-link.component.scss',
 })
 export class SocialLinkComponent implements OnInit {
-  public mnService = inject(MNService);
-  private appConfig = inject(AppConfigService);
+  private readonly mnService = inject(MNService);
+  private readonly appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Home.Social;
 

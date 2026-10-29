@@ -10,13 +10,17 @@ import { ILang } from '../interfaces/lang.interface';
 import { getLocalStorage } from '../../../library/functions/storage.function';
 import { LOADING_CONTEXT } from '../../../library/interceptors/loading.interceptor';
 import { environment } from '../../../environments/environment';
+import { IEnvironment } from '../../../environments/environment.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppConfigService {
-  private http = inject(HttpClient);
-  private readonly keys = environment.LocalStorageKeys;
+  private readonly http = inject(HttpClient);
+
+  private readonly url: string = environment.appConfigUrl;
+  private readonly keys: IEnvironment['LocalStorageKeys'] =
+    environment.LocalStorageKeys;
 
   public currentLang = signal<LangEnum>(
     getLocalStorage<LangEnum>(this.keys.CURRENT_LANG, LangEnum.it),
@@ -32,7 +36,7 @@ export class AppConfigService {
     return handlerFuncAsync<IConfigService>({
       callHttp: () =>
         forkJoin({
-          config: this.http.get<IAppConfig>('assets/data/appConfig.json'),
+          config: this.http.get<IAppConfig>(this.url),
           lang: this.http.get<ILang>(
             `assets/lang/lang.${this.currentLang()}.json`,
           ),

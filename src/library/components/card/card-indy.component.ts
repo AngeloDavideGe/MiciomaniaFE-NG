@@ -35,7 +35,7 @@ import { NgTemplateOutlet } from '@angular/common';
   styleUrl: './card-indy.component.scss',
 })
 export class CardIndyComponent {
-  public router = inject(Router);
+  public readonly router = inject(Router);
 
   public filtri!: FiltriInterface<iCard>;
   public elemForPage = signal<number>(0);
