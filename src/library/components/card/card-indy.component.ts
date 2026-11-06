@@ -53,6 +53,7 @@ export class CardIndyComponent {
   public sliceAutomaticoInSec = input<number | undefined>(undefined);
   public secondNameButton = input<string | undefined>(undefined);
   public templateCardCustom = input<TemplateRef<any> | null>(null);
+  public recordIcons = input<Record<string, string>>({});
 
   public singleSliceIndicators = computed(() => {
     if (this.tipoSlice() !== 'single') return [];

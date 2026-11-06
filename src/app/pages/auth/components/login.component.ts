@@ -47,7 +47,7 @@ import { AppConfigService } from '../../../core/api/appConfig.service';
   styleUrl: '../styles/auth.style.scss',
 })
 export class LoginComponent {
-  private readonly router = inject(Router);
+  public readonly router = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly appConfig = inject(AppConfigService);
 

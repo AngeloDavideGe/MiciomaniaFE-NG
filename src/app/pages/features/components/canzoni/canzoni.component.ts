@@ -104,6 +104,17 @@ export class CanzoniComponent implements OnInit {
     return canzoniPreferite;
   });
 
+  public recordPreferiti = computed<Record<string, string>>(() => {
+    const canzoniPreferite: Canzoni[] = this.canzoniPreferite();
+    let recordPreferiti: Record<string, string> = {};
+
+    canzoniPreferite.forEach(
+      (x: Canzoni) => (recordPreferiti[x.id.toString()] = 'bi bi-star'),
+    );
+
+    return recordPreferiti;
+  });
+
   public filtri = computed<FiltriInterface<Canzoni>>(() => {
     const currentCategoria: string = this.currentCategoria();
 
@@ -142,6 +153,7 @@ export class CanzoniComponent implements OnInit {
 
   private mapCanzoneToCard(canzone: Canzoni): iCard {
     return {
+      id: canzone.id.toString(),
       titolo: canzone.nome,
       urlPic: canzone.copertina,
       descrizione: canzone.genere,

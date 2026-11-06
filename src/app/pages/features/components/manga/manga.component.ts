@@ -93,6 +93,23 @@ export class MangaComponent implements OnInit {
     this.mangaPreferitiComputed('micioManga', 'mangamicio'),
   );
 
+  public recordPreferiti = computed<Record<string, string>>(() => {
+    const mangaPreferiti: Manga[] = this.mangaPreferiti();
+    const micioPreferiti: Manga[] = this.mangaMicioPreferiti();
+    const categoria: string = this.currentCategoria();
+
+    const preferiti: Manga[] =
+      categoria == CategorieManga.ufficiali ? mangaPreferiti : micioPreferiti;
+
+    let recordPreferiti: Record<string, string> = {};
+
+    preferiti.forEach(
+      (x: Manga) => (recordPreferiti[x.id.toString()] = 'bi bi-star'),
+    );
+
+    return recordPreferiti;
+  });
+
   public filtri = computed<FiltriInterface<Manga>>(() => {
     const categoria: string = this.currentCategoria();
     const sottoCategoria: string = this.currentSottoCategoria();
@@ -140,6 +157,7 @@ export class MangaComponent implements OnInit {
 
   private getMangaToCard(manga: Manga[]): iCard[] {
     return manga.map((x: Manga) => ({
+      id: x.id.toString(),
       titolo: x.nome,
       urlPic: x.copertina,
       descrizione: x.genere,
@@ -159,11 +177,11 @@ export class MangaComponent implements OnInit {
 
     if (!preferiti || !manga) return [];
 
-    let recordPreferiti: Record<string, boolean> = {};
+    let recordPreferiti: Record<string, string> = {};
     let mangaPreferite: Manga[] = [];
 
     preferiti.split(',').forEach((id: string) => {
-      recordPreferiti[id] = true;
+      recordPreferiti[id] = 'bi bi-star';
     });
 
     manga[key].forEach((manga: Manga) => {

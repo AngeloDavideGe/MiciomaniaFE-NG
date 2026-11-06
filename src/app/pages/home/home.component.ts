@@ -56,8 +56,8 @@ import {
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  private readonly router = inject(Router);
-  private readonly authService = inject(AuthService);
+  public readonly router = inject(Router);
+  public readonly authService = inject(AuthService);
   private readonly appConfig = inject(AppConfigService);
   private readonly opereService = inject(OpereService);
   private readonly confirmService = inject(ConfirmService);

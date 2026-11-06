@@ -50,18 +50,24 @@
                 <div class="description" [innerHTML]="elem.descrizione"></div>
               }
 
-              @if (elem.bottone) {
-                <app-button-indy
-                  class="mt-auto"
-                  [text]="
-                    (currentButton() == elem.titolo && secondNameButton()
-                      ? secondNameButton()
-                      : elem.bottone) || ''
-                  "
-                  [backgroundColor]="elem.color || 'var(--primary)'"
-                  (clickButton)="clickButton(elem)"
-                />
-              }
+              <div class="elementi-laterali">
+                @if (elem.bottone) {
+                  <app-button-indy
+                    class="mt-auto"
+                    [text]="
+                      (currentButton() == elem.titolo && secondNameButton()
+                        ? secondNameButton()
+                        : elem.bottone) || ''
+                    "
+                    [backgroundColor]="elem.color || 'var(--primary)'"
+                    (clickButton)="clickButton(elem)"
+                  />
+                }
+
+                @if (elem.id && recordIcons()[elem.id]) {
+                  <i [class]="recordIcons()[elem.id]"></i>
+                }
+              </div>
 
               @if (templateCardCustom()) {
                 <ng-container
