@@ -49,9 +49,11 @@ export class OpereService extends BaseMicioService {
   private getOpereUtente(currentUser: User | null): Observable<OpereUtente> {
     if (!currentUser) {
       return of({
-        manga: null,
-        mangamicio: null,
+        mangaPreferito: null,
+        mangaMicioPreferito: null,
         canzonimicio: null,
+        mangaLeggendo: null,
+        mangaMicioLeggendo: null,
       });
     }
 

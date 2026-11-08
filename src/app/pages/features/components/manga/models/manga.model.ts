@@ -6,6 +6,7 @@ export enum CategorieManga {
 export enum SottoCategorieManga {
   tutti = 'tutti',
   preferiti = 'preferiti',
+  leggendo = 'leggendo',
 }
 
 export enum TabsManga {

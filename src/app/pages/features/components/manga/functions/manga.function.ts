@@ -70,6 +70,11 @@ export function getMangaSidebarSub(
       nome: lang.Preferiti,
       icona: 'bi-heart',
     },
+    {
+      id: SottoCategorieManga.leggendo,
+      nome: lang.Leggendo,
+      icona: 'bi-book',
+    },
   ];
 }
 

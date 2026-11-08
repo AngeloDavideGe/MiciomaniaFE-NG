@@ -87,24 +87,48 @@ export class MangaComponent implements OnInit {
   );
 
   public mangaPreferiti = computed<Manga[]>(() =>
-    this.mangaPreferitiComputed('listaManga', 'manga'),
+    this.mangaUtenteComputed('listaManga', 'mangaPreferito'),
   );
   public mangaMicioPreferiti = computed<Manga[]>(() =>
-    this.mangaPreferitiComputed('micioManga', 'mangamicio'),
+    this.mangaUtenteComputed('micioManga', 'mangaMicioPreferito'),
+  );
+
+  public mangaLeggendo = computed<Manga[]>(() =>
+    this.mangaUtenteComputed('listaManga', 'mangaLeggendo'),
+  );
+  public mangaMicioLeggendo = computed<Manga[]>(() =>
+    this.mangaUtenteComputed('micioManga', 'mangaMicioLeggendo'),
   );
 
   public recordPreferiti = computed<Record<string, string>>(() => {
     const mangaPreferiti: Manga[] = this.mangaPreferiti();
     const micioPreferiti: Manga[] = this.mangaMicioPreferiti();
+    const mangaLeggendo: Manga[] = this.mangaLeggendo();
+    const micioLeggendo: Manga[] = this.mangaMicioLeggendo();
     const categoria: string = this.currentCategoria();
 
-    const preferiti: Manga[] =
-      categoria == CategorieManga.ufficiali ? mangaPreferiti : micioPreferiti;
+    let preferiti: Manga[] = [];
+    let leggendo: Manga[] = [];
+
+    switch (categoria) {
+      case CategorieManga.ufficiali:
+        preferiti = mangaPreferiti;
+        leggendo = mangaLeggendo;
+        break;
+      case CategorieManga.miciomania:
+        preferiti = micioPreferiti;
+        leggendo = micioLeggendo;
+        break;
+    }
 
     let recordPreferiti: Record<string, string> = {};
 
     preferiti.forEach(
-      (x: Manga) => (recordPreferiti[x.id.toString()] = 'bi bi-star'),
+      (x: Manga) => (recordPreferiti[x.id.toString()] = 'bi bi-heart'),
+    );
+
+    leggendo.forEach(
+      (x: Manga) => (recordPreferiti[x.id.toString()] = 'bi bi-book'),
     );
 
     return recordPreferiti;
@@ -115,16 +139,26 @@ export class MangaComponent implements OnInit {
     const sottoCategoria: string = this.currentSottoCategoria();
 
     if (categoria == CategorieManga.ufficiali) {
-      if (sottoCategoria == SottoCategorieManga.preferiti) {
-        return this.mangaFiltri(this.mangaPreferiti);
-      } else {
-        return this.mangaFiltri(this.manga);
+      switch (sottoCategoria) {
+        case SottoCategorieManga.tutti:
+          return this.mangaFiltri(this.manga);
+        case SottoCategorieManga.preferiti:
+          return this.mangaFiltri(this.mangaPreferiti);
+        case SottoCategorieManga.leggendo:
+          return this.mangaFiltri(this.mangaLeggendo);
+        default:
+          return this.mangaFiltri(signal<Manga[]>([]));
       }
     } else {
-      if (sottoCategoria == SottoCategorieManga.preferiti) {
-        return this.mangaFiltri(this.mangaMicioPreferiti);
-      } else {
-        return this.mangaFiltri(this.mangaMicio);
+      switch (sottoCategoria) {
+        case SottoCategorieManga.tutti:
+          return this.mangaFiltri(this.mangaMicio);
+        case SottoCategorieManga.preferiti:
+          return this.mangaFiltri(this.mangaMicioPreferiti);
+        case SottoCategorieManga.leggendo:
+          return this.mangaFiltri(this.mangaMicioLeggendo);
+        default:
+          return this.mangaFiltri(signal<Manga[]>([]));
       }
     }
   });
@@ -167,30 +201,30 @@ export class MangaComponent implements OnInit {
     }));
   }
 
-  private mangaPreferitiComputed(
+  private mangaUtenteComputed(
     key: keyof iManga,
-    preferitiKey: keyof OpereUtente,
+    mangaUtenteKey: keyof OpereUtente,
   ): Manga[] {
     const manga: iManga | null = this.opereService.manga();
-    const preferiti: string | null | undefined =
-      this.opereService.opereUtente()?.[preferitiKey];
+    const mangaUtente: string | null | undefined =
+      this.opereService.opereUtente()?.[mangaUtenteKey];
 
-    if (!preferiti || !manga) return [];
+    if (!mangaUtente || !manga) return [];
 
-    let recordPreferiti: Record<string, string> = {};
-    let mangaPreferite: Manga[] = [];
+    let recordMangaUtente: Record<string, boolean> = {};
+    let arrayMangaUtente: Manga[] = [];
 
-    preferiti.split(',').forEach((id: string) => {
-      recordPreferiti[id] = 'bi bi-star';
+    mangaUtente.split(',').forEach((id: string) => {
+      recordMangaUtente[id] = true;
     });
 
     manga[key].forEach((manga: Manga) => {
-      if (recordPreferiti[manga.id.toString()]) {
-        mangaPreferite.push(manga);
+      if (recordMangaUtente[manga.id.toString()]) {
+        arrayMangaUtente.push(manga);
       }
     });
 
-    return mangaPreferite;
+    return arrayMangaUtente;
   }
 
   private mangaFiltri(manga: Signal<Manga[]>): FiltriInterface<Manga> {

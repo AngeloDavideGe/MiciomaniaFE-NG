@@ -121,6 +121,7 @@ export interface ILang {
     Sottocategorie: {
       Tutti: string;
       Preferiti: string;
+      Leggendo: string;
     };
   };
   Classifica: {

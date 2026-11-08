@@ -25,9 +25,11 @@ export interface Manga {
 }
 
 export interface OpereUtente {
-  manga: string | null;
-  mangamicio: string | null;
+  mangaPreferito: string | null;
+  mangaMicioPreferito: string | null;
   canzonimicio: string | null;
+  mangaLeggendo: string | null;
+  mangaMicioLeggendo: string | null;
 }
 
 export interface Canzoni {
