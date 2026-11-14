@@ -1,3 +1,17 @@
+import { ACTION_ICONS } from '../icons/actions-icons.constant';
+import { DEVELOPMENT_ICONS } from '../icons/development-icons.constant';
+import { LOCATION_ICONS } from '../icons/location-icons.constant';
+import { UTILITY_ICONS } from '../icons/utility-icons.constant';
+import { IconOptions } from './icons.function';
+
+const cursorIcons: Record<string, (options?: IconOptions) => string> = {
+  eyedropper: LOCATION_ICONS.locate,
+  feather: ACTION_ICONS.edit,
+  lightning: UTILITY_ICONS.zap,
+  magic: ACTION_ICONS.sliders,
+  screwdriver: DEVELOPMENT_ICONS.code,
+};
+
 export async function gestisciCursore(
   icona: string,
   colore: string = '#000000',
@@ -5,24 +19,24 @@ export async function gestisciCursore(
   const body = document.body;
 
   if (!icona) {
-    body.classList.remove('cursore-personalizzato');
-    body.style.removeProperty('--cursore-attivo');
+    resetCursor(body);
     return;
   }
 
-  const elemento = document.createElement('i');
+  const svg = getCursorSvg(icona, colore);
+  if (!svg) {
+    console.warn('Cursor icon is not supported.');
+    resetCursor(body);
+    return;
+  }
 
-  elemento.className = `${icona}`;
-  elemento.style.cssText = 'position:fixed;visibility:hidden';
-  body.appendChild(elemento);
-
+  const image = new Image();
+  const imageUrl = URL.createObjectURL(
+    new Blob([svg], { type: 'image/svg+xml' }),
+  );
   try {
-    const stile = getComputedStyle(elemento, '::before');
-    const carattere = stile.content.replace(/^["']|["']$/g, '');
-    const fontFamily = stile.fontFamily;
-
-    await document.fonts.load(`20px ${fontFamily}`, carattere);
-
+    image.src = imageUrl;
+    await image.decode();
     const canvas = document.createElement('canvas');
     canvas.width = 32;
     canvas.height = 32;
@@ -30,21 +44,7 @@ export async function gestisciCursore(
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    ctx.font = `20px ${fontFamily}`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
-    ctx.shadowBlur = 3;
-    ctx.shadowOffsetY = 1;
-
-    ctx.strokeStyle = '#101828';
-    ctx.lineWidth = 3;
-    ctx.strokeText(carattere, 16, 16);
-
-    ctx.shadowColor = 'transparent';
-    ctx.fillStyle = colore;
-    ctx.fillText(carattere, 16, 16);
+    ctx.drawImage(image, 4, 4, 24, 24);
 
     body.style.setProperty(
       '--cursore-attivo',
@@ -52,7 +52,28 @@ export async function gestisciCursore(
     );
 
     body.classList.add('cursore-personalizzato');
+  } catch (error) {
+    console.error('Failed to render the custom cursor icon.', error);
+    resetCursor(body);
   } finally {
-    elemento.remove();
+    URL.revokeObjectURL(imageUrl);
   }
+}
+
+function getCursorSvg(icon: string, color: string): string | null {
+  const value = icon.trim();
+  if (value.startsWith('<svg')) {
+    return value.replace(/stroke="[^"]*"/, `stroke="${color}"`);
+  }
+
+  const lastClass = value.split(/\s+/).pop() || '';
+  const iconName = lastClass.replace(/^[a-z]+-/, '').replace(/-fill$/, '');
+  const iconFactory = cursorIcons[iconName];
+
+  return iconFactory ? iconFactory({ stroke: color }) : null;
+}
+
+function resetCursor(body: HTMLElement): void {
+  body.classList.remove('cursore-personalizzato');
+  body.style.removeProperty('--cursore-attivo');
 }

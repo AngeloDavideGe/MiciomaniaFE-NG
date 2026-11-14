@@ -23,14 +23,16 @@ import { ACTION_ICONS } from '../../icons/actions-icons.constant';
   styleUrl: './toggle-indy.component.scss',
 })
 export class ToggleIndyComponent {
-  public readonly iconX = getIconSafe(ACTION_ICONS.x);
+  public readonly iconX = getIconSafe(ACTION_ICONS.x, { stroke: 'white' });
   public currentButton = signal<string>('');
 
   public titolo = input<string>('');
   public titoloVisible = input<boolean>(false);
   public imgIcona = input<string>('');
   public dimToggleIcona = input<string>('2.5rem');
-  public icona = input<SafeHtml>(getIconSafe(DATA_ICONS.list));
+  public icona = input<SafeHtml>(
+    getIconSafe(DATA_ICONS.list, { stroke: 'white' }),
+  );
   public toggleMenus = input<ToggleProps[]>([]);
   public toggleStyles = input<ToggleStyles>({});
   public tipo = input<'single' | 'multiple' | 'content'>('multiple');

@@ -9,9 +9,15 @@ import {
   signal,
   TemplateRef,
 } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { debounceTimeoutCustom } from '../../functions/debounce.function';
+import { getIconSafe } from '../../functions/icons.function';
 import { GetFiltriCustom } from '../../functions/pagination.function';
+import { DATA_ICONS } from '../../icons/data-icons.constant';
+import { INTERFACE_ICONS } from '../../icons/interface-icons.constant';
+import { NAVIGATION_ICONS } from '../../icons/navigation-icons.constant';
+import { STATUS_ICONS } from '../../icons/status-icons.constant';
 import {
   DataTableHttp,
   FiltriInterface,
@@ -43,6 +49,47 @@ import { SpinnerIndyComponent } from '../spinner/spinner-indy.component';
   styleUrl: './table-indy.component.scss',
 })
 export class TabellaIndyComponent<T> {
+  public readonly tableIcon: SafeHtml = getIconSafe(DATA_ICONS.table, {
+    stroke: 'currentColor',
+    size: '1.4rem',
+  });
+  public readonly listIcon: SafeHtml = getIconSafe(DATA_ICONS.list, {
+    stroke: 'currentColor',
+    size: '0.75rem',
+  });
+  public readonly searchIcon: SafeHtml = getIconSafe(INTERFACE_ICONS.search, {
+    stroke: 'currentColor',
+    size: '0.9rem',
+  });
+  public readonly clearIcon: SafeHtml = getIconSafe(STATUS_ICONS.xCircle, {
+    stroke: 'currentColor',
+    size: '1.1rem',
+  });
+  public readonly sortAscendingIcon: SafeHtml = getIconSafe(
+    NAVIGATION_ICONS.arrowUp,
+    { stroke: 'currentColor', size: '0.7rem' },
+  );
+  public readonly sortDescendingIcon: SafeHtml = getIconSafe(
+    NAVIGATION_ICONS.arrowDown,
+    { stroke: 'currentColor', size: '0.7rem' },
+  );
+  public readonly sortBothIcon: SafeHtml = getIconSafe(
+    NAVIGATION_ICONS.arrowUpDown,
+    { stroke: 'currentColor', size: '0.7rem' },
+  );
+  public readonly chevronUpIcon: SafeHtml = getIconSafe(
+    NAVIGATION_ICONS.chevronUp,
+    { stroke: 'currentColor', size: '0.85rem' },
+  );
+  public readonly chevronDownIcon: SafeHtml = getIconSafe(
+    NAVIGATION_ICONS.chevronDown,
+    { stroke: 'currentColor', size: '0.85rem' },
+  );
+  public readonly emptyIcon: SafeHtml = getIconSafe(DATA_ICONS.inbox, {
+    stroke: 'currentColor',
+    size: '3rem',
+  });
+
   public elemTable = input<T[]>([]);
   public dataTableHttp = input<DataTableHttp<T> | null>(null);
   public noElement = input<string>('Nessun Elemento');

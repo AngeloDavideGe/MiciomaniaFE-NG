@@ -6,12 +6,18 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ModalIndyComponent } from '../../../../../library/components/modal/modal-indy.component';
 import { TabsIndyComponent } from '../../../../../library/components/tabs/tabs-indy.component';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
+import { getIconSafe } from '../../../../../library/functions/icons.function';
 import { paraMapCustom } from '../../../../../library/functions/router.function';
+import { ACTION_ICONS } from '../../../../../library/icons/actions-icons.constant';
+import { INTERFACE_ICONS } from '../../../../../library/icons/interface-icons.constant';
+import { LOCATION_ICONS } from '../../../../../library/icons/location-icons.constant';
+import { SOCIAL_ICONS } from '../../../../../library/icons/social-icons.constant';
 import { iTab } from '../../../../../library/interfaces/navbar.interface';
 import { DateFormatPipe } from '../../../../../library/pipes/date-format.pipe';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
@@ -49,6 +55,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public readonly lang = this.appConfig.lang.Profilo;
   public readonly tabs: iTab[] = getProfiloTabs(this.lang.Tabs);
   public readonly defaultPic = this.appConfig.config.defaultPicsUrl.user;
+  public readonly roleIcon: SafeHtml = getIconSafe(SOCIAL_ICONS.star, {
+    stroke: 'currentColor',
+    size: '1em',
+    fill: 'white',
+  });
+  public readonly editIcon: SafeHtml = getIconSafe(ACTION_ICONS.edit, {
+    stroke: 'currentColor',
+    size: '1em',
+  });
+  public readonly birthdayIcon: SafeHtml = getIconSafe(
+    INTERFACE_ICONS.calendar,
+    { stroke: 'currentColor', size: '1em' },
+  );
+  public readonly locationIcon: SafeHtml = getIconSafe(LOCATION_ICONS.mapPin, {
+    stroke: 'currentColor',
+    size: '1em',
+  });
 
   public currentTab = signal<string>(TabsProfilo.text);
   public editProfiloOpen = signal<boolean>(false);

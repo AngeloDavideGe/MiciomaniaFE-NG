@@ -30,11 +30,11 @@ import { NAVIGATION_ICONS } from '../../icons/navigation-icons.constant';
 export class PaginazioneIndyComponent<T> {
   public readonly chevronLeftIcon: SafeHtml = getIconSafe(
     NAVIGATION_ICONS.chevronLeft,
-    { stroke: 'currentColor' },
+    { stroke: 'currentColor', size: '1.2rem' },
   );
   public readonly chevronRightIcon: SafeHtml = getIconSafe(
     NAVIGATION_ICONS.chevronRight,
-    { stroke: 'currentColor' },
+    { stroke: 'currentColor', size: '1.2rem' },
   );
 
   public filtri = input.required<FiltriInterface<T>>();

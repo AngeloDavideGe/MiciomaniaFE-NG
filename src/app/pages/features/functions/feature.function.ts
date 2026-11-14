@@ -12,13 +12,26 @@ export function getBottomNavItems(
   lang: ILang['Feature']['Navbar'],
 ): PulsanteNavbar[] {
   const icons = {
-    manga: getIconSafe(FILE_ICONS.fileText, { stroke: 'currentColor' }),
-    songs: getIconSafe(MULTIMEDIA_ICONS.music, { stroke: 'currentColor' }),
-    games: getIconSafe(MULTIMEDIA_ICONS.play, { stroke: 'currentColor' }),
+    manga: getIconSafe(FILE_ICONS.fileText, {
+      stroke: 'currentColor',
+      size: '1.2rem',
+    }),
+    songs: getIconSafe(MULTIMEDIA_ICONS.music, {
+      stroke: 'currentColor',
+      size: '1.2rem',
+    }),
+    games: getIconSafe(MULTIMEDIA_ICONS.play, {
+      stroke: 'currentColor',
+      size: '1.2rem',
+    }),
     posts: getIconSafe(COMMUNICATION_ICONS.messageCircle, {
       stroke: 'currentColor',
+      size: '1.2rem',
     }),
-    ranking: getIconSafe(DATA_ICONS.chartBar, { stroke: 'currentColor' }),
+    ranking: getIconSafe(DATA_ICONS.chartBar, {
+      stroke: 'currentColor',
+      size: '1.2rem',
+    }),
   };
 
   return [

@@ -3,14 +3,22 @@
     <div class="table-header">
       <div class="header-content">
         <div class="header-left">
-          <i class="bi bi-table header-icon"></i>
+          <i
+            [innerHTML]="tableIcon"
+            class="header-icon"
+            aria-hidden="true"
+          ></i>
           <h3 class="header-title">
             {{ titoloTabella() | capitalizeFirstLetter }}
           </h3>
         </div>
         <div class="header-info">
           <span class="total-items">
-            <i class="bi bi-list-ol me-1"></i>
+            <i
+              [innerHTML]="listIcon"
+              class="me-1"
+              aria-hidden="true"
+            ></i>
             {{ filtri.dettaglioPage() }}
           </span>
         </div>
@@ -20,7 +28,11 @@
 
   @if (filtroDefault) {
     <div class="search-filter">
-      <i class="bi bi-search search-icon"></i>
+      <i
+        [innerHTML]="searchIcon"
+        class="search-icon"
+        aria-hidden="true"
+      ></i>
       <input
         type="text"
         class="search-input"
@@ -32,7 +44,7 @@
         class="clear-btn"
         (click)="searchQuery.set(''); ordinaElem.set(null)"
       >
-        <i class="bi bi-x-circle"></i>
+        <i [innerHTML]="clearIcon" aria-hidden="true"></i>
       </button>
     </div>
   }
@@ -54,17 +66,33 @@
                     @if (ordinaElem.key === key) {
                       @switch (ordinaElem.order) {
                         @case ("desc") {
-                          <i class="bi bi-arrow-down ms-1 sort-icon active"></i>
+                          <i
+                            [innerHTML]="sortDescendingIcon"
+                            class="ms-1 sort-icon active"
+                            aria-hidden="true"
+                          ></i>
                         }
                         @case ("cresc") {
-                          <i class="bi bi-arrow-up ms-1 sort-icon active"></i>
+                          <i
+                            [innerHTML]="sortAscendingIcon"
+                            class="ms-1 sort-icon active"
+                            aria-hidden="true"
+                          ></i>
                         }
                         @default {
-                          <i class="bi bi-arrow-down-up ms-1 sort-icon"></i>
+                          <i
+                            [innerHTML]="sortBothIcon"
+                            class="ms-1 sort-icon"
+                            aria-hidden="true"
+                          ></i>
                         }
                       }
                     } @else {
-                      <i class="bi bi-arrow-down-up ms-1 sort-icon"></i>
+                      <i
+                        [innerHTML]="sortBothIcon"
+                        class="ms-1 sort-icon"
+                        aria-hidden="true"
+                      ></i>
                     }
                   }
                 </span>
@@ -104,7 +132,7 @@
                           [title]="azione.titolo"
                           [attr.aria-label]="azione.titolo"
                         >
-                          <i [class]="azione.icona"></i>
+                          <i [innerHTML]="azione.icona" aria-hidden="true"></i>
                         </button>
                       }
                     }
@@ -116,11 +144,12 @@
                         [attr.aria-label]="'Dettagli'"
                       >
                         <i
-                          [class]="
+                          [innerHTML]="
                             expandedRow() === elem[keyPrimary()!]
-                              ? 'bi bi-chevron-up'
-                              : 'bi bi-chevron-down'
+                              ? chevronUpIcon
+                              : chevronDownIcon
                           "
+                          aria-hidden="true"
                         ></i>
                       </button>
                     }
@@ -184,7 +213,7 @@
       <app-spinner-indy [mt]="'2rem'"></app-spinner-indy>
     } @else {
       <div class="empty-state">
-        <i class="bi bi-inbox empty-icon"></i>
+        <i [innerHTML]="emptyIcon" class="empty-icon" aria-hidden="true"></i>
         <p class="empty-text">{{ noElement() }}</p>
       </div>
     }

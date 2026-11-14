@@ -62,4 +62,6 @@ export const DATA_ICONS = {
       ],
       options,
     ),
+  inbox: (options?: IconOptions) =>
+    geticon(['M4 4h16v16H4z', 'M4 13h4l2 3h4l2-3h4'], options),
 } as const;

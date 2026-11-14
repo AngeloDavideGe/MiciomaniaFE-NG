@@ -42,11 +42,16 @@ export class CardIndyComponent {
   public readonly router = inject(Router);
   public readonly chevronLeftIcon: SafeHtml = getIconSafe(
     NAVIGATION_ICONS.chevronLeft,
+    { stroke: 'currentColor', size: '1em' },
   );
   public readonly chevronRightIcon: SafeHtml = getIconSafe(
     NAVIGATION_ICONS.chevronRight,
+    { stroke: 'currentColor', size: '1em' },
   );
-  public readonly addIcon: SafeHtml = getIconSafe(ACTION_ICONS.plus);
+  public readonly addIcon: SafeHtml = getIconSafe(ACTION_ICONS.plus, {
+    stroke: 'var(--primary)',
+    size: '2rem',
+  });
 
   public filtri!: FiltriInterface<iCard>;
   public elemForPage = signal<number>(0);

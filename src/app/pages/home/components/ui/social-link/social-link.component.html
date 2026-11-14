@@ -10,7 +10,11 @@
         @for (s of mnService.social(); track s.nome) {
           <div class="social-card" (click)="openLink(s.link)">
             <div class="social-icon">
-              <i class="bi" [class]="s.icona" [style.color]="s.colore"> </i>
+              <i
+                [innerHTML]="getSocialIcon(s.icona)"
+                [style.color]="s.colore"
+                aria-hidden="true"
+              ></i>
             </div>
 
             <div class="social-content">
@@ -22,7 +26,7 @@
             </div>
 
             <div class="arrow">
-              <i class="bi bi-arrow-up-right"></i>
+              <i [innerHTML]="externalLinkIcon" aria-hidden="true"></i>
             </div>
           </div>
         }

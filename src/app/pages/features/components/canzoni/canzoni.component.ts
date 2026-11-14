@@ -55,10 +55,19 @@ import { CategorieCanzoni } from './models/canzoni.model';
   templateUrl: './canzoni.component.html',
 })
 export class CanzoniComponent implements OnInit {
-  public readonly favoriteIcon: SafeHtml = getIconSafe(SOCIAL_ICONS.heart);
+  public readonly favoriteIcon: SafeHtml = getIconSafe(SOCIAL_ICONS.heart, {
+    stroke: 'currentColor',
+    size: '1em',
+  });
   public readonly toolbarIcons: OpereToolbarIcons = {
-    book: getIconSafe(FILE_ICONS.fileText),
-    grid: getIconSafe(INTERFACE_ICONS.menuGrid),
+    book: getIconSafe(FILE_ICONS.fileText, {
+      stroke: 'currentColor',
+      size: '1.6rem',
+    }),
+    grid: getIconSafe(INTERFACE_ICONS.menuGrid, {
+      stroke: 'currentColor',
+      size: '1.6rem',
+    }),
   };
 
   private opereService = inject(OpereService);

@@ -1,4 +1,5 @@
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { SafeHtml } from '@angular/platform-browser';
 
 export type RecordStrutturaMultiForm = Record<string, StrutturaMultiForm>;
 
@@ -45,7 +46,7 @@ export interface TipoFileForm {
 export interface ICheckBox {
   id: string;
   testo: string;
-  icon?: string;
+  icon?: SafeHtml;
 }
 
 export interface ChangeCheckEvent {

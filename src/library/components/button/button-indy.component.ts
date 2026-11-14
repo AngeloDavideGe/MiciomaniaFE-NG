@@ -11,7 +11,7 @@ import { getIconSafe } from '../../functions/icons.function';
 })
 export class ButtonIndyComponent {
   public readonly chevronRight = getIconSafe(NAVIGATION_ICONS.chevronRight, {
-    stroke: 'white',
+    stroke: 'currentColor',
   });
 
   public text = input.required<string>();

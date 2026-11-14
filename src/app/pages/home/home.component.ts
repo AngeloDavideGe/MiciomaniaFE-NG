@@ -75,9 +75,15 @@ export class HomeComponent implements OnInit {
   public readonly maxUsers = this.appConfig.config.maxElement.users;
   private readonly keys = environment.LocalStorageKeys;
   public readonly arrayRaggi = defaultHomeArrayPags();
-  public readonly notificheIcon = getIconSafe(INTERFACE_ICONS.bell);
-  public readonly impostazioniIcon = getIconSafe(INTERFACE_ICONS.settings);
-  public readonly aggiungiAccountIcon = getIconSafe(USER_ICONS.userPlus);
+  public readonly notificheIcon = getIconSafe(INTERFACE_ICONS.bell, {
+    stroke: 'white',
+  });
+  public readonly impostazioniIcon = getIconSafe(INTERFACE_ICONS.settings, {
+    stroke: 'white',
+  });
+  public readonly aggiungiAccountIcon = getIconSafe(USER_ICONS.userPlus, {
+    stroke: 'white',
+  });
   private readonly toggleIcons: HomeToggleIcons = {
     account: getIconSafe(USER_ICONS.userCircle),
     profile: getIconSafe(USER_ICONS.user),

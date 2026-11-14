@@ -1,7 +1,7 @@
 <app-modal-indy (close)="close.emit()">
   <div bodyModal class="opera-add-modal">
     <label class="opera-add-search">
-      <i class="bi bi-search" aria-hidden="true"></i>
+      <i [innerHTML]="searchIcon" aria-hidden="true"></i>
       <input
         type="search"
         [value]="searchQuery()"

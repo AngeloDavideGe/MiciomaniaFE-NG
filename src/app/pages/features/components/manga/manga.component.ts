@@ -64,11 +64,23 @@ export class MangaComponent implements OnInit {
   private readonly opereService = inject(OpereService);
   private readonly authService = inject(AuthService);
   private readonly appConfig = inject(AppConfigService);
-  public readonly favoriteIcon: SafeHtml = getIconSafe(SOCIAL_ICONS.heart);
-  public readonly readingIcon: SafeHtml = getIconSafe(INTERFACE_ICONS.eye);
+  public readonly favoriteIcon: SafeHtml = getIconSafe(SOCIAL_ICONS.heart, {
+    stroke: 'currentColor',
+    size: '1em',
+  });
+  public readonly readingIcon: SafeHtml = getIconSafe(INTERFACE_ICONS.eye, {
+    stroke: 'currentColor',
+    size: '1em',
+  });
   public readonly toolbarIcons: OpereToolbarIcons = {
-    book: getIconSafe(FILE_ICONS.fileText),
-    grid: getIconSafe(INTERFACE_ICONS.menuGrid),
+    book: getIconSafe(FILE_ICONS.fileText, {
+      stroke: 'currentColor',
+      size: '1.6rem',
+    }),
+    grid: getIconSafe(INTERFACE_ICONS.menuGrid, {
+      stroke: 'currentColor',
+      size: '1.6rem',
+    }),
   };
   public readonly lang = this.appConfig.lang.Manga;
   public readonly enumCategoria = CategorieManga;

@@ -42,11 +42,12 @@ export class NavbarMicioComponent {
   public readonly lang = this.appConfig.lang.Feature.Navbar;
   public readonly defaultPic = this.appConfig.config.defaultPicsUrl.user;
   public readonly searchIcon: SafeHtml = getIconSafe(INTERFACE_ICONS.search, {
-    stroke: 'currentColor',
+    stroke: 'white',
+    size: '0.95rem',
   });
   public readonly chevronRightIcon: SafeHtml = getIconSafe(
     NAVIGATION_ICONS.chevronRight,
-    { stroke: 'currentColor' },
+    { stroke: 'white', size: '1em' },
   );
   public readonly pulsantiNavbar = getMicioNavbar(this.router, this.lang);
 
@@ -112,7 +113,10 @@ function getMicioNavbar(
   return [
     {
       id: 'home',
-      icon: getIconSafe(NAVIGATION_ICONS.home, { stroke: 'currentColor' }),
+      icon: getIconSafe(NAVIGATION_ICONS.home, {
+        stroke: 'currentColor',
+        size: '1.2rem',
+      }),
       text: lang.Home,
       condition: true,
       azione: () => router.navigate(['home']),

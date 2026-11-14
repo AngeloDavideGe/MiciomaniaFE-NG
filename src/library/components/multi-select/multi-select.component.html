@@ -7,9 +7,7 @@
   >
     <span>Seleziona</span>
     <i
-      class="bi"
-      [class.bi-chevron-down]="!open()"
-      [class.bi-chevron-up]="open()"
+      [innerHTML]="open() ? chevronUpIcon : chevronDownIcon"
       aria-hidden="true"
     ></i>
   </button>

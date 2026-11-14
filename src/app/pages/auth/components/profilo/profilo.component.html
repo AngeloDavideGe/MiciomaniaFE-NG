@@ -23,13 +23,14 @@
           </div>
           <p class="handle">{{ user().id }}</p>
           <span class="premium"
-            ><i class="bi bi-star-fill"></i>{{ user().admin.ruolo }}</span
+            ><i [innerHTML]="roleIcon" aria-hidden="true"></i
+            >{{ user().admin.ruolo }}</span
           >
         </div>
       </div>
       @if (isPersonalProfile()) {
         <button class="edit-button" type="button" (click)="openEditProfile()">
-          <i class="bi bi-pencil-square"></i>
+          <i [innerHTML]="editIcon" aria-hidden="true"></i>
           <span>{{ lang.ModificaProfilo }}</span>
         </button>
       }
@@ -42,14 +43,14 @@
         </p>
         <div class="profile-meta">
           <span
-            ><i class="bi bi-calendar3"></i>
+            ><i [innerHTML]="birthdayIcon" aria-hidden="true"></i>
             {{ lang.EditUser.Campi.Compleanno }}
             <strong>{{
               (user().profile.compleanno | dateFormat) || "N.D."
             }}</strong></span
           >
           <span
-            ><i class="bi bi-geo-alt"></i>
+            ><i [innerHTML]="locationIcon" aria-hidden="true"></i>
             <strong>{{ user().iscrizione.provincia || "N.D." }}</strong></span
           >
         </div>

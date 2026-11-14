@@ -1,9 +1,13 @@
 import { Router } from '@angular/router';
 import { SafeHtml } from '@angular/platform-browser';
+import { ACTION_ICONS } from '../../../../library/icons/actions-icons.constant';
+import { DEVELOPMENT_ICONS } from '../../../../library/icons/development-icons.constant';
 import { ConfirmService } from '../../../../library/dialogs/confirm/confirm.service';
+import { LOCATION_ICONS } from '../../../../library/icons/location-icons.constant';
 import { iCard } from '../../../../library/interfaces/card.interface';
 import { RaggioPage } from '../../../../library/interfaces/pagination.interface';
 import { ToggleProps } from '../../../../library/interfaces/toggle.interface';
+import { UTILITY_ICONS } from '../../../../library/icons/utility-icons.constant';
 import {
   AppConfigService,
   LangEnum,
@@ -81,31 +85,46 @@ export function getToggleProps(
           testo: lang.CursoreContagocce,
           icona: icons.eyedropper,
           condition: true,
-          azione: () => appConfig.currentCursor.set('bi bi-eyedropper'),
+          azione: () =>
+            appConfig.currentCursor.set(
+              LOCATION_ICONS.locate({ stroke: '#000000' }),
+            ),
         },
         {
           testo: lang.CursorePiuma,
           icona: icons.feather,
           condition: true,
-          azione: () => appConfig.currentCursor.set('bi bi-feather'),
+          azione: () =>
+            appConfig.currentCursor.set(
+              ACTION_ICONS.edit({ stroke: '#000000' }),
+            ),
         },
         {
           testo: lang.CursoreFulmine,
           icona: icons.lightning,
           condition: true,
-          azione: () => appConfig.currentCursor.set('bi bi-lightning-fill'),
+          azione: () =>
+            appConfig.currentCursor.set(
+              UTILITY_ICONS.zap({ stroke: '#000000' }),
+            ),
         },
         {
           testo: lang.CursoreBacchetta,
           icona: icons.wand,
           condition: true,
-          azione: () => appConfig.currentCursor.set('bi bi-magic'),
+          azione: () =>
+            appConfig.currentCursor.set(
+              ACTION_ICONS.sliders({ stroke: '#000000' }),
+            ),
         },
         {
           testo: lang.CursoreCacciavite,
           icona: icons.screwdriver,
           condition: true,
-          azione: () => appConfig.currentCursor.set('bi bi-screwdriver'),
+          azione: () =>
+            appConfig.currentCursor.set(
+              DEVELOPMENT_ICONS.code({ stroke: '#000000' }),
+            ),
         },
         {
           testo: lang.CursoreDisattiva,

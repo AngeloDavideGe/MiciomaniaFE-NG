@@ -12,11 +12,11 @@ export function geticon(paths: string[], options?: IconOptions): string {
   return `
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width="${options?.size ?? 24}"
+      height="${options?.size ?? 24}"
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="${options?.stroke || 'var(--primary'}"
+      fill="${options?.fill ?? 'none'}"
+      stroke="${options?.stroke || 'currentColor'}"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -29,4 +29,5 @@ export function geticon(paths: string[], options?: IconOptions): string {
 export interface IconOptions {
   stroke?: string;
   fill?: string;
+  size?: string | number;
 }

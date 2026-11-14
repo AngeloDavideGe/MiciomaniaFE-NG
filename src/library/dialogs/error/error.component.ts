@@ -12,7 +12,7 @@ import { ErrorParams } from '../../interfaces/error.interface';
     <div class="error">
       <div class="error__card">
         <div class="error__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white">
             <path
               stroke-width="1.8"
               stroke-linecap="round"

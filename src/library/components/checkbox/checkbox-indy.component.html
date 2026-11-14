@@ -10,7 +10,7 @@
     />
     <label [for]="check.id" class="check-label-custom">
       @if (check.icon) {
-        <i class="bi bi-{{ check.icon }}"></i>
+        <i [innerHTML]="check.icon" aria-hidden="true"></i>
       }
       {{ check.testo }}
     </label>

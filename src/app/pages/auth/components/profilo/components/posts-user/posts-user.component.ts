@@ -1,10 +1,14 @@
 import { Component, effect, input, signal } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
 import { ILang } from '../../../../../../core/interfaces/lang.interface';
 import { User } from '../../../../../../shared/interfaces/users.interface';
 import { DateFormatPipe } from '../../../../../../../library/pipes/date-format.pipe';
 import { CardIndyComponent } from '../../../../../../../library/components/card/card-indy.component';
 import { iCard } from '../../../../../../../library/interfaces/card.interface';
 import { ProfilePost, TabsProfilo } from '../../models/profilo.model';
+import { getIconSafe } from '../../../../../../../library/functions/icons.function';
+import { COMMUNICATION_ICONS } from '../../../../../../../library/icons/communication-icons.constant';
+import { FILE_ICONS } from '../../../../../../../library/icons/files-icons.constant';
 
 @Component({
   selector: 'app-posts-user',
@@ -14,6 +18,19 @@ import { ProfilePost, TabsProfilo } from '../../models/profilo.model';
   styleUrl: './posts-user.component.scss',
 })
 export class PostsUserComponent {
+  public readonly postIcon: SafeHtml = getIconSafe(
+    COMMUNICATION_ICONS.messageSquare,
+    { stroke: 'currentColor', size: '1em' },
+  );
+  public readonly emptyPostIcon: SafeHtml = getIconSafe(
+    COMMUNICATION_ICONS.messageSquare,
+    { stroke: 'currentColor', size: '2rem' },
+  );
+  public readonly imageIcon: SafeHtml = getIconSafe(FILE_ICONS.image, {
+    stroke: 'currentColor',
+    size: '2rem',
+  });
+
   public user = input.required<User>();
   public lang = input.required<ILang['Profilo']>();
   public posts = input.required<ProfilePost[]>();

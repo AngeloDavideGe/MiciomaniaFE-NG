@@ -8,6 +8,8 @@ export const NAVIGATION_ICONS = {
   arrowDown: (options?: IconOptions) => geticon(['M12 5v14', 'm19 12-7 7-7-7'], options),
   arrowLeft: (options?: IconOptions) => geticon(['M19 12H5', 'm12 19-7-7 7-7'], options),
   arrowRight: (options?: IconOptions) => geticon(['M5 12h14', 'm12 5 7 7-7 7'], options),
+  arrowUpDown: (options?: IconOptions) =>
+    geticon(['M12 3v18', 'm7 8 5-5 5 5', 'm7 16 5 5 5-5'], options),
   chevronRight: (options?: IconOptions) => geticon(['m9 18 6-6-6-6'], options),
   chevronLeft: (options?: IconOptions) => geticon(['m15 18-6-6 6-6'], options),
   chevronUp: (options?: IconOptions) => geticon(['m6 15 6-6 6 6'], options),

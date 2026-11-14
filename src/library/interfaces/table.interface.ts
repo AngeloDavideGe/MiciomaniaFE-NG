@@ -1,11 +1,12 @@
 import { WritableSignal } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
 import { Ordinamento } from './pagination.interface';
 
 export type OrdinamentoHttp<T> = Ordinamento<T, 'desc' | 'cresc'> | null;
 export type RecordColonne<T> = { [K in keyof T]: ColonnaConfig<T, K> };
 
 export interface AzioniTabella<T> {
-  icona: string;
+  icona: SafeHtml;
   titolo: string;
   azione: (elem: T, index: number) => void;
 }

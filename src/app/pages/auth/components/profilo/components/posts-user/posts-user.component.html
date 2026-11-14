@@ -4,7 +4,7 @@
       @for (post of postsOnlyText(); track post.id) {
         <article class="post">
           <div class="post-marker">
-            <i class="bi bi-chat-left-text"></i>
+            <i [innerHTML]="postIcon" aria-hidden="true"></i>
           </div>
           <div class="post-content">
             <div class="post-header">
@@ -21,7 +21,7 @@
       }
     } @else {
       <div class="empty-state">
-        <i class="bi bi-chat-left-text"></i>
+        <i [innerHTML]="emptyPostIcon" aria-hidden="true"></i>
         <h3>{{ lang().NessunPost }}</h3>
         <p>{{ lang().PostCompariranno }}</p>
       </div>
@@ -40,7 +40,7 @@
       </article>
     } @else {
       <div class="empty-state">
-        <i class="bi bi-images"></i>
+        <i [innerHTML]="imageIcon" aria-hidden="true"></i>
         <h3>{{ lang().NessunaFoto }}</h3>
         <p>{{ lang().FotoCompariranno }}</p>
       </div>

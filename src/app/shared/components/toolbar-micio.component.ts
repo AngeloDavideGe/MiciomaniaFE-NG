@@ -189,10 +189,10 @@ import { ICheckBox } from '../../../library/interfaces/form.interface';
   `,
 })
 export class ToolbarMicioComponent {
-  public readonly searchIcon: SafeHtml = getIconSafe(
-    INTERFACE_ICONS.search,
-    { stroke: 'currentColor' },
-  );
+  public readonly searchIcon: SafeHtml = getIconSafe(INTERFACE_ICONS.search, {
+    stroke: 'currentColor',
+    size: '1em',
+  });
 
   public stats = input<OpereToolbar[]>([]);
   public searchQuery = model<string>('');
