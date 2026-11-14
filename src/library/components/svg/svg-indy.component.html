@@ -1,15 +1,15 @@
 <div class="svg-container" style="position: relative; display: inline-block">
   <svg
+    xmlns="http://www.w3.org/2000/svg"
     baseprofile="tiny"
     [attr.height]="height()"
     [attr.width]="width()"
+    [attr.viewBox]="'0 0 ' + width() + ' ' + height()"
     stroke="var(--border)"
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-width="1.2"
     version="1.2"
-    [attr.viewBox]="'0 0 ' + width() + ' ' + height()"
-    xmlns="http://www.w3.org/2000/svg"
     [style.transform]="transform()"
   >
     <g [attr.transform]="translate()">

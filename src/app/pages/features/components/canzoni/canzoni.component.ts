@@ -67,17 +67,11 @@ export class CanzoniComponent implements OnInit {
   public showCategoriaToAdd = signal<boolean>(false);
 
   public cardVoidFunction = computed<Function | null>(() => {
-    const categoria: CategorieCanzoni = this.currentCategoria();
-
-    let voidFunction: Function | null = null;
-
-    if (categoria == CategorieCanzoni.tutte) {
-      voidFunction = null;
+    if (this.currentCategoria() == CategorieCanzoni.tutte) {
+      return null;
     } else {
-      voidFunction = () => this.showCategoriaToAdd.set(true);
+      return () => this.showCategoriaToAdd.set(true);
     }
-
-    return voidFunction;
   });
 
   public currentUser = computed<User | null>(() =>
@@ -209,10 +203,9 @@ export class CanzoniComponent implements OnInit {
 
   public addCanzoneToUtente(mangaId: number): void {
     const opereUtente: OpereUtente | null = this.opereService.opereUtente();
-    let keyOpere: keyof OpereUtente | null = 'canzonimicio';
+    let keyOpere: keyof OpereUtente = 'canzonimicio';
 
     if (!opereUtente) return;
-    if (!keyOpere) return;
 
     const ids = opereUtente?.[keyOpere]?.split(',').filter(Boolean) ?? [];
     if (ids.includes(mangaId.toString())) return;

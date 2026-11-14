@@ -106,15 +106,10 @@ export class MangaComponent implements OnInit {
   );
 
   public mangaAll = computed<Manga[]>(() => {
-    const categoria: CategorieManga = this.currentCategoria();
-
-    switch (categoria) {
-      case CategorieManga.ufficiali:
-        return this.manga();
-      case CategorieManga.miciomania:
-        return this.mangaMicio();
-      default:
-        return [];
+    if (this.currentCategoria() == CategorieManga.ufficiali) {
+      return this.manga();
+    } else {
+      return this.mangaMicio();
     }
   });
 

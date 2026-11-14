@@ -1,0 +1,10 @@
+<button
+  id="button-indy"
+  [style.--button-background]="backgroundColor()"
+  (click)="clickButton.emit()"
+  [disabled]="disabled()"
+>
+  <span>{{ text() }}</span>
+
+  <div [innerHTML]="chevronRight"></div>
+</button>
