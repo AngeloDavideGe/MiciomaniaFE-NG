@@ -39,7 +39,16 @@ import {
   defaultHomeArrayPags,
   getCategorieCard,
   getToggleProps,
+  HomeToggleIcons,
 } from './functions/home.functions';
+import { getIconSafe } from '../../../library/functions/icons.function';
+import { INTERFACE_ICONS } from '../../../library/icons/interface-icons.constant';
+import { USER_ICONS } from '../../../library/icons/users-icons.constant';
+import { LOCATION_ICONS } from '../../../library/icons/location-icons.constant';
+import { ACTION_ICONS } from '../../../library/icons/actions-icons.constant';
+import { UTILITY_ICONS } from '../../../library/icons/utility-icons.constant';
+import { DEVELOPMENT_ICONS } from '../../../library/icons/development-icons.constant';
+import { STATUS_ICONS } from '../../../library/icons/status-icons.constant';
 
 @Component({
   selector: 'app-home',
@@ -66,6 +75,25 @@ export class HomeComponent implements OnInit {
   public readonly maxUsers = this.appConfig.config.maxElement.users;
   private readonly keys = environment.LocalStorageKeys;
   public readonly arrayRaggi = defaultHomeArrayPags();
+  public readonly notificheIcon = getIconSafe(INTERFACE_ICONS.bell);
+  public readonly impostazioniIcon = getIconSafe(INTERFACE_ICONS.settings);
+  private readonly toggleIcons: HomeToggleIcons = {
+    account: getIconSafe(USER_ICONS.userCircle),
+    profile: getIconSafe(USER_ICONS.user),
+    cursor: getIconSafe(LOCATION_ICONS.navigation),
+    eyedropper: getIconSafe(LOCATION_ICONS.locate),
+    feather: getIconSafe(ACTION_ICONS.edit),
+    lightning: getIconSafe(UTILITY_ICONS.zap),
+    wand: getIconSafe(ACTION_ICONS.sliders),
+    screwdriver: getIconSafe(DEVELOPMENT_ICONS.code),
+    cancel: getIconSafe(STATUS_ICONS.xCircle),
+    globe: getIconSafe(LOCATION_ICONS.globe),
+    selectedLanguage: getIconSafe(STATUS_ICONS.checkCircle),
+    language: getIconSafe(LOCATION_ICONS.globe),
+    auth: getIconSafe(USER_ICONS.lock),
+    logout: getIconSafe(USER_ICONS.logOut),
+    login: getIconSafe(USER_ICONS.logIn),
+  };
 
   private openNow: boolean = true;
   public menuOpen = signal<string>('');
@@ -85,6 +113,7 @@ export class HomeComponent implements OnInit {
       this.confirmService,
       this.appConfig,
       this.lang().Toggle,
+      this.toggleIcons,
     ),
   );
 

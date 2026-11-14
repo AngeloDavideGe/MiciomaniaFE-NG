@@ -1,4 +1,5 @@
 import { Router } from '@angular/router';
+import { SafeHtml } from '@angular/platform-browser';
 import { ConfirmService } from '../../../../library/dialogs/confirm/confirm.service';
 import { iCard } from '../../../../library/interfaces/card.interface';
 import { RaggioPage } from '../../../../library/interfaces/pagination.interface';
@@ -54,17 +55,18 @@ export function getToggleProps(
   confirmService: ConfirmService,
   appConfig: AppConfigService,
   lang: ILang['Home']['Toggle'],
+  icons: HomeToggleIcons,
 ): ToggleProps[] {
   const currentUser: User | null = authService.currentUser();
 
   return [
     {
       titolo: lang.Account,
-      icona: 'bi bi-person-circle',
+      icona: icons.account,
       menuElementi: [
         {
           testo: lang.Profilo,
-          icona: 'bi bi-person-vcard',
+          icona: icons.profile,
           condition: !!authService.currentUser(),
           azione: () =>
             router.navigate(['auth/user/' + authService.currentUser()?.id]),
@@ -73,41 +75,41 @@ export function getToggleProps(
     },
     {
       titolo: lang.Cursore,
-      icona: 'bi bi-cursor-fill',
+      icona: icons.cursor,
       menuElementi: [
         {
           testo: lang.CursoreContagocce,
-          icona: 'bi bi-eyedropper',
+          icona: icons.eyedropper,
           condition: true,
           azione: () => appConfig.currentCursor.set('bi bi-eyedropper'),
         },
         {
           testo: lang.CursorePiuma,
-          icona: 'bi bi-feather',
+          icona: icons.feather,
           condition: true,
           azione: () => appConfig.currentCursor.set('bi bi-feather'),
         },
         {
           testo: lang.CursoreFulmine,
-          icona: 'bi bi-lightning-fill',
+          icona: icons.lightning,
           condition: true,
           azione: () => appConfig.currentCursor.set('bi bi-lightning-fill'),
         },
         {
           testo: lang.CursoreBacchetta,
-          icona: 'bi bi-magic',
+          icona: icons.wand,
           condition: true,
           azione: () => appConfig.currentCursor.set('bi bi-magic'),
         },
         {
           testo: lang.CursoreCacciavite,
-          icona: 'bi bi-screwdriver',
+          icona: icons.screwdriver,
           condition: true,
           azione: () => appConfig.currentCursor.set('bi bi-screwdriver'),
         },
         {
           testo: lang.CursoreDisattiva,
-          icona: 'bi bi-x-circle',
+          icona: icons.cancel,
           condition: true,
           azione: () => appConfig.currentCursor.set(''),
         },
@@ -115,14 +117,14 @@ export function getToggleProps(
     },
     {
       titolo: lang.Lingua,
-      icona: 'bi bi-globe2',
+      icona: icons.globe,
       menuElementi: Object.values(LangEnum).map((x: LangEnum) => {
         return {
           testo: x.toUpperCase(),
           icona:
             x === appConfig.currentLang()
-              ? 'bi bi-check-circle-fill text-success'
-              : 'bi bi-translate',
+              ? icons.selectedLanguage
+              : icons.language,
           condition: true,
           azione: () => appConfig.changeLang(x),
         };
@@ -130,11 +132,11 @@ export function getToggleProps(
     },
     {
       titolo: lang.Auth,
-      icona: 'bi bi-shield-lock',
+      icona: icons.auth,
       menuElementi: [
         {
           testo: lang.Esci,
-          icona: 'bi bi-box-arrow-right',
+          icona: icons.logout,
           condition: !!currentUser,
           azione: () => {
             const accountsUser: User[] = authService.accountsUser();
@@ -160,7 +162,7 @@ export function getToggleProps(
         },
         {
           testo: lang.Login,
-          icona: 'bi bi-box-arrow-right',
+          icona: icons.login,
           condition: !currentUser,
           azione: () => router.navigate(['auth/login']),
         },
@@ -180,4 +182,22 @@ export function defaultHomeArrayPags(): RaggioPage[] {
       raggio: 1,
     },
   ];
+}
+
+export interface HomeToggleIcons {
+  account: SafeHtml;
+  profile: SafeHtml;
+  cursor: SafeHtml;
+  eyedropper: SafeHtml;
+  feather: SafeHtml;
+  lightning: SafeHtml;
+  wand: SafeHtml;
+  screwdriver: SafeHtml;
+  cancel: SafeHtml;
+  globe: SafeHtml;
+  selectedLanguage: SafeHtml;
+  language: SafeHtml;
+  auth: SafeHtml;
+  logout: SafeHtml;
+  login: SafeHtml;
 }

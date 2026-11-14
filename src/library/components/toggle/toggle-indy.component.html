@@ -16,7 +16,10 @@
         [style]="{ width: dimToggleIcona(), height: dimToggleIcona() }"
         (click)="toggleMenu()"
       >
-        <i [class]="menuOpen() == titolo() ? 'bi bi-x' : icona()"></i>
+        <i
+          [innerHTML]="menuOpen() == titolo() ? iconX : icona()"
+          style="color: var(--primary)"
+        ></i>
       </button>
 
       @if (titoloVisible()) {
@@ -36,7 +39,7 @@
               <li>
                 <a (click)="item.azione()">
                   @if (item.icona) {
-                    <i [class]="item.icona"></i>
+                    <i [innerHTML]="item.icona"></i>
                   } @else if (item.image) {
                     <img class="img-icona" [src]="item.image" />
                   }
@@ -45,9 +48,6 @@
                       <span class="title">{{ item.testo }}</span>
                       <span class="subtitle">{{ item.sottotitolo }}</span>
                     </div>
-                    @if (item.selezionato) {
-                      <i class="bi bi-check-circle-fill selected"></i>
-                    }
                   } @else {
                     <div [innerHTML]="item.testo"></div>
                   }
@@ -73,7 +73,9 @@
                 type="button"
                 (click)="cambiaDropdown(toggle.titolo)"
               >
-                <i [class]="toggle.icona + ' me-2'"></i>
+                @if (toggle.icona) {
+                  <span class="me-2" [innerHTML]="toggle.icona"></span>
+                }
                 {{ toggle.titolo }}
               </button>
             </li>
@@ -84,7 +86,7 @@
                   <li>
                     <a (click)="item.azione()">
                       @if (item.icona) {
-                        <i [class]="item.icona"></i>
+                        <i [innerHTML]="item.icona"></i>
                       } @else if (item.image) {
                         <img class="img-icona" [src]="item.image" />
                       }

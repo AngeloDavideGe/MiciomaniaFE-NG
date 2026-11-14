@@ -1,6 +1,8 @@
+import { SafeHtml } from '@angular/platform-browser';
+
 export interface ToggleProps {
   titolo: string;
-  icona?: string;
+  icona?: SafeHtml;
   image?: string;
   menuElementi: MenuElements[];
 }
@@ -9,8 +11,7 @@ export interface MenuElements {
   azione: Function;
   testo: string;
   sottotitolo?: string;
-  selezionato?: boolean;
-  icona?: string;
+  icona?: SafeHtml;
   image?: string;
   condition: boolean;
 }

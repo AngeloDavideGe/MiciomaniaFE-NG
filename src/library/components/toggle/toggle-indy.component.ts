@@ -9,6 +9,10 @@ import {
 } from '@angular/core';
 import { ToggleProps, ToggleStyles } from '../../interfaces/toggle.interface';
 import { SpinnerIndyComponent } from '../spinner/spinner-indy.component';
+import { SafeHtml } from '@angular/platform-browser';
+import { getIconSafe } from '../../functions/icons.function';
+import { DATA_ICONS } from '../../icons/data-icons.constant';
+import { ACTION_ICONS } from '../../icons/actions-icons.constant';
 
 @Component({
   selector: 'app-toggle-indy',
@@ -19,13 +23,14 @@ import { SpinnerIndyComponent } from '../spinner/spinner-indy.component';
   styleUrl: './toggle-indy.component.scss',
 })
 export class ToggleIndyComponent {
+  public readonly iconX = getIconSafe(ACTION_ICONS.x);
   public currentButton = signal<string>('');
 
   public titolo = input<string>('');
   public titoloVisible = input<boolean>(false);
   public imgIcona = input<string>('');
   public dimToggleIcona = input<string>('2.5rem');
-  public icona = input<string>('bi bi-list');
+  public icona = input<SafeHtml>(getIconSafe(DATA_ICONS.list));
   public toggleMenus = input<ToggleProps[]>([]);
   public toggleStyles = input<ToggleStyles>({});
   public tipo = input<'single' | 'multiple' | 'content'>('multiple');

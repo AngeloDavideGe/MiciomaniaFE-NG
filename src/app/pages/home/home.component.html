@@ -2,7 +2,7 @@
   <div rightContent>
     <div class="elementi-laterali gap-3">
       <app-toggle-indy
-        [icona]="'bi bi-bell'"
+        [icona]="notificheIcon"
         [titolo]="lang().Notifiche"
         [tipo]="'single'"
         [toggleMenus]="notificheToggle()"
@@ -10,7 +10,7 @@
         [(menuOpen)]="menuOpen"
       />
       <app-toggle-indy
-        [icona]="'bi bi-gear'"
+        [icona]="impostazioniIcon"
         [titolo]="lang().Impostazioni"
         [toggleMenus]="impostazioniToggle()"
         [toggleStyles]="isMobile() ? { width: '100%' } : { width: '20rem' }"

@@ -1,30 +1,30 @@
-import { geticon } from '../functions/icons.function';
+import { geticon, IconOptions } from '../functions/icons.function';
 
 export const INTERFACE_ICONS = {
-  settings: () =>
+  settings: (options?: IconOptions) =>
     geticon([
       'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z',
       'M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 3.1-.2-.1a1.7 1.7 0 0 0-1.9.3l-.1.1h-3.6l-.1-.2a1.7 1.7 0 0 0-1.5-1.1',
-    ]),
-  search: () =>
-    geticon(['M11 3a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z', 'm21 21-4.35-4.35']),
-  bell: () =>
-    geticon(['M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9', 'M10 21h4']),
-  bellOff: () =>
-    geticon(['M10 5a6 6 0 0 1 8 5c0 7 3 7 3 9H9', 'M3 3l18 18', 'M10 21h4']),
-  eye: () =>
+    ], options),
+  search: (options?: IconOptions) =>
+    geticon(['M11 3a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z', 'm21 21-4.35-4.35'], options),
+  bell: (options?: IconOptions) =>
+    geticon(['M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9', 'M10 21h4'], options),
+  bellOff: (options?: IconOptions) =>
+    geticon(['M10 5a6 6 0 0 1 8 5c0 7 3 7 3 9H9', 'M3 3l18 18', 'M10 21h4'], options),
+  eye: (options?: IconOptions) =>
     geticon([
       'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z',
       'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
-    ]),
-  eyeOff: () =>
+    ], options),
+  eyeOff: (options?: IconOptions) =>
     geticon([
       'M3 3l18 18',
       'M10.6 10.6a2 2 0 0 0 2.8 2.8',
       'M9.9 5.2A10 10 0 0 1 12 5c6.5 0 10 7 10 7a15 15 0 0 1-4 4.5',
       'M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7a10 10 0 0 0 3-.5',
-    ]),
-  sun: () =>
+    ], options),
+  sun: (options?: IconOptions) =>
     geticon([
       'M12 2v2',
       'M12 20v2',
@@ -35,26 +35,26 @@ export const INTERFACE_ICONS = {
       'm4.93 19.07 1.42-1.42',
       'm17.65 6.35 1.42-1.42',
       'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z',
-    ]),
-  moon: () => geticon(['M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z']),
-  calendar: () =>
+    ], options),
+  moon: (options?: IconOptions) => geticon(['M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z'], options),
+  calendar: (options?: IconOptions) =>
     geticon([
       'M8 2v4',
       'M16 2v4',
       'M3 10h18',
       'M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z',
-    ]),
-  clock: () =>
-    geticon(['M12 8v4l3 2', 'M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z']),
-  menuGrid: () =>
-    geticon(['M3 3h7v7H3z', 'M14 3h7v7h-7z', 'M14 14h7v7h-7z', 'M3 14h7v7H3z']),
-  maximize: () =>
+    ], options),
+  clock: (options?: IconOptions) =>
+    geticon(['M12 8v4l3 2', 'M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z'], options),
+  menuGrid: (options?: IconOptions) =>
+    geticon(['M3 3h7v7H3z', 'M14 3h7v7h-7z', 'M14 14h7v7h-7z', 'M3 14h7v7H3z'], options),
+  maximize: (options?: IconOptions) =>
     geticon([
       'M8 3H5a2 2 0 0 0-2 2v3',
       'M16 3h3a2 2 0 0 1 2 2v3',
       'M3 16v3a2 2 0 0 0 2 2h3',
       'M21 16v3a2 2 0 0 1-2 2h-3',
-    ]),
-  minimize: () =>
-    geticon(['M8 3v5H3', 'M21 8h-5V3', 'M3 16h5v5', 'M16 21v-5h5']),
+    ], options),
+  minimize: (options?: IconOptions) =>
+    geticon(['M8 3v5H3', 'M21 8h-5V3', 'M3 16h5v5', 'M16 21v-5h5'], options),
 } as const;
