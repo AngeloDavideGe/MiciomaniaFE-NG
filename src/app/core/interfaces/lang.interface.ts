@@ -70,6 +70,11 @@ export interface ILang {
       CercaUtentiPlaceholder: string;
       NessunUtenteTrovato: string;
     };
+    Opere: {
+      cercaPlaceholder: string;
+      nessunaOperaTrovata: string;
+      copertinaAlt: string;
+    };
   };
   Canzoni: {
     Titolo: string;

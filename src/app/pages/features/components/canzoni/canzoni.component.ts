@@ -6,6 +6,9 @@ import {
   Signal,
   signal,
 } from '@angular/core';
+import { CardIndyComponent } from '../../../../../library/components/card/card-indy.component';
+import { SidebarIndyComponent } from '../../../../../library/components/sidebar/sidebar-indy.component';
+import { SpinnerIndyComponent } from '../../../../../library/components/spinner/spinner-indy.component';
 import { AudioService } from '../../../../../library/dialogs/audio/audio.service';
 import { effectTimeoutCustom } from '../../../../../library/functions/debounce.function';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
@@ -13,10 +16,14 @@ import { GetFiltriCustom } from '../../../../../library/functions/pagination.fun
 import { iCard } from '../../../../../library/interfaces/card.interface';
 import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
+import { ContaierMicioComponent } from '../../../../shared/components/container-micio.component';
+import { OpereMicioComponent } from '../../../../shared/components/opere-micio/opere-micio.component';
+import { ToolbarMicioComponent } from '../../../../shared/components/toolbar-micio.component';
 import {
   Canzoni,
   CanzoniGet,
   OpereToolbar,
+  OpereUtente,
 } from '../../../../shared/interfaces/opere.interface';
 import { User } from '../../../../shared/interfaces/users.interface';
 import { AuthService } from '../../../../shared/services/auth.service';
@@ -27,11 +34,6 @@ import {
   getCanzoniToolbar,
 } from './functions/canzoni.function';
 import { CategorieCanzoni } from './models/canzoni.model';
-import { CardIndyComponent } from '../../../../../library/components/card/card-indy.component';
-import { SidebarIndyComponent } from '../../../../../library/components/sidebar/sidebar-indy.component';
-import { SpinnerIndyComponent } from '../../../../../library/components/spinner/spinner-indy.component';
-import { ContaierMicioComponent } from '../../../../shared/components/container-micio.component';
-import { ToolbarMicioComponent } from '../../../../shared/components/toolbar-micio.component';
 
 @Component({
   selector: 'app-canzoni',
@@ -42,9 +44,9 @@ import { ToolbarMicioComponent } from '../../../../shared/components/toolbar-mic
     SidebarIndyComponent,
     SpinnerIndyComponent,
     CardIndyComponent,
+    OpereMicioComponent,
   ],
   templateUrl: './canzoni.component.html',
-  styleUrl: './canzoni.component.scss',
 })
 export class CanzoniComponent implements OnInit {
   private opereService = inject(OpereService);
@@ -62,6 +64,21 @@ export class CanzoniComponent implements OnInit {
   public searchQuery = signal<string>('');
   public debounceQuery = signal<string>('');
   public currentCategoria = signal<CategorieCanzoni>(CategorieCanzoni.tutte);
+  public showCategoriaToAdd = signal<boolean>(false);
+
+  public cardVoidFunction = computed<Function | null>(() => {
+    const categoria: CategorieCanzoni = this.currentCategoria();
+
+    let voidFunction: Function | null = null;
+
+    if (categoria == CategorieCanzoni.tutte) {
+      voidFunction = null;
+    } else {
+      voidFunction = () => this.showCategoriaToAdd.set(true);
+    }
+
+    return voidFunction;
+  });
 
   public currentUser = computed<User | null>(() =>
     this.authService.currentUser(),
@@ -188,5 +205,23 @@ export class CanzoniComponent implements OnInit {
         },
       ],
     });
+  }
+
+  public addCanzoneToUtente(mangaId: number): void {
+    const opereUtente: OpereUtente | null = this.opereService.opereUtente();
+    let keyOpere: keyof OpereUtente | null = 'canzonimicio';
+
+    if (!opereUtente) return;
+    if (!keyOpere) return;
+
+    const ids = opereUtente?.[keyOpere]?.split(',').filter(Boolean) ?? [];
+    if (ids.includes(mangaId.toString())) return;
+
+    this.opereService.opereUtente.set({
+      ...opereUtente,
+      [keyOpere]: [...ids, mangaId.toString()].join(','),
+    });
+
+    this.showCategoriaToAdd.set(false);
   }
 }

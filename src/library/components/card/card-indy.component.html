@@ -12,7 +12,7 @@
       </button>
     }
 
-    @if (filtri.elemFilter().length > 0) {
+    @if (filtri.elemFilter().length > 0 || cardVoidFunction()) {
       <div
         [class]="{
           'grid-card-layout': true,
@@ -77,6 +77,28 @@
                   "
                 />
               }
+            </div>
+          </div>
+        }
+
+        @if (cardVoidFunction()) {
+          <div
+            class="indy-card"
+            [style]="{
+              width: lunghezzaCard(),
+              'border-radius': borderRadiusCard(),
+              '--card-color': 'var(--primary)',
+            }"
+          >
+            <div
+              class="elemento-centrato h-100 w-100"
+              style="--align-center: center; color: var(--primary)"
+            >
+              <i
+                class="bi bi-plus-circle"
+                style="font-size: 2rem; cursor: pointer"
+                (click)="cardVoidFunction()?.()"
+              ></i>
             </div>
           </div>
         }

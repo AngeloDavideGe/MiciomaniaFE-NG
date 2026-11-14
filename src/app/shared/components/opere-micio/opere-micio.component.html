@@ -1,0 +1,37 @@
+<app-modal-indy (close)="close.emit()">
+  <div bodyModal class="opera-add-modal">
+    <label class="opera-add-search">
+      <i class="bi bi-search" aria-hidden="true"></i>
+      <input
+        type="search"
+        [value]="searchQuery()"
+        [placeholder]="lang.cercaPlaceholder"
+        [aria-label]="lang.cercaPlaceholder"
+        autocomplete="off"
+        (input)="searchQuery.set($event.target.value)"
+      />
+    </label>
+
+    <ul class="opera-add-list">
+      @if (opereFilter.elemFilter().length > 0) {
+        @for (c of opereFilter.elemFilter(); track c.id) {
+          <li class="opera-add-card" (click)="addOperaToUtente.emit(c.id)">
+            <div class="opera-add-card-cover">
+              <img
+                [src]="c.copertina"
+                [alt]="lang.copertinaAlt + ' ' + c.nome"
+              />
+            </div>
+            <div class="opera-add-card-content">
+              <h3>{{ c.nome }}</h3>
+            </div>
+          </li>
+        }
+      } @else {
+        <li class="opera-add-card-empty">
+          <p>{{ lang.nessunaOperaTrovata }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</app-modal-indy>

@@ -69,6 +69,11 @@
       "CercaUtenti": "Search Users",
       "CercaUtentiPlaceholder": "Search by name or ID...",
       "NessunUtenteTrovato": "No users found"
+    },
+    "Opere": {
+      "cercaPlaceholder": "Search by name...",
+      "nessunaOperaTrovata": "No opera found",
+      "copertinaAlt": "Opera cover"
     }
   },
   "Canzoni": {

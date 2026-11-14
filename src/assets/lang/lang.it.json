@@ -69,6 +69,11 @@
       "CercaUtenti": "Cerca Utenti",
       "CercaUtentiPlaceholder": "Cerca per nome o ID...",
       "NessunUtenteTrovato": "Nessun utente trovato"
+    },
+    "Opere": {
+      "cercaPlaceholder": "Cerca per nome...",
+      "nessunaOperaTrovata": "Nessuna opera trovata",
+      "copertinaAlt": "Copertina dell'opera"
     }
   },
   "Canzoni": {

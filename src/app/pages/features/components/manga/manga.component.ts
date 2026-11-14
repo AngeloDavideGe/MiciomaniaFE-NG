@@ -18,6 +18,7 @@ import { iCard } from '../../../../../library/interfaces/card.interface';
 import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
 import { ContaierMicioComponent } from '../../../../shared/components/container-micio.component';
+import { OpereMicioComponent } from '../../../../shared/components/opere-micio/opere-micio.component';
 import { ToolbarMicioComponent } from '../../../../shared/components/toolbar-micio.component';
 import {
   iManga,
@@ -49,9 +50,9 @@ import { CategorieManga, SottoCategorieManga } from './models/manga.model';
     TabsIndyComponent,
     CardIndyComponent,
     SpinnerIndyComponent,
+    OpereMicioComponent,
   ],
   templateUrl: './manga.component.html',
-  styleUrl: './manga.component.scss',
 })
 export class MangaComponent implements OnInit {
   private readonly opereService = inject(OpereService);
@@ -59,6 +60,7 @@ export class MangaComponent implements OnInit {
   private readonly appConfig = inject(AppConfigService);
 
   public readonly lang = this.appConfig.lang.Manga;
+  public readonly enumCategoria = CategorieManga;
   public readonly categorie = getMangaSidebar(this.lang.Categorie);
   public readonly sottoCategorie = getMangaSidebarSub(this.lang.Sottocategorie);
   public readonly tabs = getMangaTabs(this.lang.Tabs);
@@ -67,8 +69,11 @@ export class MangaComponent implements OnInit {
 
   public searchQuery = signal<string>('');
   public debounceQuery = signal<string>('');
-  public currentCategoria = signal<string>(CategorieManga.ufficiali);
-  public currentSottoCategoria = signal<string>(SottoCategorieManga.tutti);
+  public currentCategoria = signal<CategorieManga>(CategorieManga.ufficiali);
+  public currentSottoCategoria = signal<SottoCategorieManga>(
+    SottoCategorieManga.tutti,
+  );
+  public showCategoriaToAdd = signal<CategorieManga | null>(null);
   public currentTabs = signal<boolean | null>(null);
   public mangaToolbar = signal<OpereToolbar[]>(
     getMangaToolbar(0, 0, this.lang.Toolbar),
@@ -99,6 +104,19 @@ export class MangaComponent implements OnInit {
   public mangaMicioLeggendo = computed<Manga[]>(() =>
     this.mangaUtenteComputed('micioManga', 'mangaMicioLeggendo'),
   );
+
+  public mangaAll = computed<Manga[]>(() => {
+    const categoria: CategorieManga = this.currentCategoria();
+
+    switch (categoria) {
+      case CategorieManga.ufficiali:
+        return this.manga();
+      case CategorieManga.miciomania:
+        return this.mangaMicio();
+      default:
+        return [];
+    }
+  });
 
   public recordPreferiti = computed<Record<string, string>>(() => {
     const mangaPreferiti: Manga[] = this.mangaPreferiti();
@@ -167,6 +185,21 @@ export class MangaComponent implements OnInit {
     this.getMangaToCard(this.filtri().elemFilter()),
   );
 
+  public cardVoidFunction = computed<Function | null>(() => {
+    const categoria: CategorieManga = this.currentCategoria();
+    const sottoCategoria: SottoCategorieManga = this.currentSottoCategoria();
+
+    let voidFunction: Function | null = null;
+
+    if (sottoCategoria == SottoCategorieManga.tutti) {
+      voidFunction = null;
+    } else {
+      voidFunction = () => this.showCategoriaToAdd.set(categoria);
+    }
+
+    return voidFunction;
+  });
+
   constructor() {
     effectTimeoutCustom(this.searchQuery, (value: string) =>
       this.debounceQuery.set(value),
@@ -206,8 +239,10 @@ export class MangaComponent implements OnInit {
     mangaUtenteKey: keyof OpereUtente,
   ): Manga[] {
     const manga: iManga | null = this.opereService.manga();
+    const opereUtente: OpereUtente | null = this.opereService.opereUtente();
+
     const mangaUtente: string | null | undefined =
-      this.opereService.opereUtente()?.[mangaUtenteKey];
+      opereUtente?.[mangaUtenteKey];
 
     if (!mangaUtente || !manga) return [];
 
@@ -259,5 +294,53 @@ export class MangaComponent implements OnInit {
     this.mangaToolbar.set(
       getMangaToolbar(mangaDisponibili, capitoliTotali, this.lang.Toolbar),
     );
+  }
+
+  public addMangaToUtente(mangaId: number): void {
+    const opereUtente: OpereUtente | null = this.opereService.opereUtente();
+    let keyOpere: keyof OpereUtente | null = null;
+
+    if (!opereUtente) return;
+
+    switch (this.showCategoriaToAdd()) {
+      case CategorieManga.ufficiali: {
+        switch (this.currentSottoCategoria()) {
+          case SottoCategorieManga.preferiti: {
+            keyOpere = 'mangaPreferito';
+            break;
+          }
+          case SottoCategorieManga.leggendo: {
+            keyOpere = 'mangaLeggendo';
+            break;
+          }
+        }
+        break;
+      }
+      case CategorieManga.miciomania: {
+        switch (this.currentSottoCategoria()) {
+          case SottoCategorieManga.preferiti: {
+            keyOpere = 'mangaMicioPreferito';
+            break;
+          }
+          case SottoCategorieManga.leggendo: {
+            keyOpere = 'mangaMicioLeggendo';
+            break;
+          }
+        }
+        break;
+      }
+    }
+
+    if (!keyOpere) return;
+
+    const ids = opereUtente?.[keyOpere]?.split(',').filter(Boolean) ?? [];
+    if (ids.includes(mangaId.toString())) return;
+
+    this.opereService.opereUtente.set({
+      ...opereUtente,
+      [keyOpere]: [...ids, mangaId.toString()].join(','),
+    });
+
+    this.showCategoriaToAdd.set(null);
   }
 }

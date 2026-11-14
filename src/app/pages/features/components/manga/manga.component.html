@@ -47,6 +47,7 @@
           [tipoPaginazione]="'multiplo'"
           [arrayPags]="arrayRaggi"
           [recordIcons]="recordPreferiti()"
+          [cardVoidFunction]="cardVoidFunction()"
         />
 
         <div class="mt-2"></div>
@@ -54,3 +55,11 @@
     </app-sidebar-indy>
   </div>
 </app-container-micio>
+
+@if (showCategoriaToAdd()) {
+  <app-opere-micio
+    [opere]="mangaAll()"
+    (close)="showCategoriaToAdd.set(null)"
+    (addOperaToUtente)="addMangaToUtente($event)"
+  />
+}

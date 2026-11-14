@@ -13,13 +13,16 @@ export interface iManga {
   micioManga: Manga[];
 }
 
-export interface Manga {
+export interface Canzoni {
   id: number;
   nome: string;
   autore: string;
   genere: string;
   copertina: string;
   path: string;
+}
+
+export interface Manga extends Canzoni {
   completato: boolean;
   capitoli: number;
 }
@@ -30,15 +33,6 @@ export interface OpereUtente {
   canzonimicio: string | null;
   mangaLeggendo: string | null;
   mangaMicioLeggendo: string | null;
-}
-
-export interface Canzoni {
-  id: number;
-  nome: string;
-  autore: string;
-  genere: string;
-  copertina: string;
-  path: string;
 }
 
 export interface OpereToolbar {
