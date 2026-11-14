@@ -14,13 +14,17 @@ import {
   debounceTimeoutCustom,
   effectTimeoutCustom,
 } from '../../../../library/functions/debounce.function';
+import { getIconSafe } from '../../../../library/functions/icons.function';
 import { GetFiltriCustom } from '../../../../library/functions/pagination.function';
+import { NAVIGATION_ICONS } from '../../../../library/icons/navigation-icons.constant';
+import { INTERFACE_ICONS } from '../../../../library/icons/interface-icons.constant';
 import { PulsanteNavbar } from '../../../../library/interfaces/navbar.interface';
 import { AppConfigService } from '../../../core/api/appConfig.service';
 import { ILang } from '../../../core/interfaces/lang.interface';
 import { UserParams } from '../../interfaces/users.interface';
 import { AuthService } from '../../services/auth.service';
 import { ToggleStyles } from '../../../../library/interfaces/toggle.interface';
+import { SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-navbar-micio',
@@ -37,6 +41,13 @@ export class NavbarMicioComponent {
 
   public readonly lang = this.appConfig.lang.Feature.Navbar;
   public readonly defaultPic = this.appConfig.config.defaultPicsUrl.user;
+  public readonly searchIcon: SafeHtml = getIconSafe(INTERFACE_ICONS.search, {
+    stroke: 'currentColor',
+  });
+  public readonly chevronRightIcon: SafeHtml = getIconSafe(
+    NAVIGATION_ICONS.chevronRight,
+    { stroke: 'currentColor' },
+  );
   public readonly pulsantiNavbar = getMicioNavbar(this.router, this.lang);
 
   public menuOpen = signal<string>('');
@@ -101,7 +112,7 @@ function getMicioNavbar(
   return [
     {
       id: 'home',
-      icon: 'bi-house',
+      icon: getIconSafe(NAVIGATION_ICONS.home, { stroke: 'currentColor' }),
       text: lang.Home,
       condition: true,
       azione: () => router.navigate(['home']),

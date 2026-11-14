@@ -6,6 +6,9 @@ import {
   model,
   signal,
 } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
+import { getIconSafe } from '../../../library/functions/icons.function';
+import { INTERFACE_ICONS } from '../../../library/icons/interface-icons.constant';
 import { AbbreviateNumberPipe } from '../../../library/pipes/number-format.pipe';
 import { OpereToolbar } from '../interfaces/opere.interface';
 import { MultiSelectComponent } from '../../../library/components/multi-select/multi-select.component';
@@ -21,7 +24,7 @@ import { ICheckBox } from '../../../library/interfaces/form.interface';
       <div class="stats">
         @for (stat of stats(); track stat.title) {
           <div class="stat-card">
-            <i class="bi" [class]="stat.icon"></i>
+            <i [innerHTML]="stat.icon" aria-hidden="true"></i>
 
             <div>
               <h4>{{ stat.value | abbreviateNumber }}</h4>
@@ -33,7 +36,7 @@ import { ICheckBox } from '../../../library/interfaces/form.interface';
 
       <div class="toolbar">
         <div class="search">
-          <i class="bi bi-search"></i>
+          <i [innerHTML]="searchIcon" aria-hidden="true"></i>
           @switch (typeFilter()) {
             @case ('input') {
               <input
@@ -186,6 +189,11 @@ import { ICheckBox } from '../../../library/interfaces/form.interface';
   `,
 })
 export class ToolbarMicioComponent {
+  public readonly searchIcon: SafeHtml = getIconSafe(
+    INTERFACE_ICONS.search,
+    { stroke: 'currentColor' },
+  );
+
   public stats = input<OpereToolbar[]>([]);
   public searchQuery = model<string>('');
   public itemsSelect = input<ICheckBox[]>([]);

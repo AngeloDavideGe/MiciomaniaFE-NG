@@ -3,13 +3,19 @@ import {
   ISidebarItem,
 } from '../../../../../../library/interfaces/navbar.interface';
 import { RaggioPage } from '../../../../../../library/interfaces/pagination.interface';
-import { OpereToolbar } from '../../../../../shared/interfaces/opere.interface';
+import {
+  OpereToolbar,
+  OpereToolbarIcons,
+} from '../../../../../shared/interfaces/opere.interface';
 import { ILang } from '../../../../../core/interfaces/lang.interface';
 import {
   CategorieManga,
   SottoCategorieManga,
   TabsManga,
 } from '../models/manga.model';
+import { getIconSafe } from '../../../../../../library/functions/icons.function';
+import { INTERFACE_ICONS } from '../../../../../../library/icons/interface-icons.constant';
+import { SOCIAL_ICONS } from '../../../../../../library/icons/social-icons.constant';
 
 export function getMangaTabs(lang: ILang['Manga']['Tabs']): iTab[] {
   return [
@@ -42,16 +48,21 @@ export function getRecordMangaTabs(): Record<string, boolean | null> {
 export function getMangaSidebar(
   lang: ILang['Manga']['Categorie'],
 ): ISidebarItem[] {
+  const icone = {
+    ufficiali: getIconSafe(INTERFACE_ICONS.menuGrid),
+    miciomania: getIconSafe(INTERFACE_ICONS.menuGrid),
+  };
+
   return [
     {
       id: CategorieManga.ufficiali,
       nome: lang.Ufficiali,
-      icona: 'bi-grid',
+      icona: icone.ufficiali,
     },
     {
       id: CategorieManga.miciomania,
       nome: lang.Miciomania,
-      icona: 'bi-play-circle',
+      icona: icone.miciomania,
     },
   ];
 }
@@ -59,21 +70,27 @@ export function getMangaSidebar(
 export function getMangaSidebarSub(
   lang: ILang['Manga']['Sottocategorie'],
 ): ISidebarItem[] {
+  const icons = {
+    tutti: getIconSafe(INTERFACE_ICONS.menuGrid),
+    preferiti: getIconSafe(SOCIAL_ICONS.heart),
+    leggendo: getIconSafe(INTERFACE_ICONS.eye),
+  };
+
   return [
     {
       id: SottoCategorieManga.tutti,
       nome: lang.Tutti,
-      icona: 'bi-grid',
+      icona: icons.tutti,
     },
     {
       id: SottoCategorieManga.preferiti,
       nome: lang.Preferiti,
-      icona: 'bi-heart',
+      icona: icons.preferiti,
     },
     {
       id: SottoCategorieManga.leggendo,
       nome: lang.Leggendo,
-      icona: 'bi-book',
+      icona: icons.leggendo,
     },
   ];
 }
@@ -82,15 +99,16 @@ export function getMangaToolbar(
   manga: number,
   capitoli: number,
   lang: ILang['Manga']['Toolbar'],
+  icons: OpereToolbarIcons,
 ): OpereToolbar[] {
   return [
     {
-      icon: 'bi-book',
+      icon: icons.book,
       value: manga,
       title: lang.MangaDisponibili,
     },
     {
-      icon: 'bi-grid',
+      icon: icons.grid,
       value: capitoli,
       title: lang.CapitoliTotali,
     },

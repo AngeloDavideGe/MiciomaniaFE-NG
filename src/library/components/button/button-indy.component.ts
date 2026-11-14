@@ -10,7 +10,9 @@ import { getIconSafe } from '../../functions/icons.function';
   styleUrl: './button-indy.component.scss',
 })
 export class ButtonIndyComponent {
-  public readonly chevronRight = getIconSafe(NAVIGATION_ICONS.chevronRight);
+  public readonly chevronRight = getIconSafe(NAVIGATION_ICONS.chevronRight, {
+    stroke: 'white',
+  });
 
   public text = input.required<string>();
   public disabled = input<boolean>(false);

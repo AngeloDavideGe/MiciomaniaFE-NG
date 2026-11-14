@@ -1,3 +1,5 @@
+import { SafeHtml } from '@angular/platform-browser';
+
 export interface MangaGet {
   manga: iManga;
   opereUtente: OpereUtente;
@@ -36,9 +38,14 @@ export interface OpereUtente {
 }
 
 export interface OpereToolbar {
-  icon: string;
+  icon: SafeHtml;
   value: number;
   title: string;
+}
+
+export interface OpereToolbarIcons {
+  book: SafeHtml;
+  grid: SafeHtml;
 }
 
 export interface Classifica {

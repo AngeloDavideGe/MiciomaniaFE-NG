@@ -77,6 +77,7 @@ export class HomeComponent implements OnInit {
   public readonly arrayRaggi = defaultHomeArrayPags();
   public readonly notificheIcon = getIconSafe(INTERFACE_ICONS.bell);
   public readonly impostazioniIcon = getIconSafe(INTERFACE_ICONS.settings);
+  public readonly aggiungiAccountIcon = getIconSafe(USER_ICONS.userPlus);
   private readonly toggleIcons: HomeToggleIcons = {
     account: getIconSafe(USER_ICONS.userCircle),
     profile: getIconSafe(USER_ICONS.user),

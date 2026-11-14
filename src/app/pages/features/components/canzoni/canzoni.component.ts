@@ -6,13 +6,18 @@ import {
   Signal,
   signal,
 } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
 import { CardIndyComponent } from '../../../../../library/components/card/card-indy.component';
 import { SidebarIndyComponent } from '../../../../../library/components/sidebar/sidebar-indy.component';
 import { SpinnerIndyComponent } from '../../../../../library/components/spinner/spinner-indy.component';
 import { AudioService } from '../../../../../library/dialogs/audio/audio.service';
 import { effectTimeoutCustom } from '../../../../../library/functions/debounce.function';
+import { getIconSafe } from '../../../../../library/functions/icons.function';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
 import { GetFiltriCustom } from '../../../../../library/functions/pagination.function';
+import { FILE_ICONS } from '../../../../../library/icons/files-icons.constant';
+import { INTERFACE_ICONS } from '../../../../../library/icons/interface-icons.constant';
+import { SOCIAL_ICONS } from '../../../../../library/icons/social-icons.constant';
 import { iCard } from '../../../../../library/interfaces/card.interface';
 import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
@@ -23,6 +28,7 @@ import {
   Canzoni,
   CanzoniGet,
   OpereToolbar,
+  OpereToolbarIcons,
   OpereUtente,
 } from '../../../../shared/interfaces/opere.interface';
 import { User } from '../../../../shared/interfaces/users.interface';
@@ -49,6 +55,12 @@ import { CategorieCanzoni } from './models/canzoni.model';
   templateUrl: './canzoni.component.html',
 })
 export class CanzoniComponent implements OnInit {
+  public readonly favoriteIcon: SafeHtml = getIconSafe(SOCIAL_ICONS.heart);
+  public readonly toolbarIcons: OpereToolbarIcons = {
+    book: getIconSafe(FILE_ICONS.fileText),
+    grid: getIconSafe(INTERFACE_ICONS.menuGrid),
+  };
+
   private opereService = inject(OpereService);
   private audioService = inject(AudioService);
   private authService = inject(AuthService);
@@ -87,7 +99,12 @@ export class CanzoniComponent implements OnInit {
     });
 
     const volumi: number = Object.values(cantanti).length;
-    return getCanzoniToolbar(volumi, canzoni.length, this.lang.Toolbar);
+    return getCanzoniToolbar(
+      volumi,
+      canzoni.length,
+      this.lang.Toolbar,
+      this.toolbarIcons,
+    );
   });
 
   public canzoniAll = computed<Canzoni[]>(() => this.opereService.canzoni());
@@ -115,12 +132,12 @@ export class CanzoniComponent implements OnInit {
     return canzoniPreferite;
   });
 
-  public recordPreferiti = computed<Record<string, string>>(() => {
+  public recordPreferiti = computed<Record<string, SafeHtml>>(() => {
     const canzoniPreferite: Canzoni[] = this.canzoniPreferite();
-    let recordPreferiti: Record<string, string> = {};
+    let recordPreferiti: Record<string, SafeHtml> = {};
 
     canzoniPreferite.forEach(
-      (x: Canzoni) => (recordPreferiti[x.id.toString()] = 'bi bi-star'),
+      (x: Canzoni) => (recordPreferiti[x.id.toString()] = this.favoriteIcon),
     );
 
     return recordPreferiti;

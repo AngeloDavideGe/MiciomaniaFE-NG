@@ -6,10 +6,11 @@
           @if (pulsante.condition) {
             <a
               [class.active]="pulsante.id === selectPulsante()"
+              [attr.aria-label]="pulsante.text"
               (click)="clickPulsante(pulsante)"
             >
               <div class="icon">
-                <i [class]="pulsante.icon"></i>
+                <i [innerHTML]="pulsante.icon" aria-hidden="true"></i>
               </div>
             </a>
           }

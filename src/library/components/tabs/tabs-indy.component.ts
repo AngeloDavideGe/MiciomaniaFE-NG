@@ -17,7 +17,7 @@ import { iTab } from '../../interfaces/navbar.interface';
   styleUrl: './tabs-indy.component.scss',
 })
 export class TabsIndyComponent {
-  public tabs = input<iTab[]>(defaultTabs);
+  public tabs = input.required<iTab[]>();
   public disableNext = input<boolean>(false);
   public initialTab = input<string>('');
 
@@ -75,14 +75,3 @@ export class TabsIndyComponent {
     }
   }
 }
-
-const defaultTabs: iTab[] = [
-  {
-    id: '1',
-    icona: 'bi bi-grid',
-  },
-  {
-    id: '2',
-    icona: 'bi bi-list',
-  },
-];

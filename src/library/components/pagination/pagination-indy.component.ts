@@ -15,6 +15,9 @@ import {
   RaggioPage,
   TipoPaginazione,
 } from '../../interfaces/pagination.interface';
+import { getIconSafe } from '../../functions/icons.function';
+import { SafeHtml } from '@angular/platform-browser';
+import { NAVIGATION_ICONS } from '../../icons/navigation-icons.constant';
 
 @Component({
   selector: 'app-paginazione-indy',
@@ -25,6 +28,15 @@ import {
   styleUrl: './pagination-indy.component.scss',
 })
 export class PaginazioneIndyComponent<T> {
+  public readonly chevronLeftIcon: SafeHtml = getIconSafe(
+    NAVIGATION_ICONS.chevronLeft,
+    { stroke: 'currentColor' },
+  );
+  public readonly chevronRightIcon: SafeHtml = getIconSafe(
+    NAVIGATION_ICONS.chevronRight,
+    { stroke: 'currentColor' },
+  );
+
   public filtri = input.required<FiltriInterface<T>>();
   public tipo = input<TipoPaginazione>('multiplo');
   public dataTableHttp = input<DataTableHttp<T> | null>(null);

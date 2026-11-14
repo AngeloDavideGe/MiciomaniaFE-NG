@@ -13,7 +13,9 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { SafeHtml } from '@angular/platform-browser';
 import { debounceTimeoutCustom } from '../../functions/debounce.function';
+import { getIconSafe } from '../../functions/icons.function';
 import { GetFiltriCustom } from '../../functions/pagination.function';
 import { iCard } from '../../interfaces/card.interface';
 import {
@@ -22,6 +24,8 @@ import {
   TipoPaginazione,
   TypePagination,
 } from '../../interfaces/pagination.interface';
+import { ACTION_ICONS } from '../../icons/actions-icons.constant';
+import { NAVIGATION_ICONS } from '../../icons/navigation-icons.constant';
 import { ButtonIndyComponent } from '../button/button-indy.component';
 import { PaginazioneIndyComponent } from '../pagination/pagination-indy.component';
 import { NgTemplateOutlet } from '@angular/common';
@@ -36,6 +40,13 @@ import { NgTemplateOutlet } from '@angular/common';
 })
 export class CardIndyComponent {
   public readonly router = inject(Router);
+  public readonly chevronLeftIcon: SafeHtml = getIconSafe(
+    NAVIGATION_ICONS.chevronLeft,
+  );
+  public readonly chevronRightIcon: SafeHtml = getIconSafe(
+    NAVIGATION_ICONS.chevronRight,
+  );
+  public readonly addIcon: SafeHtml = getIconSafe(ACTION_ICONS.plus);
 
   public filtri!: FiltriInterface<iCard>;
   public elemForPage = signal<number>(0);
@@ -53,7 +64,7 @@ export class CardIndyComponent {
   public sliceAutomaticoInSec = input<number | undefined>(undefined);
   public secondNameButton = input<string | undefined>(undefined);
   public templateCardCustom = input<TemplateRef<any> | null>(null);
-  public recordIcons = input<Record<string, string>>({});
+  public recordIcons = input<Record<string, SafeHtml>>({});
   public cardVoidFunction = input<Function | null>(null);
 
   public singleSliceIndicators = computed(() => {

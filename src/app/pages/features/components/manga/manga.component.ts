@@ -7,13 +7,18 @@ import {
   Signal,
   signal,
 } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
 import { CardIndyComponent } from '../../../../../library/components/card/card-indy.component';
 import { SidebarIndyComponent } from '../../../../../library/components/sidebar/sidebar-indy.component';
 import { SpinnerIndyComponent } from '../../../../../library/components/spinner/spinner-indy.component';
 import { TabsIndyComponent } from '../../../../../library/components/tabs/tabs-indy.component';
 import { effectTimeoutCustom } from '../../../../../library/functions/debounce.function';
 import { handlerFunc } from '../../../../../library/functions/handler.function';
+import { getIconSafe } from '../../../../../library/functions/icons.function';
 import { GetFiltriCustom } from '../../../../../library/functions/pagination.function';
+import { FILE_ICONS } from '../../../../../library/icons/files-icons.constant';
+import { INTERFACE_ICONS } from '../../../../../library/icons/interface-icons.constant';
+import { SOCIAL_ICONS } from '../../../../../library/icons/social-icons.constant';
 import { iCard } from '../../../../../library/interfaces/card.interface';
 import { FiltriInterface } from '../../../../../library/interfaces/pagination.interface';
 import { AppConfigService } from '../../../../core/api/appConfig.service';
@@ -25,6 +30,7 @@ import {
   Manga,
   MangaGet,
   OpereToolbar,
+  OpereToolbarIcons,
   OpereUtente,
 } from '../../../../shared/interfaces/opere.interface';
 import { User } from '../../../../shared/interfaces/users.interface';
@@ -58,7 +64,12 @@ export class MangaComponent implements OnInit {
   private readonly opereService = inject(OpereService);
   private readonly authService = inject(AuthService);
   private readonly appConfig = inject(AppConfigService);
-
+  public readonly favoriteIcon: SafeHtml = getIconSafe(SOCIAL_ICONS.heart);
+  public readonly readingIcon: SafeHtml = getIconSafe(INTERFACE_ICONS.eye);
+  public readonly toolbarIcons: OpereToolbarIcons = {
+    book: getIconSafe(FILE_ICONS.fileText),
+    grid: getIconSafe(INTERFACE_ICONS.menuGrid),
+  };
   public readonly lang = this.appConfig.lang.Manga;
   public readonly enumCategoria = CategorieManga;
   public readonly categorie = getMangaSidebar(this.lang.Categorie);
@@ -76,7 +87,7 @@ export class MangaComponent implements OnInit {
   public showCategoriaToAdd = signal<CategorieManga | null>(null);
   public currentTabs = signal<boolean | null>(null);
   public mangaToolbar = signal<OpereToolbar[]>(
-    getMangaToolbar(0, 0, this.lang.Toolbar),
+    getMangaToolbar(0, 0, this.lang.Toolbar, this.toolbarIcons),
   );
 
   public viewSpinner = computed<boolean>(() => !this.opereService.manga());
@@ -113,7 +124,7 @@ export class MangaComponent implements OnInit {
     }
   });
 
-  public recordPreferiti = computed<Record<string, string>>(() => {
+  public recordPreferiti = computed<Record<string, SafeHtml>>(() => {
     const mangaPreferiti: Manga[] = this.mangaPreferiti();
     const micioPreferiti: Manga[] = this.mangaMicioPreferiti();
     const mangaLeggendo: Manga[] = this.mangaLeggendo();
@@ -134,14 +145,14 @@ export class MangaComponent implements OnInit {
         break;
     }
 
-    let recordPreferiti: Record<string, string> = {};
+    let recordPreferiti: Record<string, SafeHtml> = {};
 
     preferiti.forEach(
-      (x: Manga) => (recordPreferiti[x.id.toString()] = 'bi bi-heart'),
+      (x: Manga) => (recordPreferiti[x.id.toString()] = this.favoriteIcon),
     );
 
     leggendo.forEach(
-      (x: Manga) => (recordPreferiti[x.id.toString()] = 'bi bi-book'),
+      (x: Manga) => (recordPreferiti[x.id.toString()] = this.readingIcon),
     );
 
     return recordPreferiti;
@@ -287,7 +298,12 @@ export class MangaComponent implements OnInit {
     data.micioManga.forEach((x: Manga) => (capitoliTotali += x.capitoli));
 
     this.mangaToolbar.set(
-      getMangaToolbar(mangaDisponibili, capitoliTotali, this.lang.Toolbar),
+      getMangaToolbar(
+        mangaDisponibili,
+        capitoliTotali,
+        this.lang.Toolbar,
+        this.toolbarIcons,
+      ),
     );
   }
 

@@ -30,7 +30,7 @@
           @if (authService.accountsUser().length < maxUsers) {
             <button type="button" (click)="router.navigate(['auth/login'])">
               <span class="account-action-icon">
-                <i class="bi bi-plus-lg"></i>
+                <i [innerHTML]="aggiungiAccountIcon"></i>
               </span>
               <span>{{ lang().AggiungiAccount }}</span>
             </button>

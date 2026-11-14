@@ -6,10 +6,15 @@
           @if (pulsante.condition) {
             <a
               [class.active]="pulsante.id === selectPulsante()"
+              [attr.aria-label]="pulsante.text"
               (click)="clickPulsante(pulsante)"
             >
               <div class="icon">
-                <i [class]="pulsante.icon" [title]="pulsante.text"></i>
+                <i
+                  [innerHTML]="pulsante.icon"
+                  [title]="pulsante.text"
+                  aria-hidden="true"
+                ></i>
               </div>
             </a>
           }
@@ -24,10 +29,15 @@
           @if (pulsante.condition) {
             <a
               [class.active]="pulsante.id === selectPulsante()"
+              [attr.aria-label]="pulsante.text"
               (click)="clickPulsante(pulsante)"
             >
               <div class="icon">
-                <i [class]="pulsante.icon" [title]="pulsante.text"></i>
+                <i
+                  [innerHTML]="pulsante.icon"
+                  [title]="pulsante.text"
+                  aria-hidden="true"
+                ></i>
               </div>
             </a>
           }
@@ -42,10 +52,15 @@
           @if (pulsante.condition) {
             <a
               [class.active]="pulsante.id === selectPulsante()"
+              [attr.aria-label]="pulsante.text"
               (click)="clickPulsante(pulsante)"
             >
               <div class="icon">
-                <i [class]="pulsante.icon" [title]="pulsante.text"></i>
+                <i
+                  [innerHTML]="pulsante.icon"
+                  [title]="pulsante.text"
+                  aria-hidden="true"
+                ></i>
               </div>
             </a>
           }
