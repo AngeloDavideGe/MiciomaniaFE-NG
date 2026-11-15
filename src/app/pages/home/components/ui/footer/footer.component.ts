@@ -17,7 +17,7 @@ import { AppConfigService } from '../../../../../core/api/appConfig.service';
           <app-spinner-indy></app-spinner-indy>
         </div>
       } @else {
-        <div class="footer-grid p-4 p-md-5">
+        <div class="footer-grid u-p-4 u-md-p-5">
           <div class="footer-brand">
             <h2>{{ footer()?.brand_name }}</h2>
             <p>
@@ -63,9 +63,9 @@ import { AppConfigService } from '../../../../../core/api/appConfig.service';
           {{ footer()?.copyright_text }}
         </div>
       }
-      <div class="pt-3"></div>
+      <div class="u-pt-3"></div>
     </app-container-micio>
-    <div class="pt-3"></div>
+    <div class="u-pt-3"></div>
   </footer>`,
   styleUrl: './footer.component.scss',
 })

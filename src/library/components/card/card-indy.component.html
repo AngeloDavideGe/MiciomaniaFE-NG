@@ -5,7 +5,7 @@
     </h5>
   </div>
 
-  <div class="position-relative w-100 mt-4">
+  <div class="u-position-relative u-w-100 u-mt-4">
     @if (viewFirstButton()) {
       <button class="carousel-button start" (click)="filtri.previousSlice()">
         <i [innerHTML]="chevronLeftIcon" aria-hidden="true"></i>
@@ -53,7 +53,7 @@
               <div class="elementi-laterali">
                 @if (elem.bottone) {
                   <app-button-indy
-                    class="mt-auto"
+                    class="u-mt-auto"
                     [text]="
                       (currentButton() == elem.titolo && secondNameButton()
                         ? secondNameButton()
@@ -91,7 +91,7 @@
             }"
           >
             <div
-              class="elemento-centrato h-100 w-100"
+              class="elemento-centrato u-h-100 u-w-100"
               style="--align-center: center; color: var(--primary)"
             >
               <i

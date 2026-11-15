@@ -25,7 +25,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
                 {{ descrizione() }}
               </p>
 
-              <div class="mt-3">
+              <div class="u-mt-3">
                 <ng-content select="[half-row]" />
               </div>
             </div>

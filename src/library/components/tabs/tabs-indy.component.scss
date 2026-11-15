@@ -1,8 +1,17 @@
-.tab-item {
+.indy-tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.indy-tab {
+  display: block;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 0.375rem 0.375rem 0 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
   background-color: var(--background);
-  border-top: 1px solid transparent;
-  border-right: 1px solid transparent;
-  border-left: 1px solid transparent;
   transition:
     background-color 0.2s ease-in-out,
     border-color 0.2s ease-in-out,
@@ -10,8 +19,7 @@
 
   &:hover {
     background-color: var(--background);
-    border-top-color: var(--border);
-    border-right-color: var(--border);
-    border-left-color: var(--border);
+    border-color: var(--border);
+    border-bottom: 0;
   }
 }

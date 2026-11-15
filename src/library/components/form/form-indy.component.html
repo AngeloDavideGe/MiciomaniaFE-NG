@@ -1,7 +1,7 @@
-<div [formGroup]="form" class="p-3">
+<div [formGroup]="form" class="u-p-3">
   @for (field of arrayForm; track $index) {
     <div class="form-field">
-      <label [for]="keys[$index]" class="form-label">
+      <label [for]="keys[$index]" class="indy-form-label">
         {{ field.titolo }}
       </label>
 
@@ -86,7 +86,7 @@
           <select
             [id]="keys[$index]"
             [formControlName]="keys[$index]"
-            class="form-select"
+            class="indy-form-select"
             [class.is-invalid]="
               f[keys[$index]]?.invalid && f[keys[$index]]?.touched
             "
@@ -120,7 +120,7 @@
           <input
             [id]="keys[$index]"
             type="file"
-            class="form-control mb-3"
+            class="u-mb-3"
             style="border-radius: 30px"
             [accept]="strutturaForm()[keys[$index]].file?.accept || 'image/*'"
             (change)="onFileSelected($event, keys[$index])"
@@ -130,7 +130,7 @@
             <img
               [src]="strutturaForm()[keys[$index]].file?.previewUrl"
               alt="preview"
-              class="img-thumbnail mt-2"
+              class="indy-image-preview u-mt-2"
               width="200"
             />
           }

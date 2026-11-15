@@ -19,7 +19,7 @@ import { Component, input } from '@angular/core';
           height: dim(),
         }"
       >
-        <span class="visually-hidden">Loading...</span>
+        <span class="u-visually-hidden">Loading...</span>
       </div>
     </div>
   `,

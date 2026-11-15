@@ -59,4 +59,42 @@ export const DEVELOPMENT_ICONS = {
     ),
   bluetooth: (options?: IconOptions) =>
     geticon(['M7 7l10 10-5 5V2l5 5L7 17'], options),
+  cloud: (options?: IconOptions) =>
+    geticon(
+      [
+        'M20 16.2A4.5 4.5 0 0 0 18 7.5a6 6 0 0 0-11.6 1.8A4 4 0 0 0 7 17h11a4 4 0 0 0 2-0.8Z',
+      ],
+      options,
+    ),
+  cloudOff: (options?: IconOptions) =>
+    geticon(
+      [
+        'm2 2 20 20',
+        'M8.5 8.5A6 6 0 0 1 18 7.5a4.5 4.5 0 0 1 2 8.7',
+        'M7 9.3A4 4 0 0 0 7 17h10',
+      ],
+      options,
+    ),
+  monitor: (options?: IconOptions) =>
+    geticon(['M3 4h18v13H3z', 'M8 21h8', 'M12 17v4'], options),
+  smartphone: (options?: IconOptions) =>
+    geticon(
+      [
+        'M5 2h14v20H5z',
+        'M11 18h2',
+      ],
+      options,
+    ),
+  tablet: (options?: IconOptions) =>
+    geticon(['M4 2h16v20H4z', 'M11 18h2'], options),
+  hardDrive: (options?: IconOptions) =>
+    geticon(
+      [
+        'M3 5h18v14H3z',
+        'M3 15h18',
+        'M7 18h.01',
+        'M11 18h.01',
+      ],
+      options,
+    ),
 } as const;

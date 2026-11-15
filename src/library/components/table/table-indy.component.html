@@ -16,7 +16,7 @@
           <span class="total-items">
             <i
               [innerHTML]="listIcon"
-              class="me-1"
+              class="u-me-1"
               aria-hidden="true"
             ></i>
             {{ filtri.dettaglioPage() }}
@@ -68,21 +68,21 @@
                         @case ("desc") {
                           <i
                             [innerHTML]="sortDescendingIcon"
-                            class="ms-1 sort-icon active"
+                            class="u-ms-1 sort-icon active"
                             aria-hidden="true"
                           ></i>
                         }
                         @case ("cresc") {
                           <i
                             [innerHTML]="sortAscendingIcon"
-                            class="ms-1 sort-icon active"
+                            class="u-ms-1 sort-icon active"
                             aria-hidden="true"
                           ></i>
                         }
                         @default {
                           <i
                             [innerHTML]="sortBothIcon"
-                            class="ms-1 sort-icon"
+                            class="u-ms-1 sort-icon"
                             aria-hidden="true"
                           ></i>
                         }
@@ -90,7 +90,7 @@
                     } @else {
                       <i
                         [innerHTML]="sortBothIcon"
-                        class="ms-1 sort-icon"
+                        class="u-ms-1 sort-icon"
                         aria-hidden="true"
                       ></i>
                     }

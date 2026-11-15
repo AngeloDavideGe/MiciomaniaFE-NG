@@ -44,4 +44,23 @@ export const COMMUNICATION_ICONS = {
       ],
       options,
     ),
+  reply: (options?: IconOptions) =>
+    geticon(['M9 17 4 12l5-5', 'M20 18v-2a4 4 0 0 0-4-4H4'], options),
+  messagePlus: (options?: IconOptions) =>
+    geticon(
+      [
+        'M21 15a4 4 0 0 1-4 4H7l-4 3V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z',
+        'M12 7v6',
+        'M9 10h6',
+      ],
+      options,
+    ),
+  messageCheck: (options?: IconOptions) =>
+    geticon(
+      [
+        'M21 15a4 4 0 0 1-4 4H7l-4 3V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z',
+        'm9 10 2 2 4-4',
+      ],
+      options,
+    ),
 } as const;

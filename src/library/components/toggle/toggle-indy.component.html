@@ -32,7 +32,7 @@
 @switch (tipo()) {
   @case ("single") {
     @if (menuOpen() == titolo()) {
-      <div class="dropdown-panel shadow-sm" [style]="styles()">
+      <div class="dropdown-panel u-shadow-sm" [style]="styles()">
         <ul class="custom-nav">
           @for (item of toggleMenus()[0].menuElementi; track $index) {
             @if (item.condition) {
@@ -64,17 +64,17 @@
 
   @case ("multiple") {
     @if (menuOpen() == titolo()) {
-      <div class="dropdown-panel shadow-sm" [style]="styles()">
+      <div class="dropdown-panel u-shadow-sm" [style]="styles()">
         <ul class="custom-nav">
           @for (toggle of toggleMenus(); track toggle.titolo) {
-            <li class="nav-item dropdown">
+            <li class="menu-item">
               <button
-                class="btn dropdown-toggle"
+                class="menu-trigger"
                 type="button"
                 (click)="cambiaDropdown(toggle.titolo)"
               >
                 @if (toggle.icona) {
-                  <span class="me-2" [innerHTML]="toggle.icona"></span>
+                  <span class="u-me-2" [innerHTML]="toggle.icona"></span>
                 }
                 {{ toggle.titolo }}
               </button>
@@ -104,7 +104,7 @@
 
   @case ("content") {
     @if (menuOpen() == titolo()) {
-      <div class="dropdown-panel shadow-sm" [style]="styles()">
+      <div class="dropdown-panel u-shadow-sm" [style]="styles()">
         <ng-content select="[onlyContent]" />
       </div>
     }

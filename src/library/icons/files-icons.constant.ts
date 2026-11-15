@@ -73,4 +73,41 @@ export const FILE_ICONS = {
       ['M9 4h6', 'M9 2h6v4H9z', 'M5 4H3v18h18V4h-2', 'M8 12h8', 'M8 16h8'],
       options,
     ),
+  fileSearch: (options?: IconOptions) =>
+    geticon(
+      [
+        'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h6',
+        'M14 2v6h6',
+        'M15.5 18.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z',
+        'm18 18 3 3',
+      ],
+      options,
+    ),
+  fileX: (options?: IconOptions) =>
+    geticon(
+      [
+        'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z',
+        'M14 2v6h6',
+        'm9 13 6 6',
+        'm15 13-6 6',
+      ],
+      options,
+    ),
+  folderPlus: (options?: IconOptions) =>
+    geticon(
+      [
+        'M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z',
+        'M12 11v6',
+        'M9 14h6',
+      ],
+      options,
+    ),
+  folderMinus: (options?: IconOptions) =>
+    geticon(
+      [
+        'M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z',
+        'M9 14h6',
+      ],
+      options,
+    ),
 } as const;

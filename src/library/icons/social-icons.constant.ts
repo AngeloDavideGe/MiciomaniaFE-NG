@@ -21,4 +21,43 @@ export const SOCIAL_ICONS = {
       'M7 14V2H3v12z',
       'M7 14l5 8a3 3 0 0 0 3-3v-5h4a2 2 0 0 0 2-2l-2-8a2 2 0 0 0-2-2H7',
     ], options),
+  link: (options?: IconOptions) =>
+    geticon(
+      [
+        'M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71',
+        'M14 11a5 5 0 0 0-7.07 0l-3 3A5 5 0 0 0 11 21.07l1.71-1.71',
+        'm8 16 8-8',
+      ],
+      options,
+    ),
+  atSign: (options?: IconOptions) =>
+    geticon(
+      [
+        'M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8',
+        'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z',
+      ],
+      options,
+    ),
+  rss: (options?: IconOptions) =>
+    geticon(
+      [
+        'M5 19h.01',
+        'M5 12a7 7 0 0 1 7 7',
+        'M5 5a14 14 0 0 1 14 14',
+      ],
+      options,
+    ),
+  hashtag: (options?: IconOptions) =>
+    geticon(['M4 9h16', 'M3 15h16', 'm10 3-2 18', 'm16 3-2 18'], options),
+  shareNodes: (options?: IconOptions) =>
+    geticon(
+      [
+        'M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+        'M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+        'M18 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+        'm8.6 13.5 6.8 4',
+        'm15.4 6.5-6.8 4',
+      ],
+      options,
+    ),
 } as const;

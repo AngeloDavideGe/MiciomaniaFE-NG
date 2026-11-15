@@ -1,7 +1,7 @@
-<nav class="nav nav-tabs border-bottom-0">
+<nav class="indy-tabs">
   @for (tab of tabs(); track tab.id) {
     <button
-      class="nav-link tab-item me-2 px-3 py-2"
+      class="indy-tab u-me-2 u-px-3 u-py-2"
       (click)="clickTabFunc(tab)"
       [style.color]="
         selectTab() === tab.id ? tab.color || 'var(--primary)' : 'var(--text)'

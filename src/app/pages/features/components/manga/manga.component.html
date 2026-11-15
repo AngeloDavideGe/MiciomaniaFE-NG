@@ -12,14 +12,14 @@
   </div>
 
   <div all-row>
-    <div class="elemento-centrato p-2">
+    <div class="elemento-centrato u-p-2">
       <app-tabs-indy
         [tabs]="tabs"
         (clickTab)="currentTabs.set(recordTabs[$event])"
       />
     </div>
 
-    <div class="mt-2"></div>
+    <div class="u-mt-2"></div>
 
     <app-sidebar-indy
       [titolo]="lang.CategorieTitolo"
@@ -50,7 +50,7 @@
           [cardVoidFunction]="cardVoidFunction()"
         />
 
-        <div class="mt-2"></div>
+        <div class="u-mt-2"></div>
       }
     </app-sidebar-indy>
   </div>

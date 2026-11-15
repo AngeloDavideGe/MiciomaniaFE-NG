@@ -36,9 +36,17 @@ import { ErrorParams } from '../../interfaces/error.interface';
         </p>
 
         <div class="error__actions">
-          <button class="btn btn--primary" (click)="goHome()">Home</button>
+          <button
+            class="error__button error__button--primary"
+            (click)="goHome()"
+          >
+            Home
+          </button>
 
-          <button class="btn btn--secondary" (click)="goBack()">
+          <button
+            class="error__button error__button--secondary"
+            (click)="goBack()"
+          >
             Indietro
           </button>
         </div>
@@ -123,7 +131,7 @@ import { ErrorParams } from '../../interfaces/error.interface';
       }
     }
 
-    .btn {
+    .error__button {
       border: 1px solid transparent;
       border-radius: 12px;
       padding: 10px 14px;
@@ -174,7 +182,7 @@ import { ErrorParams } from '../../interfaces/error.interface';
         border-radius: 16px;
       }
 
-      .btn {
+      .error__button {
         width: 100%;
       }
     }
