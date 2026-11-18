@@ -6,8 +6,12 @@ import {
 } from '../../../../library/interfaces/form.interface';
 import { User } from '../../../shared/interfaces/users.interface';
 import { regioni } from '../../../../library/constants/utility.constant';
-import { dynamicValidator } from '../../../../library/validators/dynamic.validator';
+import {
+  arrayNotEmptyValidator,
+  dynamicValidator,
+} from '../../../../library/validators/dynamic.validator';
 import { ILang } from '../../../core/interfaces/lang.interface';
+import { Squadra } from '../../../shared/interfaces/opere.interface';
 
 export function getLoginForm(lang: ILang['Login']['Form']): RecordStruttura {
   return {
@@ -68,6 +72,7 @@ export function getRegisterForm(
 export function getEditUserForm(
   user: User | null,
   lang: ILang['Profilo']['EditUser'],
+  squadre: Squadra[],
 ): RecordStrutturaMultiForm {
   const social = user?.profile.social || {};
   const date = user?.profile.compleanno
@@ -180,9 +185,10 @@ export function getEditUserForm(
       struttura: {
         squadra: {
           titolo: lang.Campi.Squadra,
-          validators: [Validators.maxLength(50)],
-          tipo: 'Text',
+          validators: [arrayNotEmptyValidator()],
+          tipo: 'Select',
           valueInit: user?.iscrizione.squadra || '',
+          optionsSelect: squadre.map((x) => x.nome),
         },
         regione: {
           titolo: lang.Campi.Regione,

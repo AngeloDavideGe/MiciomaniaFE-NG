@@ -11,14 +11,15 @@ import { routes } from './app/app.routes';
 import { AppConfigService } from './app/core/api/appConfig.service';
 import { errorInterceptor } from './library/interceptors/error.interceptor';
 import { loadingInterceptor } from './library/interceptors/loading.interceptor';
+import { successInterceptor } from './library/interceptors/success.interceptor';
 
 const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
       withInterceptors([
         loadingInterceptor,
+        successInterceptor,
         errorInterceptor,
-        // tokenInterceptor,
       ]),
     ),
     provideRouter(

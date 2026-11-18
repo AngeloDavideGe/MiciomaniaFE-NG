@@ -29,7 +29,7 @@ export class EditUserComponent {
   public chiudi = output<void>();
 
   public formEditUser = computed<RecordStrutturaMultiForm>(() =>
-    getEditUserForm(this.currentUser(), this.lang),
+    getEditUserForm(this.currentUser(), this.lang, []),
   );
 
   public updateUser(value: EditUserFormValue): void {

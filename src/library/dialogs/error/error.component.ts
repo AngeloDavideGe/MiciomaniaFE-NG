@@ -1,13 +1,12 @@
 import { Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ErrorService } from './error.service';
 import { ErrorParams } from '../../interfaces/error.interface';
+import { ErrorService } from './error.service';
 
 @Component({
   selector: 'app-error-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="error">
       <div class="error__card">

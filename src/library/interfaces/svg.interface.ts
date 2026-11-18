@@ -49,3 +49,12 @@ export interface SvgCircle {
     offsetPallinoY?: number;
   };
 }
+
+export interface SvgLine {
+  larghezzaMassima?: number;
+  altezzaMassima?: number;
+  margine?: number;
+  textSizeAsse?: number;
+  maxCaratteriAsseX?: number;
+  maxCaratteriAsseY?: number;
+}

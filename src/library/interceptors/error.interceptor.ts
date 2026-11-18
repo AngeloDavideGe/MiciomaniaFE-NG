@@ -8,16 +8,20 @@ import {
 import { catchError, throwError } from 'rxjs';
 import { inject } from '@angular/core';
 import { ErrorService } from '../dialogs/error/error.service';
+import { NotificationService } from '../dialogs/notification/notification.service';
 import { ProblemDetails } from '../interfaces/error.interface';
 
 export const ERROR_CONTEXT = new HttpContextToken<boolean>(() => true);
+export const ERROR_NOTIFICATION = new HttpContextToken<boolean>(() => false);
 
 export const errorInterceptor: HttpInterceptorFn = (
-  req: HttpRequest<any>,
+  req: HttpRequest<unknown>,
   handlerFn: HttpHandlerFn,
 ) => {
   const errorService = inject(ErrorService);
+  const notificationService = inject(NotificationService);
   const updateError = req.context.get(ERROR_CONTEXT);
+  const showErrorNotification = req.context.get(ERROR_NOTIFICATION);
 
   return handlerFn(req).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -67,7 +71,13 @@ export const errorInterceptor: HttpInterceptorFn = (
         }
       }
 
-      if (updateError) {
+      if (showErrorNotification) {
+        notificationService.show({
+          message,
+          title,
+          type: 'error',
+        });
+      } else if (updateError) {
         errorService.showError({
           title,
           message,

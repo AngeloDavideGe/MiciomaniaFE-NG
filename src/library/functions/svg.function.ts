@@ -3,6 +3,7 @@ import {
   PathSvgCustom,
   SvgBar,
   SvgCircle,
+  SvgLine,
 } from '../interfaces/svg.interface';
 
 export function creaCirclePaths(
@@ -374,4 +375,195 @@ export function creaBarPaths(
   );
 
   return [...elementiGrafici, ...barre];
+}
+
+export function creaLinePathsInterni(
+  dati: DatiSvg[],
+  svgLine: SvgLine | undefined,
+  area: boolean,
+): PathSvgCustom[] {
+  const larghezzaMassima: number = svgLine?.larghezzaMassima || 360;
+  const altezzaMassima: number = svgLine?.altezzaMassima || 240;
+  const margine: number = svgLine?.margine || 16;
+  const textSize: number = svgLine?.textSizeAsse || 12;
+  const maxCaratteriAsseX: number = svgLine?.maxCaratteriAsseX || 14;
+  const maxCaratteriAsseY: number = svgLine?.maxCaratteriAsseY || 7;
+  const datiValidi: DatiSvg[] = dati.filter((dato: DatiSvg) =>
+    Number.isFinite(dato.valore),
+  );
+
+  if (datiValidi.length === 0) {
+    return [];
+  }
+
+  const valori: number[] = datiValidi.map((dato: DatiSvg) => dato.valore);
+  const massimoAssoluto: number = Math.max(
+    1,
+    valori.reduce(
+      (massimo: number, valore: number) => Math.max(massimo, Math.abs(valore)),
+      0,
+    ),
+  );
+  const niceStep = (max: number, targetTicks: number = 5): number => {
+    const raw: number = max / targetTicks;
+    const magnitude: number = Math.pow(10, Math.floor(Math.log10(raw)));
+    const normalized: number = raw / magnitude;
+    const nice: number =
+      normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10;
+    return nice * magnitude;
+  };
+  const formatTick = (valore: number): string =>
+    Number(valore.toPrecision(12)).toString();
+  const passo: number = niceStep(massimoAssoluto);
+  const minimoValore: number = valori.reduce(
+    (minimo: number, valore: number) => Math.min(minimo, valore),
+    Infinity,
+  );
+  const massimoValore: number = valori.reduce(
+    (massimo: number, valore: number) => Math.max(massimo, valore),
+    -Infinity,
+  );
+  let minimoAsse: number = Math.floor(minimoValore / passo) * passo;
+  let massimoAsse: number = Math.ceil(massimoValore / passo) * passo;
+
+  if (minimoAsse === massimoAsse) {
+    minimoAsse -= passo;
+    massimoAsse += passo;
+  }
+
+  const paddingEtichette: number = Math.min(
+    larghezzaMassima * 0.4,
+    maxCaratteriAsseY * textSize * 0.6 + 12,
+  );
+  const x0: number = margine + paddingEtichette;
+  const x1: number = larghezzaMassima - margine;
+  const y0: number = margine;
+  const y1: number = altezzaMassima - margine - textSize * 2;
+  const larghezzaUtile: number = Math.max(0, x1 - x0);
+  const altezzaUtile: number = Math.max(0, y1 - y0);
+  const punti: { x: number; y: number; dato: DatiSvg }[] = datiValidi.map(
+    (dato: DatiSvg, indice: number) => ({
+      x:
+        datiValidi.length === 1
+          ? x0 + larghezzaUtile / 2
+          : x0 + (indice / (datiValidi.length - 1)) * larghezzaUtile,
+      y:
+        y1 -
+        ((dato.valore - minimoAsse) / (massimoAsse - minimoAsse)) *
+          altezzaUtile,
+      dato,
+    }),
+  );
+  const numeroIntervalli: number = Math.round(
+    (massimoAsse - minimoAsse) / passo,
+  );
+  const elementiGrafici: PathSvgCustom[] = [];
+
+  for (
+    let indiceTick: number = 0;
+    indiceTick <= numeroIntervalli;
+    indiceTick++
+  ) {
+    const valore: number = minimoAsse + indiceTick * passo;
+    const y: number =
+      y1 - ((valore - minimoAsse) / (massimoAsse - minimoAsse)) * altezzaUtile;
+    elementiGrafici.push(
+      {
+        title: '',
+        d: `M ${x0} ${y} H ${x1} v 1 H ${x0} Z`,
+        fill: 'var(--border)',
+        displayText: '',
+      },
+      {
+        title: formatTick(valore),
+        d: '',
+        textX: x0 - 8,
+        textY: y,
+        textAnchor: 'end',
+        textFill: 'var(--text-secondary)',
+        textSize,
+        textWeight: 500,
+      },
+    );
+  }
+
+  elementiGrafici.push(
+    {
+      title: '',
+      d: `M ${x0} ${y0} h 2 v ${altezzaUtile} h -2 Z`,
+      fill: 'var(--text-secondary)',
+      displayText: '',
+    },
+    {
+      title: '',
+      d: `M ${x0} ${y1} h ${larghezzaUtile} v 2 h -${larghezzaUtile} Z`,
+      fill: 'var(--text-secondary)',
+      displayText: '',
+    },
+  );
+
+  const baseline: number =
+    minimoAsse <= 0 && massimoAsse >= 0
+      ? y1 - ((0 - minimoAsse) / (massimoAsse - minimoAsse)) * altezzaUtile
+      : massimoAsse < 0
+        ? y0
+        : y1;
+  const puntiPath: string = punti
+    .map(
+      (punto, indice: number) =>
+        `${indice === 0 ? 'M' : 'L'} ${punto.x} ${punto.y}`,
+    )
+    .join(' ');
+  const coloreLinea: string = datiValidi[0].colore || 'var(--primary)';
+
+  if (area) {
+    elementiGrafici.push({
+      title: '',
+      d: `${puntiPath} L ${punti[punti.length - 1].x} ${baseline} L ${punti[0].x} ${baseline} Z`,
+      fill: datiValidi[0].colore || 'var(--primary-light)',
+      stroke: 'none',
+      displayText: '',
+    });
+  }
+
+  elementiGrafici.push({
+    title: '',
+    d: puntiPath,
+    fill: 'none',
+    stroke: coloreLinea,
+    strokeWidth: 3,
+    displayText: '',
+  });
+
+  punti.forEach((punto) => {
+    const titoloTroncato: string =
+      punto.dato.titolo.length > maxCaratteriAsseX
+        ? `${punto.dato.titolo.slice(0, maxCaratteriAsseX - 1)}…`
+        : punto.dato.titolo;
+    const raggioPunto: number = 4;
+
+    elementiGrafici.push(
+      {
+        title: punto.dato.titolo,
+        d: `M ${punto.x + raggioPunto} ${punto.y} a ${raggioPunto} ${raggioPunto} 0 1 0 -${raggioPunto * 2} 0 a ${raggioPunto} ${raggioPunto} 0 1 0 ${raggioPunto * 2} 0 Z`,
+        fill: punto.dato.colore || coloreLinea,
+        stroke: 'var(--card)',
+        strokeWidth: 2,
+        displayText: '',
+        click: () => punto.dato.click?.(),
+      },
+      {
+        title: punto.dato.titolo,
+        d: '',
+        displayText: titoloTroncato,
+        textX: punto.x,
+        textY: y1 + textSize + 6,
+        textFill: 'var(--text-secondary)',
+        textSize,
+        textWeight: 500,
+      },
+    );
+  });
+
+  return elementiGrafici;
 }
