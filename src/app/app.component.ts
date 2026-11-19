@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   @HostListener('window:beforeunload')
   setLocalStorageFunc(): void {
     setLocalStorage<User | null>(
-      this.keys.ACCOUNTS_USER,
+      this.keys.CURRENT_USER,
       this.authService.currentUser(),
     );
     setLocalStorage<User[]>(

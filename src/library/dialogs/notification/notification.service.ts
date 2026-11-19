@@ -55,38 +55,6 @@ export class NotificationService implements OnDestroy {
     return id;
   }
 
-  public showSuccess(message: string, duration?: number): number {
-    return this.show({ message, type: 'success', duration });
-  }
-
-  public showError(message: string, duration?: number): number {
-    return this.show({ message, type: 'error', duration });
-  }
-
-  public showWarning(message: string, duration?: number): number {
-    return this.show({ message, type: 'warning', duration });
-  }
-
-  public showInfo(message: string, duration?: number): number {
-    return this.show({ message, type: 'info', duration });
-  }
-
-  public dismiss(id: number): void {
-    if (this.timers.has(id)) {
-      clearTimeout(this.timers.get(id));
-      this.timers.delete(id);
-    }
-
-    const remainingNotifications = this.notificationList().filter(
-      (notification) => notification.id !== id,
-    );
-    this.notificationList.set(remainingNotifications);
-
-    if (remainingNotifications.length === 0) {
-      this.destroyComponent();
-    }
-  }
-
   public clear(): void {
     for (const timer of this.timers.values()) {
       clearTimeout(timer);
@@ -111,6 +79,22 @@ export class NotificationService implements OnDestroy {
     });
     this.appRef.attachView(this.componentRef.hostView);
     this.document.body.appendChild(this.componentRef.location.nativeElement);
+  }
+
+  public dismiss(id: number): void {
+    if (this.timers.has(id)) {
+      clearTimeout(this.timers.get(id));
+      this.timers.delete(id);
+    }
+
+    const remainingNotifications = this.notificationList().filter(
+      (notification) => notification.id !== id,
+    );
+    this.notificationList.set(remainingNotifications);
+
+    if (remainingNotifications.length === 0) {
+      this.destroyComponent();
+    }
   }
 
   private destroyComponent(): void {

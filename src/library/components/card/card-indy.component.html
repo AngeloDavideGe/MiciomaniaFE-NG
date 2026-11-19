@@ -8,7 +8,7 @@
   <div class="u-position-relative u-w-100 u-mt-4">
     @if (viewFirstButton()) {
       <button class="carousel-button start" (click)="filtri.previousSlice()">
-        <i [innerHTML]="chevronLeftIcon" aria-hidden="true"></i>
+        <i class="u-mt-2" [innerHTML]="chevronLeftIcon" aria-hidden="true"></i>
       </button>
     }
 
@@ -126,7 +126,7 @@
 
     @if (viewLastButton()) {
       <button class="carousel-button end" (click)="filtri.nextSlice()">
-        <i [innerHTML]="chevronRightIcon" aria-hidden="true"></i>
+        <i class="u-mt-2" [innerHTML]="chevronRightIcon" aria-hidden="true"></i>
       </button>
     }
   </div>

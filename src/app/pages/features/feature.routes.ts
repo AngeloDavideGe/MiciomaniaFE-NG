@@ -1,4 +1,10 @@
 import { Routes } from '@angular/router';
+import {
+  canzoniPermissionGuard,
+  classificaPermissionGuard,
+  giochiPermissionGuard,
+  mangaPermissionGuard,
+} from '../../core/guards/permission.guard';
 
 export const FEATURE_ROUTES: Routes = [
   {
@@ -10,6 +16,7 @@ export const FEATURE_ROUTES: Routes = [
           import('./components/manga/manga.component').then(
             (m) => m.MangaComponent,
           ),
+        canActivate: [mangaPermissionGuard],
       },
       {
         path: 'canzoni',
@@ -17,6 +24,7 @@ export const FEATURE_ROUTES: Routes = [
           import('./components/canzoni/canzoni.component').then(
             (m) => m.CanzoniComponent,
           ),
+        canActivate: [canzoniPermissionGuard],
       },
       {
         path: 'classifica',
@@ -24,6 +32,7 @@ export const FEATURE_ROUTES: Routes = [
           import('./components/classifica/classifica.component').then(
             (m) => m.ClassificaComponent,
           ),
+        canActivate: [classificaPermissionGuard],
       },
       {
         path: 'giochi',
@@ -35,6 +44,7 @@ export const FEATURE_ROUTES: Routes = [
           import('./components/giochi/giochi.routes').then(
             (m) => m.GIOCHI_ROUTES,
           ),
+        canActivate: [giochiPermissionGuard],
       },
       // {
       //   path: 'post',
@@ -43,6 +53,13 @@ export const FEATURE_ROUTES: Routes = [
       //       (m) => m.MangaComponent,
       //     ),
       // },
+      {
+        path: 'no-permission',
+        loadComponent: () =>
+          import('./components/permission-no/feature-permission.component').then(
+            (m) => m.FeaturePermissionComponent,
+          ),
+      },
     ],
   },
 ];

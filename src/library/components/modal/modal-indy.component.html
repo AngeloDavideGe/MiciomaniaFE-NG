@@ -1,4 +1,8 @@
-<div class="custom-modal-backdrop" [class.blur-backdrop]="blurBackdrop()">
+<div
+  class="custom-modal-backdrop"
+  [class.blur-backdrop]="blockingBackdrop()"
+  [class.non-blocking-backdrop]="!blockingBackdrop()"
+>
   <div
     class="custom-modal"
     [class.centered]="centered()"

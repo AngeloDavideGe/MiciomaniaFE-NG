@@ -1,4 +1,4 @@
-import { Ruolo } from '../enums/users.enum';
+import { Permessi, Ruolo } from '../enums/users.enum';
 
 export interface UserToken {
   user: User | null;
@@ -34,7 +34,7 @@ export interface Profile {
 
 export interface Admin {
   ruolo: Ruolo;
-  permessi: string[];
+  permessi: Record<Permessi, boolean>;
 }
 
 export interface UserParams {

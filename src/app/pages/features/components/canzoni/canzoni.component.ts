@@ -57,7 +57,6 @@ import { CategorieCanzoni } from './models/canzoni.model';
 export class CanzoniComponent implements OnInit {
   public readonly favoriteIcon: SafeHtml = getIconSafe(SOCIAL_ICONS.heart, {
     stroke: 'currentColor',
-    size: '1em',
   });
   public readonly toolbarIcons: OpereToolbarIcons = {
     book: getIconSafe(FILE_ICONS.fileText, {

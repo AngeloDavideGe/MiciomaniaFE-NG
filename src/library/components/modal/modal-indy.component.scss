@@ -15,6 +15,15 @@
   backdrop-filter: blur(10px);
 }
 
+.non-blocking-backdrop {
+  background: transparent;
+  pointer-events: none;
+}
+
+.non-blocking-backdrop .custom-modal {
+  pointer-events: auto;
+}
+
 .custom-modal {
   width: 100%;
   animation: modalEnter 0.25s ease;

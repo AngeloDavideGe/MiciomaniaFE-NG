@@ -42,11 +42,11 @@ export class CardIndyComponent {
   public readonly router = inject(Router);
   public readonly chevronLeftIcon: SafeHtml = getIconSafe(
     NAVIGATION_ICONS.chevronLeft,
-    { stroke: 'currentColor', size: '1em' },
+    { stroke: 'currentColor', size: '2rem' },
   );
   public readonly chevronRightIcon: SafeHtml = getIconSafe(
     NAVIGATION_ICONS.chevronRight,
-    { stroke: 'currentColor', size: '1em' },
+    { stroke: 'currentColor', size: '2rem' },
   );
   public readonly addIcon: SafeHtml = getIconSafe(ACTION_ICONS.plus, {
     stroke: 'var(--primary)',

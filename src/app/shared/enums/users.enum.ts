@@ -5,6 +5,18 @@ export enum Ruolo {
   user = 'user',
 }
 
+export enum Permessi {
+  leggereManga = 'leggereManga',
+  aggiungereManga = 'aggiungereManga',
+  ascoltareCanzoni = 'ascoltareCanzoni',
+  aggiungereCanzoni = 'aggiungereCanzoni',
+  accessoGiochiMiciomani = 'accessoGiochiMiciomani',
+  visualizzaClassifica = 'visualizzaClassifica',
+  visualizzaRuoliUtente = 'visualizzaRuoliUtente',
+  modificaRuoliUtente = 'modificaRuoliUtente',
+  modificaCronoJob = 'modificaCronoJob',
+}
+
 export const BadgeRuolo: Record<Ruolo, string> = {
   miciomane: 'bg-primary text-white rounded-pill px-2 py-1 text-center',
   admin: 'bg-secondary text-white rounded-pill px-2 py-1 text-center',

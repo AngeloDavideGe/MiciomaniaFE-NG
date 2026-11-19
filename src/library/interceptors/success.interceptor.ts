@@ -24,7 +24,10 @@ export const successInterceptor: HttpInterceptorFn = (
   return handlerFn(req).pipe(
     tap((event) => {
       if (event instanceof HttpResponse) {
-        notificationService.showSuccess('Operazione completata con successo.');
+        notificationService.show({
+          message: 'Operazione completata con successo.',
+          type: 'success',
+        });
       }
     }),
   );

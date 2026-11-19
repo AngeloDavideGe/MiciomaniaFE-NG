@@ -66,11 +66,9 @@ export class MangaComponent implements OnInit {
   private readonly appConfig = inject(AppConfigService);
   public readonly favoriteIcon: SafeHtml = getIconSafe(SOCIAL_ICONS.heart, {
     stroke: 'currentColor',
-    size: '1em',
   });
   public readonly readingIcon: SafeHtml = getIconSafe(INTERFACE_ICONS.eye, {
     stroke: 'currentColor',
-    size: '1em',
   });
   public readonly toolbarIcons: OpereToolbarIcons = {
     book: getIconSafe(FILE_ICONS.fileText, {

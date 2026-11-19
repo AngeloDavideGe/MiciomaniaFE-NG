@@ -18,6 +18,16 @@ export function capitalizeFirstLetter(value: string): string {
   }
 }
 
+@Pipe({
+  name: 'uppercaseFirstLetter',
+  standalone: true,
+})
+export class UppercaseFirstLetterPipe implements PipeTransform {
+  transform(value: string): string {
+    return uppercaseFirstLetter(value);
+  }
+}
+
 export function uppercaseFirstLetter(value: string): string {
   if (value) {
     return value.charAt(0).toUpperCase() + value.slice(1);

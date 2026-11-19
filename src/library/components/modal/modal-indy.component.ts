@@ -1,10 +1,13 @@
 import {
   Component,
   computed,
+  effect,
+  inject,
   input,
   output,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { ButtonIndyComponent } from '../button/button-indy.component';
 
 @Component({
@@ -16,6 +19,8 @@ import { ButtonIndyComponent } from '../button/button-indy.component';
   styleUrl: './modal-indy.component.scss',
 })
 export class ModalIndyComponent {
+  private readonly document = inject(DOCUMENT);
+
   public title = input<string>('');
   public subtitle = input<string>('');
   public width = input<'sm' | 'md' | 'lg' | 'xl' | 'fullscreen'>('md');
@@ -24,7 +29,7 @@ export class ModalIndyComponent {
   public primaryButtonText = input<string>('Conferma');
   public secondaryButtonText = input<string>('Annulla');
   public centered = input<boolean>(true);
-  public blurBackdrop = input<boolean>(true);
+  public blockingBackdrop = input<boolean>(true);
   public disablePrimaryButton = input<boolean>(false);
 
   public close = output<void>();
@@ -32,4 +37,20 @@ export class ModalIndyComponent {
   public secondaryAction = output<void>();
 
   public modalWidth = computed(() => `modal-${this.width()}`);
+
+  constructor() {
+    effect((onCleanup) => {
+      if (!this.blockingBackdrop()) {
+        return;
+      }
+
+      const body = this.document.body;
+      const previousOverflow = body.style.overflow;
+      body.style.overflow = 'hidden';
+
+      onCleanup(() => {
+        body.style.overflow = previousOverflow;
+      });
+    });
+  }
 }
