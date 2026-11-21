@@ -3,3 +3,25 @@
 @use './library/scss/body.scss' as *;
 @use './library/scss/base.scss' as *;
 @use './library/scss/utilities.scss' as *;
+
+@mixin badge-chart-color($color) {
+  color: $color;
+  background-color: color-mix(in srgb, $color 18%, transparent);
+  border: 1px solid color-mix(in srgb, $color 60%, transparent);
+}
+
+.badge-chart-color-e63946 {
+  @include badge-chart-color(#e63946);
+}
+
+.badge-chart-color-f4a261 {
+  @include badge-chart-color(#f4a261);
+}
+
+.badge-chart-color-2a9d8f {
+  @include badge-chart-color(#2a9d8f);
+}
+
+.badge-chart-color-264653 {
+  @include badge-chart-color(#264653);
+}

@@ -15,6 +15,7 @@ import {
 import { ILang } from '../../../core/interfaces/lang.interface';
 import { User } from '../../../shared/interfaces/users.interface';
 import { AuthService } from '../../../shared/services/auth.service';
+import { Permessi } from '../../../shared/enums/users.enum';
 
 export function getCategorieCard(lang: ILang['Home']): iCard[] {
   return [
@@ -61,6 +62,7 @@ export function getToggleProps(
   lang: ILang['Home']['Toggle'],
   icons: HomeToggleIcons,
 ): ToggleProps[] {
+  const accountsUser: User[] = authService.accountsUser();
   const currentUser: User | null = authService.currentUser();
 
   return [
@@ -71,9 +73,15 @@ export function getToggleProps(
         {
           testo: lang.Profilo,
           icona: icons.profile,
-          condition: !!authService.currentUser(),
-          azione: () =>
-            router.navigate(['auth/user/' + authService.currentUser()?.id]),
+          condition: !!currentUser,
+          azione: () => router.navigate(['auth/user/' + currentUser?.id]),
+        },
+        {
+          testo: lang.Ruoli,
+          icona: icons.roles,
+          condition:
+            !!currentUser?.admin.permessi[Permessi.visualizzaRuoliUtente],
+          azione: () => router.navigate(['auth/ruoli']),
         },
       ],
     },
@@ -158,9 +166,6 @@ export function getToggleProps(
           icona: icons.logout,
           condition: !!currentUser,
           azione: () => {
-            const accountsUser: User[] = authService.accountsUser();
-            const currentUser: User | null = authService.currentUser();
-
             confirmService.confirmCustom({
               titolo: lang.LogoutTitolo,
               messaggio: `${lang.LogoutMessaggio} ${currentUser?.id}?`,
@@ -175,7 +180,6 @@ export function getToggleProps(
                   authService.currentUser.set(null);
                 }
               },
-              notConfirmFunc: () => {},
             });
           },
         },
@@ -206,6 +210,7 @@ export function defaultHomeArrayPags(): RaggioPage[] {
 export interface HomeToggleIcons {
   account: SafeHtml;
   profile: SafeHtml;
+  roles: SafeHtml;
   cursor: SafeHtml;
   eyedropper: SafeHtml;
   feather: SafeHtml;

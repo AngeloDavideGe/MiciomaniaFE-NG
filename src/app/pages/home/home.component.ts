@@ -87,6 +87,7 @@ export class HomeComponent implements OnInit {
   private readonly toggleIcons: HomeToggleIcons = {
     account: getIconSafe(USER_ICONS.userCircle),
     profile: getIconSafe(USER_ICONS.user),
+    roles: getIconSafe(USER_ICONS.users),
     cursor: getIconSafe(LOCATION_ICONS.navigation),
     eyedropper: getIconSafe(LOCATION_ICONS.locate),
     feather: getIconSafe(ACTION_ICONS.edit),

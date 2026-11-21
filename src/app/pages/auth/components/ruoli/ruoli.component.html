@@ -1,0 +1,42 @@
+<app-navbar-micio />
+
+<app-container-micio
+  [titolo]="lang.Titolo"
+  [descrizione]="lang.Descrizione"
+  [immagine]="'https://images.unsplash.com/photo-1521737711867-e3b97375f902'"
+>
+  <div all-row class="ruoli-content">
+    <div class="elemento-centrato u-p-2">
+      <app-tabs-indy [tabs]="tabs" [(selectTab)]="currentTab" />
+    </div>
+
+    <div class="u-mt-2"></div>
+
+    @switch (currentTab()) {
+      @case (enumTabs.perRuolo) {
+        @for (role of roles; track role) {
+          @if (usersByRole()[role].length > 0) {
+            <app-table-indy
+              [elemTable]="usersByRole()[role]"
+              [titoloTabella]="role"
+              [colonne]="columns"
+              [noElement]="lang.NessunUtente"
+              [trackByKey]="'id'"
+            />
+          }
+        }
+      }
+
+      @case (enumTabs.tutti) {
+        <app-table-indy
+          [elemTable]="allUsers()"
+          [titoloTabella]="lang.Tabs.TuttiGliUtenti"
+          [colonne]="columnsAll"
+          [noElement]="lang.NessunUtente"
+          [trackByKey]="'id'"
+          [recordBadge]="badgeRuoli"
+        />
+      }
+    }
+  </div>
+</app-container-micio>

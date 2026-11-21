@@ -11,6 +11,7 @@ export interface ILang {
     Toggle: {
       Account: string;
       Profilo: string;
+      Ruoli: string;
       Auth: string;
       Esci: string;
       Login: string;
@@ -146,6 +147,20 @@ export interface ILang {
       Nome: string;
       Squadra: string;
       Punti: string;
+    };
+  };
+  Ruoli: {
+    Titolo: string;
+    Descrizione: string;
+    NessunUtente: string;
+    Tabs: {
+      PerRuolo: string;
+      TuttiGliUtenti: string;
+    };
+    Colonne: {
+      Id: string;
+      Nome: string;
+      Ruolo: string;
     };
   };
   Profilo: {

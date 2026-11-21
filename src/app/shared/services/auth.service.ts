@@ -38,8 +38,10 @@ export class AuthService extends BaseMicioService {
     super('CS');
   }
 
-  getAllUsersHttp(): Observable<UserParams[]> {
-    return this.getCustom<UserParams[]>('Utenti/get_all_utenti');
+  getAllUsersHttp(spinner: boolean = false): Observable<UserParams[]> {
+    return this.getCustom<UserParams[]>('Utenti/get_all_utenti', {
+      contexts: [{ contextToken: LOADING_CONTEXT, value: spinner }],
+    });
   }
 
   getUserByEmailAndPassword(

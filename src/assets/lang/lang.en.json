@@ -11,6 +11,7 @@
     "Toggle": {
       "Account": "Account",
       "Profilo": "Profile",
+      "Ruoli": "User roles",
       "Auth": "Authentication",
       "Esci": "Log out",
       "Login": "Log in",
@@ -155,6 +156,20 @@
       "Nome": "Name",
       "Squadra": "Team",
       "Punti": "Points"
+    }
+  },
+  "Ruoli": {
+    "Titolo": "User role management",
+    "Descrizione": "View all users grouped by their role.",
+    "NessunUtente": "No users found",
+    "Tabs": {
+      "PerRuolo": "By role",
+      "TuttiGliUtenti": "All users"
+    },
+    "Colonne": {
+      "Id": "User ID",
+      "Nome": "Name",
+      "Ruolo": "Role"
     }
   },
   "Profilo": {

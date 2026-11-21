@@ -1,0 +1,9 @@
+.ruoli-content {
+  display: grid;
+  gap: 1.5rem;
+  padding-block: 1.5rem 3rem;
+
+  app-table-indy {
+    min-width: 0;
+  }
+}

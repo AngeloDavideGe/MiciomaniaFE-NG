@@ -2,10 +2,13 @@ import { handlerFunc } from '../../../library/functions/handler.function';
 import { UserParams } from '../interfaces/users.interface';
 import { AuthService } from '../services/auth.service';
 
-export function loadAllUsers(authService: AuthService): void {
+export function loadAllUsers(
+  authService: AuthService,
+  spinner: boolean = false,
+): void {
   handlerFunc<UserParams[]>({
     skipCall: authService.usersCaricati,
-    callHttp: () => authService.getAllUsersHttp(),
+    callHttp: () => authService.getAllUsersHttp(spinner),
     nextCall: (data: UserParams[]) => authService.users.set(data),
     errorCall: () => (authService.usersCaricati = false),
   });

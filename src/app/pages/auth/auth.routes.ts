@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard, userGuard } from '../../core/guards/auth.guard';
+import { ruoliUtentePermissionGuard } from '../../core/guards/permission.guard';
 
 export const AUTH_ROUTES: Routes = [
   {
@@ -25,6 +26,14 @@ export const AUTH_ROUTES: Routes = [
           import('./components/profilo/profilo.component').then(
             (m) => m.ProfileComponent,
           ),
+      },
+      {
+        path: 'ruoli',
+        loadComponent: () =>
+          import('./components/ruoli/ruoli.component').then(
+            (m) => m.RuoliComponent,
+          ),
+        canActivate: [ruoliUtentePermissionGuard],
       },
     ],
   },

@@ -11,6 +11,7 @@
     "Toggle": {
       "Account": "Account",
       "Profilo": "Profilo",
+      "Ruoli": "Ruoli utenti",
       "Auth": "Autenticazione",
       "Esci": "Esci",
       "Login": "Accedi",
@@ -155,6 +156,20 @@
       "Nome": "Nome",
       "Squadra": "Squadra",
       "Punti": "Punti"
+    }
+  },
+  "Ruoli": {
+    "Titolo": "Gestione ruoli utenti",
+    "Descrizione": "Visualizza tutti gli utenti suddivisi in base al loro ruolo.",
+    "NessunUtente": "Nessun utente trovato",
+    "Tabs": {
+      "PerRuolo": "Per ruolo",
+      "TuttiGliUtenti": "Tutti gli utenti"
+    },
+    "Colonne": {
+      "Id": "ID utente",
+      "Nome": "Nome",
+      "Ruolo": "Ruolo"
     }
   },
   "Profilo": {

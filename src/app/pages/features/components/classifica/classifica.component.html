@@ -20,6 +20,7 @@
             [titoloTabella]="lang.Tabelle.Giocatori"
             [colonne]="colonneGiocatori"
             [recordBadge]="badgeTable"
+            [trackByKey]="'idUtente'"
           />
         }
 
@@ -31,6 +32,7 @@
             [keyPrimary]="'nome'"
             [templateTableCustom]="templateTableCustom"
             [recordBadge]="badgeTable"
+            [trackByKey]="'nome'"
           >
             <ng-template #templateTableCustom let-elem>
               <div class="dettagli-squadra">
